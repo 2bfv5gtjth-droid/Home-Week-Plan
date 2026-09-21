@@ -374,6 +374,47 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .btn.locked{color:var(--muted)}
 .btn[disabled]{opacity:.7;cursor:default}
 
+/* agenda, missie, volgende */
+.seg2{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface);border:1px solid var(--line);padding:4px;border-radius:12px;margin:6px 0 2px}
+.seg2 button{border:0;background:transparent;padding:8px 0;border-radius:9px;font-weight:700;font-size:14.5px;color:var(--muted)}
+.seg2 button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sub .clk{font-weight:700;color:var(--ink)}
+.mission{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin:0 0 14px;box-shadow:inset 4px 0 0 var(--accent)}
+.ms-top{display:flex;justify-content:space-between;align-items:center;font-size:13.5px;font-weight:700;color:var(--accent)}
+.ms-txt{margin-top:6px;font-weight:700;font-size:16px;display:flex;gap:8px;align-items:center;line-height:1.25}
+.ms-e{font-size:22px}
+.ms-sub{font-size:13px;color:var(--muted);font-weight:600}
+.ms-done{color:var(--ok);font-weight:800;font-size:14.5px}
+.mission.cm{display:flex;align-items:center;gap:12px;padding:10px 14px}
+.ms-cmt{flex:1;min-width:0}
+.ms-cmt b{display:block;font-size:14.5px;line-height:1.25}
+.ms-cmt span{font-size:12.5px;color:var(--muted)}
+.mission.cm .btn{padding:8px 12px;font-size:14px}
+.nextup{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:10px 14px;margin:0 0 12px}
+.nextup .nu-e{font-size:24px}
+.nextup b{display:block;font-size:15.5px}
+.nextup span{color:var(--muted);font-size:13.5px}
+.ag{position:relative;margin:6px 0 8px}
+.ag-h{position:absolute;left:0;right:0;border-top:1px solid var(--line)}
+.ag-h span{position:absolute;left:0;top:-9px;width:42px;font-size:12px;font-weight:600;color:var(--muted);background:var(--bg)}
+.ag-body{position:absolute;left:48px;right:0;top:0;cursor:pointer}
+.ag-ev{position:absolute;box-sizing:border-box;padding:4px 6px 4px 10px;border-radius:12px;background:var(--soft);border-left:4px solid var(--c);display:flex;align-items:center;gap:8px;overflow:hidden;cursor:pointer;z-index:1}
+.ag-ev .ag-em{font-size:18px;flex:none}
+.ag-ev .ag-tx{flex:1;min-width:0;line-height:1.2}
+.ag-ev b{display:block;font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-ev .tm{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ag-ev.nar .ag-em{display:none}
+.ag-ev.nar{padding-left:8px}
+.ag-ev.sm b{font-size:13.5px}
+.ag-ev .check{width:26px;height:26px;flex:none}
+.ag-ev.isdone{opacity:.55}
+.ag-ev.isdone b{text-decoration:line-through}
+.ag-now{position:absolute;left:40px;right:0;height:0;border-top:2px solid var(--danger);pointer-events:none;z-index:2}
+.ag-now::before{content:"";position:absolute;left:-4px;top:-6px;width:9px;height:9px;border-radius:50%;background:var(--danger)}
+.lkrow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.lkrow .lktx b{display:block;font-weight:600;font-size:15.5px}
+.lkrow .lktx small{color:var(--muted);font-size:13px}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -555,9 +596,20 @@ const EXTRAS=[
 ];
 
 
+const DP_MIN={morning:540,afternoon:840,evening:1140,any:1560};
+const PX=60;
+const MISSIONS=[
+  {id:'m3',emoji:'✋',text:'Rond 3 taken af',goal:3,bonus:40,prog:d=>d.done},
+  {id:'mheavy',emoji:'🏋️',text:'Rond een zware taak af (×2 of meer)',goal:1,bonus:50,prog:d=>d.heavy},
+  {id:'m30',emoji:'⏱️',text:'Werk 30 minuten aan taken',goal:30,bonus:50,prog:d=>d.mins},
+  {id:'mcat',emoji:'🌈',text:'Rond taken uit 2 verschillende categorieën af',goal:2,bonus:40,prog:d=>d.cats},
+  {id:'mall',emoji:'🎯',text:'Rond alles af wat je vandaag hebt gepland (minstens 2 taken)',goal:1,bonus:60,prog:d=>(d.n>=2&&d.done===d.n)?1:0},
+  {id:'mam',emoji:'🌅',text:'Rond een taak af vóór 12:00',goal:1,bonus:40,prog:d=>d.am},
+  {id:'m60',emoji:'⭐',text:'Verdien 60 punten',goal:60,bonus:50,prog:d=>d.pts}
+];
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list'};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -569,6 +621,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.list=o.list||[];S.badges=Array.isArray(o.badges)?o.badges:null;S.stats=Object.assign({timers:0,rolls:0,bought:0},o.stats||{});
       S.spent=o.spent||0;S.owned=Array.isArray(o.owned)?o.owned:S.owned;S.themeId=o.themeId||'default';S.confettiId=o.confettiId||'classic';
       S.boostUntil=o.boostUntil||0;S.shields=o.shields||0;S.shielded=o.shielded||{};S.shopHint=!!o.shopHint;
+      S.remind=Object.assign({on:false,lead:10},o.remind||{});S.claimed=o.claimed||{};S.dayView=o.dayView==='agenda'?'agenda':'list';
       S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
@@ -578,7 +631,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
@@ -633,9 +686,15 @@ const personOf=id=>id?S.people.find(p=>p.id===id):null;
 const ini=n=>(String(n).trim().charAt(0)||'?').toUpperCase();
 const todayKey=()=>keyOf(new Date());
 const vis=t=>S.who==='all'||t.who===S.who;
-const sortTimes=list=>list.map((t,i)=>({t:t,i:i})).sort((a,b)=>(TIME_ORDER[a.t.time||'any']-TIME_ORDER[b.t.time||'any'])||(a.i-b.i)).map(x=>x.t);
+function slotOf(t){if(t.at){const h=parseInt(t.at.slice(0,2),10);return h<12?'morning':(h<18?'afternoon':'evening');}return t.time||'any';}
+function atMin(t){const p=String(t.at).split(':');return (+p[0])*60+(+p[1]);}
+function sortKey(t){return t.at?atMin(t):DP_MIN[t.time||'any'];}
+const sortTimes=list=>list.map((t,i)=>({t:t,i:i})).sort((a,b)=>(sortKey(a.t)-sortKey(b.t))||(a.i-b.i)).map(x=>x.t);
+function nowMin(){const d=new Date();return d.getHours()*60+d.getMinutes()+d.getSeconds()/60;}
+function hhmm(m){m=Math.round(m);return pad(Math.floor(m/60)%24)+':'+pad(m%60);}
+function fmtLead(d){d=Math.round(d);return d<60?d+' min':Math.floor(d/60)+' u'+(d%60?' '+d%60+' min':'');}
 function greet(){const h=new Date().getHours();return h<6?'Goedenacht':h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';}
-function haptic(n){try{if(navigator.vibrate)navigator.vibrate(n||12);}catch(e){}}
+function haptic(n){try{if(navigator.vibrate&&(!navigator.userActivation||navigator.userActivation.hasBeenActive))navigator.vibrate(n||12);}catch(e){}}
 
 const ICON_CHECK='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ICON_PLUS='<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>';
@@ -697,24 +756,38 @@ function levelIndex(p){let i=0;LEVELS.forEach((l,j)=>{if(p>=l[0])i=j;});return i
 
 /* ---------- prestaties ---------- */
 function calcStats(){
-  let done=0,pts=0,early=0;
-  const per={},weeks={};
+  let done=0,early=0,onTime=0,late=0,weekend=0,heavy=0,maxDay=0,timed=0;
+  const per={},weeks={},catSet={};
   Object.keys(S.plan).forEach(function(k){
-    const wk=keyOf(mondayOf(fromKey(k)));
+    const wk=keyOf(mondayOf(fromKey(k))),wd=wdOf(k);
+    let dc=0;
     (S.plan[k]||[]).forEach(function(t){
       const w=weeks[wk]=weeks[wk]||{n:0,d:0};
       w.n++;
+      if(t.at)timed++;
       if(t.done){
-        w.d++;done++;pts+=t.min;
-        if(t.doneAt&&new Date(t.doneAt).getHours()<9)early++;
+        w.d++;done++;dc++;catSet[t.cat]=1;
+        if(wd>=5)weekend++;
+        if((t.w||defaultW({tid:t.tid,min:t.min}))>=2)heavy++;
+        if(t.doneAt){
+          const dt=new Date(t.doneAt);
+          if(dt.getHours()<9)early++;
+          if(dt.getHours()>=21)late++;
+          if(t.at){
+            const st=fromKey(k);st.setHours(atMin(t)/60|0,atMin(t)%60,0,0);
+            if(t.doneAt>=st.getTime()-15*60000&&t.doneAt<=st.getTime()+(t.min+30)*60000)onTime++;
+          }
+        }
         if(t.who)per[t.who]=(per[t.who]||0)+1;
       }
     });
+    if(dc>maxDay)maxDay=dc;
   });
   let perfect=0;
   Object.keys(weeks).forEach(k=>{if(weeks[k].n>=5&&weeks[k].d===weeks[k].n)perfect++;});
   const team=Object.keys(per).filter(id=>per[id]>=3&&personOf(id)).length;
-  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0};
+  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0,
+    onTime:onTime,late:late,weekend:weekend,heavy:heavy,maxDay:maxDay,timed:timed,cats:Object.keys(catSet).length,missions:S.stats.missions||0};
 }
 const BADGES=[
   {id:'first',emoji:'🎯',name:'Eerste klus',desc:'Rond je eerste taak af',goal:1,cur:s=>s.done},
@@ -730,7 +803,15 @@ const BADGES=[
   {id:'dice',emoji:'🎲',name:'Durfal',desc:'Kies 3 keer een verrassingsklus',goal:3,cur:s=>s.rolls},
   {id:'cart',emoji:'🛒',name:'Boodschapper',desc:'Vink 20 boodschappen af',goal:20,cur:s=>s.bought},
   {id:'shop',emoji:'🛍️',name:'Winkelmuis',desc:'Koop je eerste artikel in de winkel',goal:1,cur:s=>s.shopped},
-  {id:'rich',emoji:'💰',name:'Spaarvarken',desc:'Spaar 1000 punten tegelijk',goal:1000,cur:s=>s.bal}
+  {id:'rich',emoji:'💰',name:'Spaarvarken',desc:'Spaar 1000 punten tegelijk',goal:1000,cur:s=>s.bal},
+  {id:'ontime',emoji:'⏰',name:'Stipt',desc:'Rond 10 taken met een vaste tijd op tijd af',goal:10,cur:s=>s.onTime},
+  {id:'owl',emoji:'🦉',name:'Nachtuil',desc:'Rond 5 taken af na 21:00',goal:5,cur:s=>s.late},
+  {id:'weekend',emoji:'🏖️',name:'Weekendheld',desc:'Rond 10 taken af in het weekend',goal:10,cur:s=>s.weekend},
+  {id:'heavy',emoji:'🏋️',name:'Zwaargewicht',desc:'Rond 10 zware taken af',goal:10,cur:s=>s.heavy},
+  {id:'marathon',emoji:'🏃',name:'Marathonloper',desc:'Rond 8 taken af op één dag',goal:8,cur:s=>s.maxDay},
+  {id:'rainbow',emoji:'🌈',name:'Regenboog',desc:'Rond taken uit 6 categorieën af',goal:6,cur:s=>s.cats},
+  {id:'mission',emoji:'🎯',name:'Missiejager',desc:'Voltooi 5 dagmissies',goal:5,cur:s=>s.missions},
+  {id:'agenda',emoji:'📅',name:'Agendaheld',desc:'Zet 10 taken op een vaste tijd',goal:10,cur:s=>s.timed}
 ];
 function checkBadges(){
   const st=calcStats();
@@ -777,7 +858,7 @@ function confetti(){
 
 /* ---------- routines ---------- */
 function makeRule(base,wd,start){
-  return {id:uid(),tid:base.tid,name:base.name,emoji:base.emoji,cat:base.cat,min:base.min,w:base.w||null,time:base.time||'any',who:base.who||null,note:base.note||'',wd:wd,start:start,skip:[]};
+  return {id:uid(),tid:base.tid,name:base.name,emoji:base.emoji,cat:base.cat,min:base.min,w:base.w||null,at:base.at||null,time:base.time||'any',who:base.who||null,note:base.note||'',wd:wd,start:start,skip:[]};
 }
 function ensureWeek(){
   let changed=false;
@@ -788,7 +869,7 @@ function ensureWeek(){
       if((r.skip||[]).indexOf(k)>=0)return;
       const arr=(S.plan[k]=S.plan[k]||[]);
       if(arr.some(x=>x.rid===r.id))return;
-      arr.push({id:uid(),rid:r.id,tid:r.tid,name:r.name,emoji:r.emoji,cat:r.cat,min:r.min,w:r.w||null,time:r.time||'any',who:r.who||null,note:r.note||'',done:false});
+      arr.push({id:uid(),rid:r.id,tid:r.tid,name:r.name,emoji:r.emoji,cat:r.cat,min:r.min,w:r.w||null,at:r.at||null,time:r.time||'any',who:r.who||null,note:r.note||'',done:false});
       changed=true;
     });
   }
@@ -1130,6 +1211,185 @@ function listText(){
   return lines.join('\n');
 }
 
+/* ---------- agenda, herinneringen, missies ---------- */
+const NOTIFIED={};
+function dayInfo(k){
+  const all=S.plan[k]||[],done=all.filter(t=>t.done),cats={};
+  done.forEach(t=>{cats[t.cat]=1;});
+  return {n:all.length,done:done.length,heavy:done.filter(t=>(t.w||defaultW({tid:t.tid,min:t.min}))>=2).length,mins:done.reduce((a,t)=>a+t.min,0),
+    cats:Object.keys(cats).length,am:done.filter(t=>t.doneAt&&new Date(t.doneAt).getHours()<12).length,pts:ptsOf(all)};
+}
+function missionFor(k){let h=0;for(let i=0;i<k.length;i++)h=(h*31+k.charCodeAt(i))%9973;return MISSIONS[h%MISSIONS.length];}
+function missionCard(compact){
+  const k=todayKey();
+  if(S.sel!==k)return '';
+  const m=missionFor(k),cur=Math.min(m.prog(dayInfo(k)),m.goal),got=S.claimed[k],ok=cur>=m.goal;
+  if(compact)return '<div class="mission cm"><span class="ms-e">'+m.emoji+'</span><div class="ms-cmt"><b>'+esc(m.text)+'</b><span>Dagmissie – '+(got?'voltooid ✓':cur+' van '+m.goal)+' – +⭐ '+m.bonus+'</span></div>'+(!got&&ok?'<button class="btn primary" type="button" data-act="claim">Claim</button>':'')+'</div>';
+  return '<div class="mission"><div class="ms-top"><span>🎯 Dagmissie</span><b>+⭐ '+m.bonus+'</b></div>'
+    +'<div class="ms-txt"><span class="ms-e">'+m.emoji+'</span><span>'+esc(m.text)+'</span></div>'
+    +'<div class="prog" style="margin:10px 0"><i style="width:'+Math.round(cur/m.goal*100)+'%"></i></div>'
+    +(got?'<div class="ms-done">✓ Voltooid</div>':(ok?'<button class="btn primary wide" type="button" data-act="claim">Claim ⭐ '+m.bonus+'</button>':'<div class="ms-sub">'+cur+' van '+m.goal+'</div>'))+'</div>';
+}
+function claimMission(){
+  const k=todayKey();
+  if(S.claimed[k])return;
+  const m=missionFor(k);
+  if(Math.min(m.prog(dayInfo(k)),m.goal)<m.goal)return;
+  S.claimed[k]=true;S.earned+=m.bonus;S.stats.missions=(S.stats.missions||0)+1;
+  save();renderAll();confetti();haptic([20,40,20]);
+  toast('Missie voltooid! +⭐ '+m.bonus);
+  checkBadges();
+}
+function viewToggle(){
+  return '<div class="seg2" role="group" aria-label="Weergave"><button type="button" data-act="dv" data-v="list" aria-pressed="'+(S.dayView!=='agenda')+'">☰ Lijst</button>'
+    +'<button type="button" data-act="dv" data-v="agenda" aria-pressed="'+(S.dayView==='agenda')+'">🗓️ Agenda</button></div>';
+}
+function nextTimed(){
+  const nm=nowMin();let best=null;
+  (S.plan[todayKey()]||[]).forEach(function(t){
+    if(!t.at||t.done)return;
+    const st=atMin(t);
+    if(st+t.min<nm)return;
+    if(!best||st<best.st)best={t:t,st:st};
+  });
+  return best;
+}
+function nextUpHtml(){
+  if(S.sel!==todayKey())return '';
+  const n=nextTimed();
+  if(!n)return '';
+  const d=n.st-nowMin();
+  return '<div class="nextup" id="nextup"><span class="nu-e">'+esc(n.t.emoji)+'</span><div><b>'+esc(n.t.name)+'</b><span>Volgende om '+n.t.at+' – '+(d>0?'over '+fmtLead(d):'nu bezig')+'</span></div></div>';
+}
+function updateNextUp(){
+  const el=$('#nextup');
+  if(!el)return;
+  const h=nextUpHtml();
+  if(!h){el.remove();return;}
+  const tmp=document.createElement('div');tmp.innerHTML=h;
+  el.replaceWith(tmp.firstChild);
+}
+function updateNowLine(){
+  const el=$('#agnow'),b=$('#agbody');
+  if(!el||!b)return;
+  const top=(nowMin()/60-Number(b.dataset.start))*PX;
+  el.hidden=top<0||top>b.offsetHeight;
+  el.style.top=top+'px';
+}
+function agendaHtml(list){
+  const timed=list.filter(t=>t.at),free=list.filter(t=>!t.at);
+  let html='';
+  if(free.length)html+='<h3 class="tgrp">Zonder vaste tijd</h3><div class="list">'+free.map(t=>planRow(t,S.sel,true)).join('')+'</div>';
+  html+='<h3 class="tgrp">🗓️ Agenda</h3>';
+  if(!timed.length)html+='<p class="tip" style="margin:0 0 10px">Nog geen taken met een vaste tijd. Tik op een taak en kies een tijd, of tik hieronder op een uur.</p>';
+  let s0=6,e0=22;
+  timed.forEach(t=>{const a=atMin(t);s0=Math.min(s0,Math.floor(a/60));e0=Math.max(e0,Math.ceil((a+t.min)/60));});
+  const isToday=S.sel===todayKey();
+  if(isToday){const nh=Math.floor(nowMin()/60);s0=Math.min(s0,nh);e0=Math.max(e0,Math.min(24,nh+1));}
+  e0=Math.min(24,Math.max(e0,s0+4));
+  const H=(e0-s0)*PX;
+  const ev=timed.map(t=>({t:t,s:atMin(t),e:atMin(t)+Math.max(t.min,40)})).sort((a,b)=>a.s-b.s);
+  let cluster=[],clusterEnd=0;const laneEnd=[];
+  function flush(){const n=cluster.reduce((m,x)=>Math.max(m,x.lane+1),1);cluster.forEach(x=>{x.n=n;});cluster=[];}
+  ev.forEach(function(x){
+    if(cluster.length&&x.s>=clusterEnd){flush();laneEnd.length=0;clusterEnd=0;}
+    let l=laneEnd.findIndex(en=>en<=x.s);
+    if(l<0){l=laneEnd.length;laneEnd.push(0);}
+    laneEnd[l]=x.e;x.lane=l;cluster.push(x);clusterEnd=Math.max(clusterEnd,x.e);
+  });
+  flush();
+  let hours='';
+  for(let h=s0;h<=e0;h++)hours+='<div class="ag-h" style="top:'+((h-s0)*PX)+'px"><span>'+pad(h%24)+':00</span></div>';
+  const evs=ev.map(function(x){
+    const t=x.t,c=catOf(t.cat),top=(x.s-s0*60)/60*PX,h=Math.max(t.min/60*PX,40);
+    return '<div class="ag-ev cat'+(h<56?' sm':'')+(x.n>1?' nar':'')+(t.done?' isdone':'')+'" data-act="agev" data-key="'+S.sel+'" data-id="'+t.id+'" style="--h:'+c.hue+';top:'+top+'px;height:'+h+'px;left:'+(x.lane/x.n*100)+'%;width:'+(100/x.n)+'%">'
+      +'<span class="ag-em">'+esc(t.emoji)+'</span><div class="ag-tx"><b>'+esc(t.name)+'</b><span class="tm">'+t.at+'–'+hhmm(x.s+t.min)+'</span></div>'
+      +'<button class="check" type="button" data-act="agcheck" data-key="'+S.sel+'" data-id="'+t.id+'" aria-pressed="'+!!t.done+'" aria-label="'+(t.done?'Markeer als niet klaar':'Markeer als klaar')+'">'+ICON_CHECK+'</button></div>';
+  }).join('');
+  html+='<div class="ag" style="height:'+H+'px">'+hours+'<div id="agbody" class="ag-body" data-start="'+s0+'" style="height:'+H+'px">'+evs+'</div>'
+    +(isToday?'<div class="ag-now" id="agnow" style="top:'+((nowMin()/60-s0)*PX)+'px"></div>':'')+'</div>';
+  html+='<p class="tip">Tik op een leeg vak om een taak op dat tijdstip vast te zetten.</p>';
+  return html;
+}
+
+/* vastzetten op een tijd via de agenda */
+let LK=null;
+function openLock(min){
+  LK={key:S.sel,at:hhmm(min)};
+  openSheetWith(renderLock);
+}
+function renderLock(){
+  const free=(S.plan[LK.key]||[]).filter(t=>!t.at&&!t.done);
+  $('#sheet').innerHTML='<div class="backdrop" data-act="closesheet"></div><div class="panel" role="dialog" aria-modal="true" aria-label="Taak vastzetten"><div class="grab"></div><h2>Vastzetten op een tijd</h2>'
+    +'<label class="fld"><span>Tijd</span><input class="inp" type="time" id="lk-at" step="300" value="'+esc(LK.at)+'"></label>'
+    +(free.length?'<div class="fld"><span>Kies een taak</span></div><div class="list">'
+      +free.map(t=>'<button type="button" class="lkrow cat" style="--h:'+catOf(t.cat).hue+'" data-act="lockat" data-id="'+t.id+'"><span class="tile">'+esc(t.emoji)+'</span><span class="lktx"><b>'+esc(t.name)+'</b><small>'+fmtMin(t.min)+'</small></span></button>').join('')+'</div>'
+      :'<p class="help" style="margin:0 0 12px">Alle taken van deze dag hebben al een tijd. Voeg eerst een taak toe.</p><button class="btn primary wide" type="button" data-act="lockgo">Taken bekijken</button>')
+    +'</div>';
+}
+
+/* herinneringen */
+function remind(msg,t){
+  haptic([60,60,60]);
+  toast(msg,'Start timer',function(){startTimer(todayKey(),t.id,t.min);},12000);
+  try{if(document.hidden&&window.Notification&&Notification.permission==='granted')new Notification('Huisweek',{body:msg});}catch(e){}
+}
+function checkReminders(){
+  if(!S.remind.on)return;
+  const k=todayKey(),nm=nowMin(),lead=S.remind.lead||0;
+  (S.plan[k]||[]).forEach(function(t){
+    if(!t.at||t.done)return;
+    const st=atMin(t);
+    if(lead>0&&nm>=st-lead&&nm<st&&!NOTIFIED[t.id+':pre']){NOTIFIED[t.id+':pre']=1;remind('⏰ Over '+Math.max(1,Math.round(st-nm))+' min: '+t.name+' ('+t.at+')',t);}
+    if(nm>=st&&nm<st+5&&!NOTIFIED[t.id+':now']){NOTIFIED[t.id+':now']=1;remind('⏰ Nu: '+t.name+' ('+t.at+')',t);}
+  });
+}
+function tick(){
+  checkReminders();
+  if(S.tab==='day'){updateNextUp();updateNowLine();}
+}
+
+/* agenda-bestand (.ics) voor de agenda van je telefoon */
+function icsEsc(x){return String(x).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
+function icsDate(d){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+'T'+pad(d.getHours())+pad(d.getMinutes())+'00';}
+function icsText(){
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Huisweek//NL','CALSCALE:GREGORIAN','X-WR-CALNAME:Huisweek'];
+  let n=0;
+  for(let i=0;i<7;i++){
+    const k=keyOf(addDays(S.weekStart,i));
+    (S.plan[k]||[]).forEach(function(t){
+      if(!t.at)return;
+      n++;
+      const st=fromKey(k);st.setHours(Math.floor(atMin(t)/60),atMin(t)%60,0,0);
+      const en=new Date(st.getTime()+t.min*60000);
+      const p=personOf(t.who);
+      L.push('BEGIN:VEVENT','UID:'+t.id+'-'+k+'@huisweek','DTSTAMP:'+stamp,'DTSTART:'+icsDate(st),'DTEND:'+icsDate(en),
+        'SUMMARY:'+icsEsc(t.emoji+' '+t.name),
+        'DESCRIPTION:'+icsEsc('Huisweek, '+fmtMin(t.min)+', '+pointsOf(t)+' punten'+(p?', '+p.name:'')),
+        'BEGIN:VALARM','TRIGGER:-PT'+(S.remind.lead||10)+'M','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(t.name),'END:VALARM','END:VEVENT');
+    });
+  }
+  L.push('END:VCALENDAR');
+  return n?L.join('\r\n'):'';
+}
+async function exportICS(){
+  const text=icsText();
+  if(!text){toast('Geen taken met een vaste tijd deze week.');return;}
+  const name='huisweek-'+keyOf(S.weekStart)+'.ics';
+  try{
+    const file=new File([text],name,{type:'text/calendar'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Huisweek'});return;}
+  }catch(e){if(e&&e.name==='AbortError')return;}
+  try{
+    const blob=new Blob([text],{type:'text/calendar'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url);},4000);
+    toast('Agendabestand gemaakt. Open het om de taken toe te voegen.');
+  }catch(e){TX=text;openSheetWith(renderTextSheet);}
+}
+
 /* ---------- verras me ---------- */
 let VM=null;
 function pickSurprise(){
@@ -1184,7 +1444,7 @@ function weekText(){
     items.forEach(function(t){
       const p=personOf(t.who);
       const tm=t.time&&t.time!=='any'?TIMES.find(x=>x[0]===t.time):null;
-      lines.push('• '+t.emoji+' '+t.name+' ('+fmtMin(t.min)+')'+(tm?' – '+tm[1].toLowerCase():'')+(p?' – '+p.name:'')+(t.done?' ✅':''));
+      lines.push('• '+t.emoji+' '+t.name+' ('+fmtMin(t.min)+')'+(t.at?' – '+t.at:(tm?' – '+tm[1].toLowerCase():''))+(p?' – '+p.name:'')+(t.done?' ✅':''));
     });
   }
   if(!any)lines.push('','Nog niets gepland deze week.');
@@ -1284,13 +1544,13 @@ function renderTimer(){
 
 /* ---------- toast ---------- */
 let toastTimer;
-function toast(msg,label,fn){
+function toast(msg,label,fn,ms){
   const t=$('#toast');
   t.innerHTML='<span>'+esc(msg)+'</span>'+(label?'<button type="button">'+esc(label)+'</button>':'');
   if(label)t.querySelector('button').onclick=function(){fn();t.classList.remove('show');};
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(function(){t.classList.remove('show');},5000);
+  toastTimer=setTimeout(function(){t.classList.remove('show');},ms||5000);
 }
 
 /* ---------- opbouw: kader ---------- */
@@ -1348,7 +1608,7 @@ function planRow(t,key,compact){
     +'<span class="tile">'+esc(t.emoji)+'</span>'
     +'<div class="txt"><div class="nm">'+esc(t.name)+'</div>'
     +'<div class="sub"><span class="cn">'+esc(c.name)+'</span><span>'+fmtMin(t.min)+'</span><span>⭐ '+(t.done?earnedOf(t):pointsOf(t)*(boostActive()?2:1))+'</span>'
-    +(tm&&compact?'<span>'+tm[1]+'</span>':'')
+    +(t.at?'<span class="clk">🔒 '+t.at+'</span>':(tm&&compact?'<span>'+tm[1]+'</span>':''))
     +(t.rid?'<span class="rep" title="Herhaalt wekelijks">'+ICON_REPEAT+'</span>':'')+'</div>'
     +(t.note?'<div class="note">'+esc(t.note)+'</div>':'')+'</div>'
     +(p?'<span class="av cat" style="--h:'+p.hue+'" title="'+esc(p.name)+'">'+esc(ini(p.name))+'</span>':'')
@@ -1379,6 +1639,7 @@ function renderDay(){
       +'<div class="row"><button class="btn primary" type="button" data-act="starter">Startroutine toevoegen</button><button class="btn" type="button" data-act="tipdone">Zelf beginnen</button></div></div>';
   }
   html+=whoBar();
+  html+=viewToggle();
   html+='<section class="dayhead">'+(S.sel===todayKey()?'<p class="greet">'+greet()+' 👋</p>':'')
     +'<h2>'+esc(longLabel(S.sel))+'</h2><p>'
     +(list.length?done+' van '+list.length+' klaar, '+fmtMin(mins)+' gepland':(all.length?'Niets voor deze persoon':'Nog niets gepland'))+'</p>'
@@ -1386,8 +1647,12 @@ function renderDay(){
     +(list.length?'<div class="prog" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>':'')
     +'</section>';
   html+=lateBanner();
-  if(list.length){
-    const groups=TIMES.map(function(tm){return {tm:tm,items:list.filter(t=>(t.time||'any')===tm[0])};}).filter(g=>g.items.length);
+  html+=nextUpHtml()+missionCard(S.dayView==='agenda');
+  if(list.length&&S.dayView==='agenda'){
+    html+=agendaHtml(list)+'<button class="addmore" type="button" data-act="tab" data-tab="tasks">Meer taken toevoegen</button>'
+      +shieldBtn(all)+'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearday">Deze dag leegmaken</button></div>';
+  }else if(list.length){
+    const groups=TIMES.map(function(tm){return {tm:tm,items:list.filter(t=>slotOf(t)===tm[0])};}).filter(g=>g.items.length);
     const flat=groups.length===1&&groups[0].tm[0]==='any';
     html+=groups.map(function(g){
       return (flat?'':'<h3 class="tgrp">'+g.tm[2]+' '+g.tm[1]+'</h3>')
@@ -1424,7 +1689,8 @@ function renderWeek(){
     else html+='<div class="wk-empty"><span>Vrije dag</span><button type="button" data-act="planday" data-key="'+k+'">Taken toevoegen</button></div>';
     html+='</section>';
   }
-  html+='<button class="btn wide" type="button" data-act="shareweek">📤 Deel deze week</button>';
+  html+='<button class="btn wide" type="button" data-act="exportics" style="margin-bottom:10px">📅 Zet in mijn agenda</button>'
+    +'<button class="btn wide" type="button" data-act="shareweek">📤 Deel deze week</button>';
   main.innerHTML=html;
   bindSwipes(main);
   afterRender(main);
@@ -1707,6 +1973,12 @@ function renderHome(){
   }
   html+='</div>';
 
+  html+='<div class="hcard"><h3>Agenda & herinneringen</h3>'
+    +'<button type="button" class="toggle" role="switch" aria-checked="'+S.remind.on+'" data-act="remindtoggle"><span>Herinneringen in de app</span><i class="knob"></i></button>'
+    +'<div class="fld"><span>Herinner me vooraf</span><div class="opts">'+[0,5,10,15,30].map(m=>'<button type="button" class="opt'+(S.remind.lead===m?' on':'')+'" data-act="remindlead" data-m="'+m+'">'+(m?m+' min':'Alleen op tijd')+'</button>').join('')+'</div></div>'
+    +'<p class="sm" style="margin:0 0 12px;font-size:13.5px">Herinneringen verschijnen zolang de app open staat. Wil je ook een melding als je telefoon dicht is? Zet je week in de agenda van je telefoon: die geeft zelf een herinnering.</p>'
+    +'<button class="btn wide" type="button" data-act="exportics">📅 Zet deze week in mijn agenda</button></div>';
+
   html+='<div class="hcard"><h3>Weektools</h3><div class="stack">'
     +'<button class="btn wide" type="button" data-act="splitfair">⚖️ Verdeel taken eerlijk</button>'
     +'<button class="btn wide" type="button" data-act="shareweek">📤 Deel je week</button>'
@@ -1745,6 +2017,12 @@ function closeSheet(){
   sh.classList.remove('open');
   CUR=null;FM=null;TS=null;
   setTimeout(function(){if(!CUR){sh.hidden=true;sh.innerHTML='';}},260);
+}
+function timeField(T){
+  const chips=['07:00','08:00','12:00','17:00','18:00','20:00'];
+  return '<div class="fld"><span>Vaste tijd <small style="font-weight:600;color:var(--muted)">komt in je agenda</small></span>'
+    +'<div class="row2" style="align-items:center;margin-bottom:8px"><input class="inp" type="time" id="t-at" step="300" value="'+esc(T.at||'')+'" style="flex:1"><button type="button" class="btn" data-act="tatclear">Wissen</button></div>'
+    +'<div class="opts">'+chips.map(c=>'<button type="button" class="opt'+(T.at===c?' on':'')+'" data-act="tat" data-t="'+c+'">'+c+'</button>').join('')+'</div></div>';
 }
 function weightSection(w,tid,min,act){
   const eff=w||defaultW({tid:tid,min:min});
@@ -1807,12 +2085,12 @@ function openTaskSheet(o){
   if(o.mode==='add'){
     const t=taskById(o.tid);
     if(!t)return;
-    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,w:t.w||null,days:[S.sel],time:DEF[t.id]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
+    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,w:t.w||null,at:null,days:[S.sel],time:DEF[t.id]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
   }else{
     const it=(S.plan[o.key]||[]).find(x=>x.id===o.id);
     if(!it)return;
     const rule=it.rid?S.repeats.find(r=>r.id===it.rid):null;
-    TS={mode:'edit',key:o.key,id:it.id,tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w||null,days:[o.key],time:it.time||'any',who:it.who||null,note:it.note||'',repeat:!!rule,hadRule:!!rule,err:''};
+    TS={mode:'edit',key:o.key,id:it.id,tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w||null,at:it.at||null,days:[o.key],time:it.time||'any',who:it.who||null,note:it.note||'',repeat:!!rule,hadRule:!!rule,err:''};
   }
   openSheetWith(renderTaskSheet);
 }
@@ -1836,6 +2114,7 @@ function renderTaskSheet(focusId){
   +(multi?'<h2>'+esc(T.name)+'</h2>':'<input class="inp" id="t-name" type="text" maxlength="60" aria-label="Naam van de taak" value="'+esc(T.name)+'">')+'</div>'
   +'<div class="fld"><span>'+(multi?'Dagen (kies er een of meer)':'Dag')+'</span><div class="opts">'+days+'</div></div>'
   +'<div class="fld"><span>Wanneer</span><div class="opts">'+when+'</div></div>'
+  +timeField(T)
   +who
   +'<div class="fld"><span>Benodigde tijd</span><div class="opts">'+minChips(T.min)+'</div></div>'
   +weightSection(T.w,T.tid,T.min,'tw')
@@ -1856,9 +2135,9 @@ function saveTaskSheet(){
     if(!T.days.length){T.err='Kies minstens één dag.';redraw();return;}
     const note=T.note.trim();
     T.days.slice().sort().forEach(function(k){
-      const item={id:uid(),tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w||null,time:T.time,who:T.who,note:note,done:false};
+      const item={id:uid(),tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w||null,at:T.at||null,time:T.time,who:T.who,note:note,done:false};
       if(T.repeat){
-        const r=makeRule({tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w,time:T.time,who:T.who,note:note},wdOf(k),k);
+        const r=makeRule({tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w,at:T.at,time:T.time,who:T.who,note:note},wdOf(k),k);
         S.repeats.push(r);item.rid=r.id;
       }
       (S.plan[k]=S.plan[k]||[]).push(item);
@@ -1873,12 +2152,12 @@ function saveTaskSheet(){
   if(!it){closeSheet();return;}
   const name=T.name.trim();
   if(!name){T.err='Geef de taak een naam.';redraw('t-name');return;}
-  it.name=name;it.min=T.min;it.w=T.w||null;it.time=T.time;it.who=T.who;it.note=T.note.trim();
+  it.name=name;it.min=T.min;it.w=T.w||null;it.at=T.at||null;it.time=T.time;it.who=T.who;it.note=T.note.trim();
   let rule=it.rid?S.repeats.find(r=>r.id===it.rid):null;
   if(rule&&!T.repeat){
     delete it.rid;dropRule(rule.id,T.key);rule=null;
   }else if(rule){
-    rule.name=name;rule.min=T.min;rule.w=T.w||null;rule.time=T.time;rule.who=T.who;rule.note=it.note;
+    rule.name=name;rule.min=T.min;rule.w=T.w||null;rule.at=T.at||null;rule.time=T.time;rule.who=T.who;rule.note=it.note;
   }
   const newKey=T.days[0]||T.key;
   let fk=T.key;
@@ -1895,7 +2174,7 @@ function saveTaskSheet(){
     fk=newKey;
   }
   if(!rule&&!T.hadRule&&T.repeat){
-    const r=makeRule({tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w,time:it.time,who:it.who,note:it.note},wdOf(fk),fk);
+    const r=makeRule({tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w,at:it.at,time:it.time,who:it.who,note:it.note},wdOf(fk),fk);
     S.repeats.push(r);it.rid=r.id;
   }
   save();closeSheet();renderAll();
@@ -1916,7 +2195,7 @@ const SLIDES=[
       +'<div class="opts"><span class="opt">Flexibel</span><span class="opt">☀️ Ochtend</span><span class="opt on">🌙 Avond</span></div>'
       +'<div class="toggle" aria-checked="true"><span>Elke week herhalen</span><i class="knob"></i></div></div></div>',
    h:'Tik op een taak en maak hem van jou',
-   p:'Kies dagen, een dagdeel en wie het doet. Zet herhalen aan en de taak komt elke week terug.'},
+   p:'Kies dagen, een dagdeel of vaste tijd en wie het doet. Zet herhalen aan en de taak komt elke week terug.'},
   {ill:mockSwipe('done','Klaar','🍽️','Vaatwasser inruimen',175),
    h:'Veeg naar rechts als het klaar is',
    p:'Veeg naar links om een taak te verwijderen. Iets fout gedaan? Ongedaan maken kan altijd.'},
@@ -1990,6 +2269,13 @@ function runSplash(){
 document.addEventListener('click',function(e){
   const b=e.target.closest('[data-act]');
   if(!b){
+    const agb=e.target.closest('#agbody');
+    if(agb){
+      const y=e.clientY-agb.getBoundingClientRect().top;
+      const m=Number(agb.dataset.start)*60+Math.round(y/PX*60/15)*15;
+      openLock(Math.max(0,Math.min(23*60+45,m)));
+      return;
+    }
     const row=e.target.closest('.swipe');
     if(row&&!e.target.closest('.sheet')){
       if(row._dragEnd&&Date.now()-row._dragEnd<350)return;
@@ -2047,7 +2333,7 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();applyThemeStyle();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
@@ -2117,6 +2403,29 @@ document.addEventListener('click',function(e){
   else if(a==='equip')equipItem(b.dataset.k,b.dataset.id);
   else if(a==='preview')previewTheme(b.dataset.id);
   else if(a==='useshield')useShield(b.dataset.key);
+  else if(a==='dv'){
+    S.dayView=b.dataset.v==='agenda'?'agenda':'list';save();renderDay();
+    if(S.dayView==='agenda'&&S.sel===todayKey()){const n=$('#agnow');if(n)n.scrollIntoView({block:'center',behavior:'smooth'});}
+  }
+  else if(a==='claim')claimMission();
+  else if(a==='agev')openTaskSheet({mode:'edit',key:b.dataset.key,id:b.dataset.id});
+  else if(a==='agcheck')toggleDone(b.dataset.key,b.dataset.id);
+  else if(a==='lockat'){
+    const it=(S.plan[LK.key]||[]).find(x=>x.id===b.dataset.id);
+    if(it){it.at=LK.at;const nm=it.name,at=LK.at;save();closeSheet();renderAll();toast(nm+' staat vast op '+at);checkBadges();}
+  }
+  else if(a==='lockgo'){closeSheet();setTab('tasks');}
+  else if(a==='tat'){TS.at=b.dataset.t;redraw();}
+  else if(a==='tatclear'){TS.at=null;redraw();}
+  else if(a==='remindtoggle'){
+    S.remind.on=!S.remind.on;save();renderHome();
+    if(S.remind.on){
+      try{if(window.Notification&&Notification.permission==='default')Notification.requestPermission();}catch(e){}
+      toast('Herinneringen staan aan.');
+    }
+  }
+  else if(a==='remindlead'){S.remind.lead=Number(b.dataset.m);save();renderHome();}
+  else if(a==='exportics')exportICS();
   else if(a==='tw'){TS.w=Number(b.dataset.w);redraw();}
   else if(a==='fw'){FM.w=Number(b.dataset.w);redraw();}
 });
@@ -2128,6 +2437,8 @@ document.addEventListener('input',function(e){
   else if(FM&&id==='f-bemoji'){FM.bemoji=e.target.value;}
   else if(TS&&id==='t-name'){TS.name=e.target.value;TS.err='';}
   else if(TS&&id==='t-note'){TS.note=e.target.value;}
+  else if(TS&&id==='t-at'){TS.at=e.target.value||null;}
+  else if(LK&&id==='lk-at'){if(e.target.value)LK.at=e.target.value;}
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'&&CUR)closeSheet();
@@ -2142,6 +2453,7 @@ document.addEventListener('keydown',function(e){
 let lastToday=todayKey();
 document.addEventListener('visibilitychange',function(){
   if(!document.hidden&&todayKey()!==lastToday){lastToday=todayKey();goToday();}
+  if(!document.hidden)tick();
 });
 
 /* ---------- start ---------- */
@@ -2154,6 +2466,8 @@ if(S.badges===null){S.badges=BADGES.filter(b=>b.cur(calcStats())>=b.goal).map(b=
 S.anim=true;
 renderAll();
 runSplash();
+setInterval(tick,15000);
+tick();
 })();
 </script>
 </body>
