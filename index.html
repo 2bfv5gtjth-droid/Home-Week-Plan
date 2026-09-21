@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Home Week</title>
+<title>Huisweek</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Home Week">
+<meta name="apple-mobile-web-app-title" content="Huisweek">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201024%201024'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234C66FF'/%3E%3Cstop%20offset='1'%20stop-color='%232233CC'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1024'%20height='1024'%20rx='232'%20fill='url%28%23g%29'/%3E%3Cpath%20d='M512%20206%20L846%20484%20V822%20H178%20V484%20Z'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='48'%20stroke-linejoin='round'/%3E%3Cpath%20d='M368%20552%20L476%20660%20L664%20458'%20fill='none'%20stroke='%231FA267'%20stroke-width='70'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A//www.w3.org/2000/svg'%20viewBox%3D'0%200%201024%201024'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'g'%20x1%3D'0'%20y1%3D'0'%20x2%3D'1'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%234C66FF'/%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%232233CC'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D'1024'%20height%3D'1024'%20rx%3D'232'%20fill%3D'url(%23g)'/%3E%3Cpath%20d%3D'M512%20206%20L846%20484%20V822%20H178%20V484%20Z'%20fill%3D'%23fff'%20stroke%3D'%23fff'%20stroke-width%3D'48'%20stroke-linejoin%3D'round'/%3E%3Cpath%20d%3D'M368%20552%20L476%20660%20L664%20458'%20fill%3D'none'%20stroke%3D'%231FA267'%20stroke-width%3D'70'%20stroke-linecap%3D'round'%20stroke-linejoin%3D'round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
@@ -48,7 +48,6 @@ button{font-family:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-co
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
 .wrap{max-width:560px;margin:0 auto;padding:0 16px}
 
-/* category colour scope */
 .cat{--c:hsl(var(--h) var(--c-s) var(--c-l));--soft:hsl(var(--h) var(--soft-s) var(--soft-l))}
 
 /* header */
@@ -73,15 +72,23 @@ h1{margin:0;font-size:27px;line-height:1.05;font-weight:800;letter-spacing:-.025
 .day.sel .dn{color:inherit;opacity:.7}
 
 /* main */
-main{padding-top:6px;padding-bottom:120px;outline:none}
+main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .dayhead h2{margin:8px 0 2px;font-size:24px;font-weight:700;letter-spacing:-.015em;line-height:1.15}
+.greet{margin:10px 0 0;color:var(--accent);font-weight:700;font-size:14.5px}
+.greet + h2{margin-top:2px}
 .dayhead p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.dayhead p.greet{margin:10px 0 0;color:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.pill{font-size:13.5px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--surface);border:1px solid var(--line)}
 .prog{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:14px}
 .prog i{display:block;height:100%;background:var(--ok);border-radius:99px;transition:width .3s ease}
 .list{display:flex;flex-direction:column;gap:8px}
 .tip{margin:12px 2px 0;color:var(--muted);font-size:13.5px}
 .tgrp{margin:16px 0 8px 2px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
 .tgrp:first-of-type{margin-top:6px}
+
+.enter .swipe{animation:rowIn .38s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i,0) * 30ms)}
+@keyframes rowIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
 /* swipe rows */
 .swipe{position:relative;border-radius:16px;overflow:hidden;touch-action:pan-y;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;cursor:pointer}
@@ -110,6 +117,8 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .check svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;opacity:0}
 .check[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}
 .check[aria-pressed="true"] svg{opacity:1}
+.check.pop{animation:popCheck .42s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes popCheck{0%{transform:scale(.6)}60%{transform:scale(1.28)}100%{transform:scale(1)}}
 .addbtn{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:var(--soft);color:var(--c);display:grid;place-items:center;padding:0}
 .addbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
 .planned{flex:none;font-size:12px;font-weight:600;color:var(--c);background:var(--soft);padding:3px 9px;border-radius:99px;white-space:nowrap}
@@ -122,21 +131,18 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .addmore{width:100%;margin-top:10px;padding:13px;border-radius:16px;border:1.5px dashed var(--line-strong);background:transparent;font-weight:600;font-size:15px;color:var(--muted)}
 .linkbtn{background:none;border:0;padding:10px 4px;font-size:14px;font-weight:600;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 
-/* empty */
 .empty{text-align:center;padding:38px 20px 20px}
 .empty .big{font-size:40px;margin-bottom:6px}
 .empty h3{margin:0 0 6px;font-size:20px;font-weight:700}
 .empty p{margin:0 auto 18px;max-width:30ch;color:var(--muted);font-size:15px}
 .empty.small{padding:28px 10px}
 
-/* buttons */
 .btn{font-weight:600;font-size:15px;border-radius:12px;padding:11px 16px;border:1px solid var(--line);background:var(--surface)}
 .btn.primary{background:var(--accent);border-color:transparent;color:var(--on-accent)}
 .btn.ghost{background:transparent}
 .btn.danger{color:var(--danger);border-color:var(--danger);background:transparent}
 .btn.wide{width:100%}
 
-/* welcome card */
 .tipcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin:8px 0 14px}
 .tipcard h3{margin:0 0 8px;font-size:19px;font-weight:700}
 .tipcard ul{margin:0 0 14px;padding-left:20px;color:var(--muted);font-size:14.5px}
@@ -149,12 +155,12 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .wk-head{display:flex;width:100%;justify-content:space-between;align-items:baseline;background:none;border:0;padding:4px 2px 8px;text-align:left}
 .wk-name{font-size:19px;font-weight:700;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
 .wk-name b{font-weight:800}
-.wk.today .wk-name::after{content:"Today";font-size:12px;font-weight:700;background:var(--accent);color:var(--on-accent);padding:2px 8px;border-radius:99px}
+.wk.today .wk-name::after{content:"Vandaag";font-size:12px;font-weight:700;background:var(--accent);color:var(--on-accent);padding:2px 8px;border-radius:99px}
 .wk-meta{font-size:13px;color:var(--muted)}
 .wk-empty{display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px 14px;border:1.5px dashed var(--line-strong);border-radius:14px;color:var(--muted);font-size:14px}
 .wk-empty button{border:0;background:transparent;font-weight:600;font-size:14px;padding:6px 12px;border-radius:10px;color:var(--accent)}
 
-/* tasks view */
+/* tasks */
 .hint{margin:8px 2px 12px;color:var(--muted);font-size:14.5px}
 .hint b{color:var(--ink);font-weight:700}
 .hint.sm{margin:0 2px 4px;font-size:13.5px}
@@ -173,17 +179,28 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .grp .ge{width:30px;height:30px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:16px}
 .grp .gc{font-size:13px;font-weight:600;color:var(--muted)}
 
-/* home tab */
+/* thuis */
 .hcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px}
 .hcard h3{margin:0 0 12px;font-size:18px;font-weight:700;letter-spacing:-.01em}
 .hcard p.sm{margin:0 0 12px;color:var(--muted);font-size:14px}
+.hero{background:linear-gradient(135deg,#4C66FF,#2233CC);color:#fff;border:0}
+.hero-top{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.hero .lvl-emoji{flex:none;width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:28px}
+.lvl-name{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.lvl-sub{font-size:13.5px;opacity:.88;margin-top:2px}
+.hbar{height:8px;background:rgba(255,255,255,.24);border-radius:99px;overflow:hidden;margin-bottom:14px}
+.hbar i{display:block;height:100%;background:#fff;border-radius:99px}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats3 div{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 4px;text-align:center}
+.stats3 b{display:block;font-size:20px;font-weight:800;letter-spacing:-.02em}
+.stats3 span{font-size:12px;opacity:.88}
 .sum{display:flex;gap:18px;align-items:center}
 .ring{--p:0;flex:none;width:96px;height:96px;border-radius:50%;background:conic-gradient(var(--ok) calc(var(--p) * 1%),var(--line) 0);display:grid;place-items:center}
 .ring-in{width:76px;height:76px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
 .ring-in b{font-size:22px;font-weight:800;letter-spacing:-.02em}
 .sum h3{margin:0 0 2px}
 .sum p{margin:0;color:var(--muted);font-size:14px}
-.brow{display:grid;grid-template-columns:104px 1fr auto;gap:10px;align-items:center;margin-bottom:10px;font-size:14px}
+.brow{display:grid;grid-template-columns:150px 1fr auto;gap:10px;align-items:center;margin-bottom:10px;font-size:14px}
 .brow:last-child{margin-bottom:0}
 .brow .bn{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brow .bc{color:var(--muted);font-size:13px;min-width:34px;text-align:right}
@@ -195,6 +212,8 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .prow .pt b{display:block;font-weight:600;font-size:15.5px}
 .prow .pt span{font-size:13px;color:var(--muted)}
 .prow .tile{width:36px;height:36px;font-size:18px;border-radius:11px}
+.prow .medal{flex:none;width:28px;text-align:center;font-size:22px}
+.prow .pts{flex:none;font-weight:800;font-size:16px}
 .iconbtn{flex:none;border:0;background:transparent;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--muted);padding:0}
 .iconbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
 .textbtn{flex:none;border:0;background:transparent;font-weight:600;font-size:14px;color:var(--danger);padding:6px 8px;border-radius:10px}
@@ -205,7 +224,7 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .seg button{border:0;background:transparent;padding:9px 0;border-radius:9px;font-weight:600;font-size:14.5px}
 .seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 0 0 1px var(--line-strong)}
 
-/* bottom nav */
+/* nav */
 #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
 #nav .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 4px}
 #nav button{background:none;border:0;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
@@ -214,10 +233,11 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 #nav button[aria-current="page"] svg{stroke:var(--accent);stroke-width:2.2}
 
 /* toast */
-#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 78px);transform:translate(-50%,16px);opacity:0;pointer-events:none;z-index:25;background:var(--ink);color:var(--bg);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:14px;max-width:min(92vw,520px);font-size:14.5px;font-weight:500;transition:opacity .2s,transform .2s}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 78px);transform:translate(-50%,16px);opacity:0;pointer-events:none;z-index:75;background:var(--ink);color:var(--bg);border-radius:14px;padding:11px 14px;display:flex;align-items:center;gap:14px;max-width:min(92vw,520px);font-size:14.5px;font-weight:500;transition:opacity .2s,transform .2s}
 #toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 #toast span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 #toast button{flex:none;background:none;border:0;padding:2px 4px;font-weight:700;font-size:14.5px;color:var(--toast-btn)}
+.confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:70}
 
 /* sheet */
 .sheet{position:fixed;inset:0;z-index:40}
@@ -250,6 +270,21 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .actions{display:flex;gap:10px}
 .actions .btn{flex:1;padding:13px}
 
+/* timer */
+#timer{position:fixed;inset:0;z-index:80;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 24px calc(env(safe-area-inset-bottom,0px) + 24px)}
+.tm-wrap{width:100%;max-width:520px;margin:0 auto;flex:1;display:flex;flex-direction:column}
+.tm-top{display:flex;justify-content:flex-end;min-height:44px}
+.tm-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px}
+.tm-emoji{font-size:44px}
+.tm-body h2{margin:4px 0 22px;font-size:24px;font-weight:800;letter-spacing:-.02em;max-width:22ch}
+.tm-ring{--p:0;width:250px;height:250px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--p) * 1%),var(--line) 0);display:grid;place-items:center}
+.tm-in{width:222px;height:222px;border-radius:50%;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.tm-in b{font-size:56px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1}
+.tm-in span{color:var(--muted);font-size:14.5px;font-weight:600}
+.tm-actions{display:flex;gap:10px}
+.tm-actions .btn{flex:1;padding:15px;font-size:16.5px}
+.tm-over .tm-ring{background:var(--ok)}
+
 /* splash */
 #splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 28%,#1D2760 0%,#0B0F1E 70%);color:#fff;transition:opacity .45s ease;cursor:pointer}
 #splash.out{opacity:0;pointer-events:none}
@@ -264,7 +299,7 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 @keyframes spDraw{to{stroke-dashoffset:0}}
 @keyframes spUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 
-/* intro walkthrough */
+/* intro */
 #intro{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 24px calc(env(safe-area-inset-bottom,0px) + 22px);transition:opacity .3s ease}
 #intro.out{opacity:0;pointer-events:none}
 .in-wrap{width:100%;max-width:520px;margin:0 auto;flex:1;display:flex;flex-direction:column}
@@ -285,16 +320,19 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .mock .mbg{position:absolute;inset:0;display:flex;align-items:center;padding:0 20px;color:var(--on);font-weight:700;font-size:15px}
 .mock .mcard{position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;text-align:left;animation:mswipe 2.8s ease-in-out .3s infinite}
 .mock .mcard b{flex:1;min-width:0;font-weight:600;font-size:16px;line-height:1.25}
-@keyframes mswipe{0%,18%{transform:translateX(0)}42%,66%{transform:translateX(132px)}90%,100%{transform:translateX(0)}}
+@keyframes mswipe{0%,18%{transform:translateX(0)}42%,66%{transform:translateX(150px)}90%,100%{transform:translateX(0)}}
 .mock2{width:min(340px,92%);display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;text-align:left;pointer-events:none}
 .mock2 .toggle{margin:0}
-
-@media (prefers-reduced-motion: reduce){
-  .sp-check{stroke-dashoffset:0}
-}
+.mock2 .lvlrow{display:flex;gap:12px;align-items:center}
+.mock2 .lvlrow span{font-size:30px}
+.mock2 .lvlrow b{display:block;font-size:18px;font-weight:800}
+.mock2 .lvlrow small{color:var(--muted);font-size:13px}
+.mock2 .bar2{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.mock2 .bar2 i{display:block;width:62%;height:100%;background:var(--accent);border-radius:99px}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
+  .sp-check{stroke-dashoffset:0}
 }
 </style>
 </head>
@@ -304,13 +342,13 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
   <div class="wrap">
     <div class="top-row">
       <div>
-        <h1 id="range">Home week</h1>
+        <h1 id="range">Huisweek</h1>
         <p id="wk"></p>
       </div>
       <div class="wnav">
-        <button data-act="prev" aria-label="Previous week"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button data-act="today">Today</button>
-        <button data-act="next" aria-label="Next week"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        <button data-act="prev" aria-label="Vorige week"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button data-act="today">Vandaag</button>
+        <button data-act="next" aria-label="Volgende week"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
     </div>
     <div id="strip" class="strip"></div>
@@ -319,19 +357,19 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 
 <main id="main" class="wrap" tabindex="-1"></main>
 
-<nav id="nav" aria-label="Sections">
+<nav id="nav" aria-label="Onderdelen">
   <div class="in">
-    <button data-act="tab" data-tab="day"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Day</button>
+    <button data-act="tab" data-tab="day"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Dag</button>
     <button data-act="tab" data-tab="week"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M9.2 9.5V20M14.8 9.5V20"/></svg>Week</button>
-    <button data-act="tab" data-tab="tasks"><svg viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M3.8 6l1.2 1.2L7.2 5M3.8 12l1.2 1.2 2.2-2.2M3.8 18l1.2 1.2 2.2-2.2"/></svg>Tasks</button>
-    <button data-act="tab" data-tab="home"><svg viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>Home</button>
+    <button data-act="tab" data-tab="tasks"><svg viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M3.8 6l1.2 1.2L7.2 5M3.8 12l1.2 1.2 2.2-2.2M3.8 18l1.2 1.2 2.2-2.2"/></svg>Taken</button>
+    <button data-act="tab" data-tab="home"><svg viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>Thuis</button>
   </div>
 </nav>
 
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="sheet" class="sheet" hidden></div>
-
-<div id="intro" role="dialog" aria-modal="true" aria-label="Welcome to Home Week" hidden></div>
+<div id="timer" hidden></div>
+<div id="intro" role="dialog" aria-modal="true" aria-label="Welkom bij Huisweek" hidden></div>
 
 <div id="splash" role="presentation">
   <div class="sp-inner">
@@ -346,8 +384,8 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
         <path class="sp-check" d="M368 552 L476 660 L664 458" fill="none" stroke="#1FA267" stroke-width="70" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
     </svg>
-    <div class="sp-title">Home Week</div>
-    <div class="sp-tag">Plan the house, one swipe at a time</div>
+    <div class="sp-title">Huisweek</div>
+    <div class="sp-tag">Plan het huishouden, één veeg tegelijk</div>
   </div>
 </div>
 
@@ -355,109 +393,110 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 (function(){
 'use strict';
 
-/* ---------- data ---------- */
+/* ---------- gegevens ---------- */
 const CATS=[
-  {id:'cleaning',name:'Cleaning',emoji:'🧽',hue:210},
-  {id:'dishes',name:'Dishes',emoji:'🍽️',hue:175},
-  {id:'laundry',name:'Laundry',emoji:'👕',hue:268},
-  {id:'kitchen',name:'Kitchen',emoji:'🍳',hue:24},
-  {id:'bathroom',name:'Bathroom',emoji:'🚿',hue:330},
-  {id:'bedroom',name:'Bedroom',emoji:'🛏️',hue:48},
-  {id:'groceries',name:'Groceries',emoji:'🛒',hue:88},
-  {id:'garden',name:'Garden & outside',emoji:'🌿',hue:145},
-  {id:'pets',name:'Pets',emoji:'🐾',hue:4},
-  {id:'admin',name:'Admin & errands',emoji:'📬',hue:235}
+  {id:'cleaning',name:'Schoonmaken',emoji:'🧽',hue:210},
+  {id:'dishes',name:'Afwas',emoji:'🍽️',hue:175},
+  {id:'laundry',name:'Was',emoji:'👕',hue:268},
+  {id:'kitchen',name:'Keuken',emoji:'🍳',hue:24},
+  {id:'bathroom',name:'Badkamer',emoji:'🚿',hue:330},
+  {id:'bedroom',name:'Slaapkamer',emoji:'🛏️',hue:48},
+  {id:'groceries',name:'Boodschappen',emoji:'🛒',hue:88},
+  {id:'garden',name:'Tuin & buiten',emoji:'🌿',hue:145},
+  {id:'pets',name:'Huisdieren',emoji:'🐾',hue:4},
+  {id:'admin',name:'Admin & regelen',emoji:'📬',hue:235}
 ];
 const RAW={
   cleaning:[
-    ['Vacuum the living room','🧹',20],['Mop the floors','🪣',25],['Dust all surfaces','🪶',15],
-    ['Wipe door handles and switches','🚪',10],['Clean the windows','🪟',30],['Tidy the living room','🛋️',15],
-    ['Empty all trash bins','🗑️',10],['Clean the mirrors','🪞',10],['Vacuum the stairs','🪜',15],
-    ['Wipe the baseboards','🧽',20],['Declutter the entrance','👟',10],['Clean the balcony','☀️',20]
+    ['Woonkamer stofzuigen','🧹',20],['Vloeren dweilen','🪣',25],['Alles afstoffen','🪶',15],
+    ['Deurklinken en schakelaars afnemen','🚪',10],['Ramen lappen','🪟',30],['Woonkamer opruimen','🛋️',15],
+    ['Alle prullenbakken legen','🗑️',10],['Spiegels poetsen','🪞',10],['Trap stofzuigen','🪜',15],
+    ['Plinten afnemen','🧽',20],['Hal opruimen','👟',10],['Balkon schoonmaken','☀️',20]
   ],
   dishes:[
-    ['Load the dishwasher','🍽️',10],['Unload the dishwasher','🥣',10],['Wash dishes by hand','🫧',20],
-    ['Scrub pots and pans','🍳',15],['Wipe the sink','🚰',5],['Clean the dish rack','🧼',10],
-    ['Run a dishwasher cleaning cycle','♻️',5],['Put away clean dishes','🥄',5]
+    ['Vaatwasser inruimen','🍽️',10],['Vaatwasser uitruimen','🥣',10],['Afwassen met de hand','🫧',20],
+    ['Pannen schrobben','🍳',15],['Gootsteen schoonmaken','🚰',5],['Afdruiprek schoonmaken','🧼',10],
+    ['Vaatwasser laten reinigen','♻️',5],['Schone vaat opruimen','🥄',5]
   ],
   laundry:[
-    ['Start a load of laundry','🧺',10],['Move laundry to the dryer','🌀',10],['Fold and sort laundry','👚',20],
-    ['Iron shirts','♨️',30],['Put clothes away','🧦',10],['Change the bed sheets','🛏️',20],
-    ['Wash the towels','🧺',10],['Hang laundry to dry','🧷',10],['Treat stains','✨',10]
+    ['Wasmachine aanzetten','🧺',10],['Was in de droger doen','🌀',10],['Was opvouwen en sorteren','👚',20],
+    ['Overhemden strijken','♨️',30],['Kleren opbergen','🧦',10],['Bed verschonen','🛏️',20],
+    ['Handdoeken wassen','🧺',10],['Was ophangen','🧷',10],['Vlekken behandelen','✨',10]
   ],
   kitchen:[
-    ['Cook dinner','🍲',40],['Meal prep for the week','🥗',60],['Plan the week\'s meals','📝',15],
-    ['Wipe counters and stove','🧽',10],['Clean the fridge','🧊',25],['Clean the microwave','🔥',10],
-    ['Clean the oven','🔥',30],['Wipe the cabinet fronts','🚪',15],['Descale the kettle','☕',10],['Take out food waste','🍌',5]
+    ['Avondeten koken','🍲',40],['Maaltijdprep voor de week','🥗',60],['Weekmenu plannen','📝',15],
+    ['Aanrecht en fornuis afnemen','🧽',10],['Koelkast schoonmaken','🧊',25],['Magnetron schoonmaken','🔥',10],
+    ['Oven schoonmaken','🔥',30],['Kastjes afnemen','🚪',15],['Waterkoker ontkalken','☕',10],['GFT-bakje leegmaken','🍌',5]
   ],
   bathroom:[
-    ['Clean the toilet','🚽',10],['Scrub the shower','🚿',20],['Clean the sink and tap','🚰',10],
-    ['Mop the bathroom floor','🪣',10],['Wash the bath mats','🧺',5],['Restock toilet paper and soap','🧻',5],
-    ['Clean the bathroom mirror','🪞',5],['Empty the bathroom bin','🗑️',3],['Clean the bathtub','🛁',20]
+    ['Toilet schoonmaken','🚽',10],['Douche schrobben','🚿',20],['Wastafel en kraan poetsen','🚰',10],
+    ['Badkamervloer dweilen','🪣',10],['Badmatten wassen','🧺',5],['Wc-papier en zeep bijvullen','🧻',5],
+    ['Badkamerspiegel poetsen','🪞',5],['Badkamerprullenbak legen','🗑️',3],['Bad schoonmaken','🛁',20]
   ],
   bedroom:[
-    ['Make the bed','🛏️',5],['Vacuum the bedroom','🧹',15],['Declutter the nightstands','🕯️',10],
-    ['Sort the wardrobe','👗',30],['Flip the mattress','🔄',10],['Dust the bedroom','🪶',10],['Air out the room','🌬️',5]
+    ['Bed opmaken','🛏️',5],['Slaapkamer stofzuigen','🧹',15],['Nachtkastjes opruimen','🕯️',10],
+    ['Kledingkast sorteren','👗',30],['Matras keren','🔄',10],['Slaapkamer afstoffen','🪶',10],['Kamer luchten','🌬️',5]
   ],
   groceries:[
-    ['Write a shopping list','📝',10],['Go grocery shopping','🛒',60],['Put groceries away','🥕',15],
-    ['Check the pantry','🥫',10],['Order groceries online','📱',15],['Clear out expired food','🥛',10]
+    ['Boodschappenlijstje maken','📝',10],['Boodschappen doen','🛒',60],['Boodschappen opruimen','🥕',15],
+    ['Voorraadkast checken','🥫',10],['Boodschappen online bestellen','📱',15],['Houdbaarheidsdatums checken','🥛',10]
   ],
   garden:[
-    ['Water the plants','🪴',10],['Mow the lawn','🌱',40],['Weed the garden','🌼',30],
-    ['Sweep the porch','🧹',15],['Take the bins to the curb','♻️',10],['Wash the car','🚗',45],
-    ['Prune the plants','✂️',25],['Refill the bird feeder','🐦',5]
+    ['Planten water geven','🪴',10],['Gras maaien','🌱',40],['Onkruid wieden','🌼',30],
+    ['Stoep vegen','🧹',15],['Kliko’s aan de straat zetten','♻️',10],['Auto wassen','🚗',45],
+    ['Planten snoeien','✂️',25],['Vogelvoer bijvullen','🐦',5]
   ],
   pets:[
-    ['Feed the pets','🥣',5],['Walk the dog','🐕',30],['Clean the litter box','🐈',10],
-    ['Wash the pet bowls','🥣',5],['Brush the pet','🪮',15],['Vacuum pet hair','🧹',15]
+    ['Huisdieren voeren','🥣',5],['Hond uitlaten','🐕',30],['Kattenbak schoonmaken','🐈',10],
+    ['Voerbakjes afwassen','🥣',5],['Huisdier borstelen','🪮',15],['Dierenharen opzuigen','🧹',15]
   ],
   admin:[
-    ['Pay the bills','💳',20],['Sort the mail','📬',10],['Organise paperwork','🗂️',30],
-    ['Book an appointment','📞',10],['Post office run','📦',25],['Review the budget','📊',20],['Back up phone photos','🖼️',15]
+    ['Rekeningen betalen','💳',20],['Post sorteren','📬',10],['Papierwerk ordenen','🗂️',30],
+    ['Afspraak maken','📞',10],['Pakketje wegbrengen','📦',25],['Huishoudbudget bekijken','📊',20],['Foto’s van telefoon back-uppen','🖼️',15]
   ]
 };
 const BUILTIN=Object.keys(RAW).flatMap(cat=>RAW[cat].map((a,i)=>({id:cat+'-'+i,cat:cat,name:a[0],emoji:a[1],min:a[2]})));
 const EXTRA_HUES=[300,60,190,15,120,250,340,90];
 const PEOPLE_HUES=[210,340,150,30,270,180,60,300];
-const TIMES=[['morning','Morning','☀️'],['afternoon','Afternoon','🌤️'],['evening','Evening','🌙'],['any','Anytime','🕒']];
+const TIMES=[['morning','Ochtend','☀️'],['afternoon','Middag','🌤️'],['evening','Avond','🌙'],['any','Flexibel','🕒']];
 const TIME_ORDER={morning:0,afternoon:1,evening:2,any:3};
-const DEF={
-  'Make the bed':'morning','Feed the pets':'morning','Walk the dog':'morning','Unload the dishwasher':'morning','Air out the room':'morning',
-  'Go grocery shopping':'afternoon',
-  'Cook dinner':'evening','Load the dishwasher':'evening','Take the bins to the curb':'evening','Wash the pet bowls':'evening'
-};
+const DEF={'bedroom-0':'morning','pets-0':'morning','pets-1':'morning','dishes-1':'morning','bedroom-6':'morning','groceries-1':'afternoon','kitchen-0':'evening','dishes-0':'evening','garden-4':'evening','pets-3':'evening'};
 const ALLDAYS=[0,1,2,3,4,5,6];
 const STARTER=[
-  ['Make the bed','morning',ALLDAYS],
-  ['Unload the dishwasher','morning',ALLDAYS],
-  ['Load the dishwasher','evening',ALLDAYS],
-  ['Take the bins to the curb','evening',[3]],
-  ['Start a load of laundry','any',[2,6]],
-  ['Vacuum the living room','any',[5]],
-  ['Mop the floors','any',[5]],
-  ['Clean the toilet','any',[5]],
-  ['Change the bed sheets','morning',[6]],
-  ['Write a shopping list','any',[4]],
-  ['Go grocery shopping','afternoon',[5]]
+  ['bedroom-0','morning',ALLDAYS],
+  ['dishes-1','morning',ALLDAYS],
+  ['dishes-0','evening',ALLDAYS],
+  ['garden-4','evening',[3]],
+  ['laundry-0','any',[2,6]],
+  ['cleaning-0','any',[5]],
+  ['cleaning-1','any',[5]],
+  ['bathroom-0','any',[5]],
+  ['laundry-5','morning',[6]],
+  ['groceries-0','any',[4]],
+  ['groceries-1','afternoon',[5]]
 ];
-const WD=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const LEVELS=[[0,'Klusnieuweling','🌱'],[100,'Opruimer','🧹'],[300,'Poetser','✨'],[700,'Huishoudheld','🦸'],[1500,'Klusbaas','👑'],[3000,'Schoonmaaklegende','🏆']];
+const INTRO_V=2;
 
-/* ---------- state + storage ---------- */
+/* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:false};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
     if(raw){
       const o=JSON.parse(raw);
       S.plan=o.plan||{};S.custom=o.custom||[];S.customCats=o.cats||[];
-      S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;S.intro=!!o.intro;
+      S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;
+      S.intro=typeof o.introV==='number'?o.introV:(o.intro?1:0);
     }
   }catch(e){}
+  const byId={};BUILTIN.forEach(t=>{byId[t.id]=t;});
+  Object.keys(S.plan).forEach(k=>(S.plan[k]||[]).forEach(t=>{if(byId[t.tid])t.name=byId[t.tid].name;}));
+  S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,intro:S.intro}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people});}
 function restore(s){
@@ -469,12 +508,13 @@ function applyTheme(){
   if(S.theme==='light'||S.theme==='dark')r.setAttribute('data-theme',S.theme);else r.removeAttribute('data-theme');
 }
 
-/* ---------- helpers ---------- */
+/* ---------- hulpfuncties ---------- */
 const $=(s,r)=>(r||document).querySelector(s);
 const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Math.random().toString(36).slice(2,9);
 const pad=n=>String(n).padStart(2,'0');
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 const keyOf=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const fromKey=k=>{const p=k.split('-').map(Number);return new Date(p[0],p[1]-1,p[2]);};
 const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x;};
@@ -486,23 +526,25 @@ function isoWeek(d){
   const y0=new Date(Date.UTC(t.getUTCFullYear(),0,1));
   return Math.ceil(((t-y0)/86400000+1)/7);
 }
-const fmt=o=>new Intl.DateTimeFormat('en-GB',o);
-const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const MONTHS_LONG=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const F_SHORT=fmt({weekday:'short'}),F_WLONG=fmt({weekday:'long'});
-const dow=k=>F_SHORT.format(fromKey(k));
-const longLabel=k=>{const d=fromKey(k);return F_WLONG.format(d)+' '+d.getDate()+' '+MONTHS_LONG[d.getMonth()];};
-const midLabel=k=>{const d=fromKey(k);return F_SHORT.format(d)+' '+d.getDate()+' '+MONTHS[d.getMonth()];};
-function fmtMin(m){if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return h+' h'+(r?' '+r+' min':'');}
+const MONTHS=['jan','feb','mrt','apr','mei','jun','jul','aug','sep','okt','nov','dec'];
+const MONTHS_LONG=['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+const F_SHORT=new Intl.DateTimeFormat('nl-NL',{weekday:'short'}),F_WLONG=new Intl.DateTimeFormat('nl-NL',{weekday:'long'});
+const dow=k=>F_SHORT.format(fromKey(k)).replace('.','');
+const longLabel=k=>{const d=fromKey(k);return cap(F_WLONG.format(d))+' '+d.getDate()+' '+MONTHS_LONG[d.getMonth()];};
+const midLabel=k=>{const d=fromKey(k);return dow(k)+' '+d.getDate()+' '+MONTHS[d.getMonth()];};
+function fmtMin(m){if(m<60)return m+' min';const h=Math.floor(m/60),r=m%60;return h+' u'+(r?' '+r+' min':'');}
+const nTaken=n=>n+(n===1?' taak':' taken');
 const allCats=()=>CATS.concat(S.customCats);
 const allTasks=()=>BUILTIN.concat(S.custom);
-const catOf=id=>allCats().find(c=>c.id===id)||{id:id,name:'Other',emoji:'📌',hue:220};
+const catOf=id=>allCats().find(c=>c.id===id)||{id:id,name:'Overig',emoji:'📌',hue:220};
 const taskById=id=>allTasks().find(t=>t.id===id);
 const personOf=id=>id?S.people.find(p=>p.id===id):null;
 const ini=n=>(String(n).trim().charAt(0)||'?').toUpperCase();
 const todayKey=()=>keyOf(new Date());
 const vis=t=>S.who==='all'||t.who===S.who;
 const sortTimes=list=>list.map((t,i)=>({t:t,i:i})).sort((a,b)=>(TIME_ORDER[a.t.time||'any']-TIME_ORDER[b.t.time||'any'])||(a.i-b.i)).map(x=>x.t);
+function greet(){const h=new Date().getHours();return h<6?'Goedenacht':h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';}
+function haptic(n){try{if(navigator.vibrate)navigator.vibrate(n||12);}catch(e){}}
 
 const ICON_CHECK='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 const ICON_PLUS='<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>';
@@ -510,7 +552,66 @@ const ICON_SEARCH='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><pa
 const ICON_REPEAT='<svg viewBox="0 0 24 24"><path d="M17 3l3 3-3 3"/><path d="M4 11V9a3 3 0 0 1 3-3h13"/><path d="M7 21l-3-3 3-3"/><path d="M20 13v2a3 3 0 0 1-3 3H4"/></svg>';
 const ICON_X='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
-/* ---------- routines (weekly repeats) ---------- */
+/* ---------- punten, reeks, niveau ---------- */
+const ptsOf=list=>list.filter(t=>t.done).reduce((a,t)=>a+t.min,0);
+function totalPoints(){return Object.keys(S.plan).reduce((a,k)=>a+ptsOf(S.plan[k]||[]),0);}
+function weekItems(){
+  const out=[];
+  for(let i=0;i<7;i++){(S.plan[keyOf(addDays(S.weekStart,i))]||[]).forEach(t=>out.push(t));}
+  return out;
+}
+function dayState(k){
+  const l=S.plan[k]||[];
+  if(!l.length)return 'empty';
+  return l.every(t=>t.done)?'full':'open';
+}
+function streak(){
+  let n=0,gap=0;
+  const today=new Date();
+  for(let i=0;i<180;i++){
+    const st=dayState(keyOf(addDays(today,-i)));
+    if(st==='full'){
+      if(n===0&&i>2)return 0;
+      n++;gap=0;
+    }else if(st==='open'){
+      if(i===0)continue;
+      break;
+    }else{
+      gap++;
+      if(gap>2)break;
+    }
+  }
+  return n;
+}
+function levelIndex(p){let i=0;LEVELS.forEach((l,j)=>{if(p>=l[0])i=j;});return i;}
+
+/* ---------- confetti ---------- */
+function confetti(){
+  try{
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const c=document.createElement('canvas');c.className='confetti';
+    const dpr=Math.min(2,window.devicePixelRatio||1),W=window.innerWidth,H=window.innerHeight;
+    c.width=W*dpr;c.height=H*dpr;document.body.appendChild(c);
+    const x=c.getContext('2d');x.scale(dpr,dpr);
+    const cols=['#4C66FF','#1FA267','#F5A524','#E5484D','#A855F7','#06B6D4'];
+    const ps=[];
+    for(let i=0;i<120;i++){
+      ps.push({x:W/2+(Math.random()-.5)*90,y:H*.55,vx:(Math.random()-.5)*12,vy:-(6+Math.random()*11),g:.3+Math.random()*.12,s:5+Math.random()*7,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,c:cols[i%cols.length]});
+    }
+    const t0=performance.now();
+    (function f(t){
+      const el=t-t0;
+      x.clearRect(0,0,W,H);
+      ps.forEach(function(p){
+        p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.992;p.r+=p.vr;
+        x.save();x.translate(p.x,p.y);x.rotate(p.r);x.globalAlpha=Math.max(0,1-el/2300);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);x.restore();
+      });
+      if(el<2300)requestAnimationFrame(f);else c.remove();
+    })(t0);
+  }catch(e){}
+}
+
+/* ---------- routines ---------- */
 function makeRule(base,wd,start){
   return {id:uid(),tid:base.tid,name:base.name,emoji:base.emoji,cat:base.cat,min:base.min,time:base.time||'any',who:base.who||null,note:base.note||'',wd:wd,start:start,skip:[]};
 }
@@ -540,7 +641,7 @@ function dropRule(rid,fromKey){
   });
 }
 
-/* ---------- swipe ---------- */
+/* ---------- vegen ---------- */
 function attachSwipe(row,opts){
   const card=row.querySelector('.card');
   const TH=84;
@@ -601,11 +702,23 @@ function bindSwipes(root){
   });
 }
 
-/* ---------- actions ---------- */
+/* ---------- acties ---------- */
 function toggleDone(key,id){
-  const t=(S.plan[key]||[]).find(x=>x.id===id);
+  const arr=S.plan[key]||[];
+  const t=arr.find(x=>x.id===id);
   if(!t)return;
-  t.done=!t.done;save();renderAll();
+  const wasFull=arr.length>0&&arr.every(x=>x.done);
+  t.done=!t.done;
+  const nowFull=arr.every(x=>x.done);
+  if(t.done)S.pop=t.id;
+  save();renderAll();S.pop=null;
+  if(t.done){
+    haptic(14);
+    if(nowFull&&!wasFull){
+      confetti();haptic([20,40,20]);
+      toast('Dag afgerond! 🎉 '+ptsOf(arr)+' punten');
+    }
+  }
 }
 function removePlanned(key,id){
   const arr=S.plan[key]||[];
@@ -618,23 +731,24 @@ function removePlanned(key,id){
     if(r){r.skip=r.skip||[];r.skip.push(key);}
   }
   save();renderAll();
-  toast('Removed “'+t.name+'”','Undo',function(){restore(before);});
+  toast('Verwijderd: “'+t.name+'”','Ongedaan maken',function(){restore(before);});
 }
 function addToDay(tid,key){
   const t=taskById(tid);
   if(!t)return;
   const before=snap();
-  const item={id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:DEF[t.name]||'any',who:S.addWho||null,note:'',done:false};
+  const item={id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:DEF[t.id]||'any',who:S.addWho||null,note:'',done:false};
   (S.plan[key]=S.plan[key]||[]).push(item);
   save();renderStrip();refreshBadges();
-  toast(t.name+' added to '+dow(key),'Undo',function(){restore(before);});
+  haptic(10);
+  toast(t.name+' toegevoegd aan '+dow(key),'Ongedaan maken',function(){restore(before);});
 }
 function deleteCustom(tid){
   const i=S.custom.findIndex(x=>x.id===tid);
   if(i<0)return;
   const t=S.custom.splice(i,1)[0];
   save();renderTaskList();
-  toast('Deleted “'+t.name+'”','Undo',function(){
+  toast('Taak verwijderd: “'+t.name+'”','Ongedaan maken',function(){
     S.custom.splice(Math.min(i,S.custom.length),0,t);
     save();renderTaskList();
   });
@@ -648,7 +762,7 @@ function clearDay(){
   });
   S.plan[S.sel]=[];
   save();renderAll();
-  toast('Cleared '+dow(S.sel),'Undo',function(){restore(before);});
+  toast('Dag geleegd: '+dow(S.sel),'Ongedaan maken',function(){restore(before);});
 }
 function copyWeek(){
   const before=snap();let n=0;
@@ -662,8 +776,8 @@ function copyWeek(){
     });
   }
   save();renderAll();
-  if(n)toast('Copied '+n+(n===1?' task':' tasks')+' to next week','Undo',function(){restore(before);});
-  else toast('Nothing to copy. Weekly routines repeat by themselves.');
+  if(n)toast(nTaken(n)+' gekopieerd naar volgende week','Ongedaan maken',function(){restore(before);});
+  else toast('Niets om te kopiëren. Wekelijkse routines herhalen zichzelf.');
 }
 function addStarter(){
   const before=snap();
@@ -671,7 +785,7 @@ function addStarter(){
   const start=cur?todayKey():keyOf(S.weekStart);
   let n=0;
   STARTER.forEach(function(row){
-    const t=BUILTIN.find(x=>x.name===row[0]);
+    const t=BUILTIN.find(x=>x.id===row[0]);
     if(!t)return;
     row[2].forEach(function(wd){
       if(S.repeats.some(r=>r.tid===t.id&&r.wd===wd))return;
@@ -679,8 +793,25 @@ function addStarter(){
     });
   });
   S.tip=true;save();renderAll();
-  if(n)toast('Starter routine added','Undo',function(){restore(before);});
-  else toast('The starter routine is already in your routines.');
+  if(n)toast('Startroutine toegevoegd','Ongedaan maken',function(){restore(before);});
+  else toast('De startroutine staat al in je routines.');
+}
+function splitFair(){
+  if(S.people.length<2){toast('Voeg eerst minstens twee mensen toe.');return;}
+  const before=snap();
+  const items=weekItems();
+  const load={};
+  S.people.forEach(p=>{load[p.id]=0;});
+  items.forEach(t=>{if(t.who&&load[t.who]!==undefined)load[t.who]+=t.min;});
+  const un=items.filter(t=>!t.who&&!t.done).sort((a,b)=>b.min-a.min);
+  if(!un.length){toast('Alle taken hebben al een eigenaar.');return;}
+  un.forEach(function(t){
+    let best=S.people[0];
+    S.people.forEach(p=>{if(load[p.id]<load[best.id])best=p;});
+    t.who=best.id;load[best.id]+=t.min;
+  });
+  save();renderAll();
+  toast(nTaken(un.length)+' eerlijk verdeeld','Ongedaan maken',function(){restore(before);});
 }
 function addPerson(name){
   name=(name||'').trim();
@@ -697,24 +828,140 @@ function removePerson(id){
   if(S.who===id)S.who='all';
   if(S.addWho===id)S.addWho='';
   save();renderAll();
-  toast('Removed '+(p?p.name:'person'),'Undo',function(){restore(before);});
+  toast((p?p.name:'Persoon')+' verwijderd','Ongedaan maken',function(){restore(before);});
 }
 function shiftWeek(n){
   S.weekStart=addDays(S.weekStart,n);
   S.sel=keyOf(addDays(fromKey(S.sel),n));
-  renderAll();
+  S.anim=true;renderAll();
 }
 function goToday(){
   const t=new Date();
-  S.weekStart=mondayOf(t);S.sel=keyOf(t);renderAll();
+  S.weekStart=mondayOf(t);S.sel=keyOf(t);S.anim=true;renderAll();
 }
 function selectDay(key){
-  S.sel=key;renderStrip();
+  S.sel=key;S.anim=true;renderStrip();
   if(S.tab==='day')renderDay();
   if(S.tab==='tasks'){updateHint();refreshBadges();}
 }
 function setTab(tab){
-  S.tab=tab;renderAll();window.scrollTo(0,0);
+  S.tab=tab;S.anim=true;renderAll();window.scrollTo(0,0);
+}
+
+/* ---------- delen ---------- */
+function rangeText(){
+  const s=S.weekStart,e=addDays(s,6);
+  const m=d=>MONTHS[d.getMonth()];
+  return s.getMonth()===e.getMonth()
+    ?s.getDate()+' – '+e.getDate()+' '+m(e)
+    :s.getDate()+' '+m(s)+' – '+e.getDate()+' '+m(e);
+}
+function weekText(){
+  const lines=['🏡 Huisweek '+rangeText()];
+  let any=false;
+  for(let i=0;i<7;i++){
+    const k=keyOf(addDays(S.weekStart,i));
+    const items=sortTimes(S.plan[k]||[]);
+    if(!items.length)continue;
+    any=true;
+    lines.push('',longLabel(k));
+    items.forEach(function(t){
+      const p=personOf(t.who);
+      const tm=t.time&&t.time!=='any'?TIMES.find(x=>x[0]===t.time):null;
+      lines.push('• '+t.emoji+' '+t.name+' ('+fmtMin(t.min)+')'+(tm?' – '+tm[1].toLowerCase():'')+(p?' – '+p.name:'')+(t.done?' ✅':''));
+    });
+  }
+  if(!any)lines.push('','Nog niets gepland deze week.');
+  return lines.join('\n');
+}
+let TX='';
+async function shareWeek(){
+  TX=weekText();
+  try{
+    if(navigator.share){await navigator.share({title:'Huisweek',text:TX});return;}
+  }catch(e){
+    if(e&&e.name==='AbortError')return;
+  }
+  try{
+    await navigator.clipboard.writeText(TX);
+    toast('Weekplanning gekopieerd. Plak hem in WhatsApp.');
+    return;
+  }catch(e){}
+  openSheetWith(renderTextSheet);
+  setTimeout(function(){const t=$('#tx');if(t){t.focus();t.select();}},320);
+}
+function renderTextSheet(){
+  $('#sheet').innerHTML='<div class="backdrop" data-act="closesheet"></div>'
+    +'<div class="panel" role="dialog" aria-modal="true" aria-label="Deel je week"><div class="grab"></div><h2>Deel je week</h2>'
+    +'<p class="help" style="margin:-6px 0 12px">Kopieer deze tekst en plak hem in WhatsApp of een bericht.</p>'
+    +'<textarea class="inp" id="tx" rows="10" readonly style="font-size:15px;line-height:1.4">'+esc(TX)+'</textarea>'
+    +'<div class="actions" style="margin-top:14px"><button type="button" class="btn primary" data-act="closesheet">Sluiten</button></div></div>';
+}
+
+/* ---------- timer ---------- */
+let TM=null;
+function beep(){
+  try{
+    const a=TM&&TM.ac;
+    if(!a)return;
+    if(a.resume)a.resume();
+    [0,.28,.56].forEach(function(d){
+      const o=a.createOscillator(),g=a.createGain();
+      o.frequency.value=880;g.gain.value=.16;
+      o.connect(g);g.connect(a.destination);
+      o.start(a.currentTime+d);o.stop(a.currentTime+d+.16);
+    });
+  }catch(e){}
+}
+function startTimer(key,id,minutes){
+  const it=(S.plan[key]||[]).find(x=>x.id===id);
+  if(!it)return;
+  stopTimer();
+  let ac=null;
+  try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){ac=new AC();if(ac.resume)ac.resume();}}catch(e){}
+  const total=Math.max(1,minutes||it.min)*60;
+  TM={key:key,id:id,name:it.name,emoji:it.emoji,total:total,end:Date.now()+total*1000,paused:false,left:total,over:false,ac:ac,lock:null,iv:null};
+  try{
+    if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){if(TM)TM.lock=l;else l.release();}).catch(function(){});
+  }catch(e){}
+  renderTimer();
+  $('#timer').hidden=false;
+  TM.iv=setInterval(tickTimer,250);
+}
+function stopTimer(){
+  if(!TM)return;
+  clearInterval(TM.iv);
+  try{if(TM.lock)TM.lock.release();}catch(e){}
+  try{if(TM.ac&&TM.ac.close)TM.ac.close();}catch(e){}
+  TM=null;
+  const t=$('#timer');t.hidden=true;t.innerHTML='';
+}
+function tickTimer(){
+  if(!TM||TM.paused)return;
+  TM.left=Math.max(0,Math.ceil((TM.end-Date.now())/1000));
+  paintTimer();
+  if(TM.left===0&&!TM.over){
+    TM.over=true;beep();haptic([200,100,200]);renderTimer();
+  }
+}
+function paintTimer(){
+  if(!TM)return;
+  const m=Math.floor(TM.left/60),s=TM.left%60;
+  const t=$('#tm-time'),r=$('#tm-ring');
+  if(t)t.textContent=pad(m)+':'+pad(s);
+  if(r)r.style.setProperty('--p',Math.round((1-TM.left/TM.total)*100));
+}
+function renderTimer(){
+  if(!TM)return;
+  const el=$('#timer');
+  el.className=TM.over?'tm-over':'';
+  el.innerHTML='<div class="tm-wrap"><div class="tm-top"><button class="linkbtn" type="button" data-act="timerstop">Stop</button></div>'
+    +'<div class="tm-body"><div class="tm-emoji">'+esc(TM.emoji)+'</div><h2>'+esc(TM.name)+'</h2>'
+    +'<div class="tm-ring" id="tm-ring"><div class="tm-in"><b id="tm-time">00:00</b><span>'+(TM.over?'Tijd is om!':(TM.paused?'gepauzeerd':'bezig'))+'</span></div></div></div>'
+    +'<div class="tm-actions">'
+    +(TM.over?'<button class="btn" type="button" data-act="timermore">+ 5 min</button>':'<button class="btn" type="button" data-act="timerpause">'+(TM.paused?'Hervat':'Pauze')+'</button>')
+    +'<button class="btn primary" type="button" data-act="timerdone">Klaar ✅</button></div></div>';
+  paintTimer();
 }
 
 /* ---------- toast ---------- */
@@ -728,15 +975,12 @@ function toast(msg,label,fn){
   toastTimer=setTimeout(function(){t.classList.remove('show');},5000);
 }
 
-/* ---------- render: chrome ---------- */
+/* ---------- opbouw: kader ---------- */
 function renderHead(){
-  const s=S.weekStart,e=addDays(s,6);
-  const m=d=>MONTHS[d.getMonth()];
-  $('#range').textContent=s.getMonth()===e.getMonth()
-    ?s.getDate()+' – '+e.getDate()+' '+m(e)
-    :s.getDate()+' '+m(s)+' – '+e.getDate()+' '+m(e);
-  const cur=keyOf(mondayOf(new Date()))===keyOf(s);
-  $('#wk').textContent='Week '+isoWeek(s)+', '+e.getFullYear()+(cur?' (this week)':'');
+  $('#range').textContent=rangeText();
+  const cur=keyOf(mondayOf(new Date()))===keyOf(S.weekStart);
+  const yr=addDays(S.weekStart,6).getFullYear();
+  $('#wk').textContent='Week '+isoWeek(S.weekStart)+(yr!==new Date().getFullYear()?', '+yr:'')+(cur?' · deze week':'');
 }
 function renderStrip(){
   const strip=$('#strip');
@@ -747,8 +991,8 @@ function renderStrip(){
   for(let i=0;i<7;i++){
     const d=addDays(S.weekStart,i),k=keyOf(d),list=S.plan[k]||[];
     const dots=list.slice(0,4).map(t=>'<i class="dot'+(t.done?' done':'')+'" style="--h:'+catOf(t.cat).hue+'"></i>').join('');
-    html+='<button class="day'+(k===S.sel?' sel':'')+(k===todayKey()?' today':'')+'" data-act="sel" data-key="'+k+'" aria-pressed="'+(k===S.sel)+'" aria-label="'+esc(longLabel(k))+', '+list.length+' tasks">'
-      +'<span class="dn">'+F_SHORT.format(d)+'</span><span class="dd">'+d.getDate()+'</span><span class="dots">'+dots+'</span></button>';
+    html+='<button class="day'+(k===S.sel?' sel':'')+(k===todayKey()?' today':'')+'" data-act="sel" data-key="'+k+'" aria-pressed="'+(k===S.sel)+'" aria-label="'+esc(longLabel(k))+', '+nTaken(list.length)+'">'
+      +'<span class="dn">'+cap(dow(k))+'</span><span class="dd">'+d.getDate()+'</span><span class="dots">'+dots+'</span></button>';
   }
   strip.innerHTML=html;
 }
@@ -761,37 +1005,43 @@ function renderAll(){
   if(S.who!=='all'&&!personOf(S.who))S.who='all';
   if(S.addWho&&!personOf(S.addWho))S.addWho='';
   ensureWeek();
+  $('#main').classList.remove('enter');
   renderHead();renderStrip();renderNav();
   if(S.tab==='day')renderDay();
   else if(S.tab==='week')renderWeek();
   else if(S.tab==='tasks')renderTasks();
   else renderHome();
+  S.anim=false;
+}
+function afterRender(root){
+  root.classList.toggle('enter',!!S.anim);
+  if(S.anim)$$('.swipe',root).forEach(function(r,i){r.style.setProperty('--i',Math.min(i,12));});
 }
 
-/* ---------- render: rows ---------- */
+/* ---------- opbouw: rijen ---------- */
 function planRow(t,key,compact){
   const c=catOf(t.cat),p=personOf(t.who);
   const tm=t.time&&t.time!=='any'?TIMES.find(x=>x[0]===t.time):null;
   return '<div class="swipe plan cat'+(compact?' compact':'')+'" data-key="'+key+'" data-id="'+t.id+'" style="--h:'+c.hue+';--rbg:'+(t.done?'var(--muted)':'var(--ok)')+'">'
-    +'<div class="bg"><span class="bg-r">'+(t.done?'Undo':'Done')+'</span><span class="bg-l">Remove</span></div>'
+    +'<div class="bg"><span class="bg-r">'+(t.done?'Terugzetten':'Klaar')+'</span><span class="bg-l">Verwijderen</span></div>'
     +'<div class="card'+(t.done?' isdone':'')+'">'
     +'<span class="tile">'+esc(t.emoji)+'</span>'
     +'<div class="txt"><div class="nm">'+esc(t.name)+'</div>'
     +'<div class="sub"><span class="cn">'+esc(c.name)+'</span><span>'+fmtMin(t.min)+'</span>'
     +(tm&&compact?'<span>'+tm[1]+'</span>':'')
-    +(t.rid?'<span class="rep" title="Repeats weekly">'+ICON_REPEAT+'</span>':'')+'</div>'
+    +(t.rid?'<span class="rep" title="Herhaalt wekelijks">'+ICON_REPEAT+'</span>':'')+'</div>'
     +(t.note?'<div class="note">'+esc(t.note)+'</div>':'')+'</div>'
     +(p?'<span class="av cat" style="--h:'+p.hue+'" title="'+esc(p.name)+'">'+esc(ini(p.name))+'</span>':'')
-    +'<button class="check" type="button" data-act="check" aria-pressed="'+!!t.done+'" aria-label="'+(t.done?'Mark as not done':'Mark as done')+'">'+ICON_CHECK+'</button>'
+    +'<button class="check'+(S.pop===t.id?' pop':'')+'" type="button" data-act="check" aria-pressed="'+!!t.done+'" aria-label="'+(t.done?'Markeer als niet klaar':'Markeer als klaar')+'">'+ICON_CHECK+'</button>'
     +'</div></div>';
 }
 function whoBar(){
   if(!S.people.length)return '';
-  return '<div class="chips whobar" id="whobar"><button class="chip all'+(S.who==='all'?' on':'')+'" type="button" data-act="whof" data-w="all">Everyone</button>'
+  return '<div class="chips whobar" id="whobar"><button class="chip all'+(S.who==='all'?' on':'')+'" type="button" data-act="whof" data-w="all">Iedereen</button>'
     +S.people.map(p=>'<button class="chip cat'+(S.who===p.id?' on':'')+'" type="button" data-act="whof" data-w="'+p.id+'" style="--h:'+p.hue+'">'+esc(p.name)+'</button>').join('')+'</div>';
 }
 
-/* ---------- render: day ---------- */
+/* ---------- opbouw: dag ---------- */
 function renderDay(){
   const main=$('#main');
   const all=S.plan[S.sel]||[];
@@ -799,17 +1049,20 @@ function renderDay(){
   const done=list.filter(t=>t.done).length;
   const mins=list.reduce((a,t)=>a+t.min,0);
   const pct=list.length?Math.round(done/list.length*100):0;
+  const pts=ptsOf(list),st=streak();
   let html='';
   if(!S.tip&&!all.length&&!S.repeats.length){
-    html+='<div class="tipcard"><h3>Welcome to Home Week</h3><ul>'
-      +'<li><b>Tasks tab:</b> swipe a task right to plan it on the day you picked.</li>'
-      +'<li><b>Tap any task</b> to choose days, a time of day, who does it, or repeat it every week.</li>'
-      +'<li><b>Day tab:</b> swipe right when it is done, left to remove it.</li></ul>'
-      +'<div class="row"><button class="btn primary" type="button" data-act="starter">Add a starter routine</button><button class="btn" type="button" data-act="tipdone">Start from scratch</button></div></div>';
+    html+='<div class="tipcard"><h3>Welkom bij Huisweek</h3><ul>'
+      +'<li><b>Tab Taken:</b> veeg een taak naar rechts om hem te plannen op de dag die je hebt gekozen.</li>'
+      +'<li><b>Tik op een taak</b> om dagen, een dagdeel, wie het doet of een wekelijkse herhaling te kiezen.</li>'
+      +'<li><b>Tab Dag:</b> veeg naar rechts als het klaar is, naar links om te verwijderen.</li></ul>'
+      +'<div class="row"><button class="btn primary" type="button" data-act="starter">Startroutine toevoegen</button><button class="btn" type="button" data-act="tipdone">Zelf beginnen</button></div></div>';
   }
   html+=whoBar();
-  html+='<section class="dayhead"><h2>'+esc(longLabel(S.sel))+'</h2><p>'
-    +(list.length?done+' of '+list.length+' done, '+fmtMin(mins)+' planned':(all.length?'Nothing here for this person':'Nothing planned yet'))+'</p>'
+  html+='<section class="dayhead">'+(S.sel===todayKey()?'<p class="greet">'+greet()+' 👋</p>':'')
+    +'<h2>'+esc(longLabel(S.sel))+'</h2><p>'
+    +(list.length?done+' van '+list.length+' klaar, '+fmtMin(mins)+' gepland':(all.length?'Niets voor deze persoon':'Nog niets gepland'))+'</p>'
+    +((st>0||pts>0)?'<div class="pills">'+(st>0?'<span class="pill">🔥 '+st+(st===1?' dag':' dagen')+' op rij</span>':'')+(pts>0?'<span class="pill">⭐ '+pts+' punten</span>':'')+'</div>':'')
     +(list.length?'<div class="prog" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>':'')
     +'</section>';
   if(list.length){
@@ -819,21 +1072,22 @@ function renderDay(){
       return (flat?'':'<h3 class="tgrp">'+g.tm[2]+' '+g.tm[1]+'</h3>')
         +'<div class="list">'+g.items.map(t=>planRow(t,S.sel)).join('')+'</div>';
     }).join('');
-    html+='<p class="tip">Swipe right to finish a task, left to remove it. Tap a task to edit it.</p>'
-      +'<button class="addmore" type="button" data-act="tab" data-tab="tasks">Add more tasks</button>'
-      +'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearday">Clear this day</button></div>';
+    html+='<p class="tip">Veeg naar rechts om af te ronden, naar links om te verwijderen. Tik op een taak om hem aan te passen.</p>'
+      +'<button class="addmore" type="button" data-act="tab" data-tab="tasks">Meer taken toevoegen</button>'
+      +'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearday">Deze dag leegmaken</button></div>';
   }else if(!all.length){
-    html+='<div class="empty"><div class="big">🗓️</div><h3>This day is open</h3>'
-      +'<p>Pick tasks in the Tasks tab and swipe them right to plan this day.</p>'
-      +'<button class="btn primary" type="button" data-act="tab" data-tab="tasks">Browse tasks</button>'
-      +(S.repeats.length?'':'<div><button class="linkbtn" type="button" data-act="starter">Or add a starter routine</button></div>')
+    html+='<div class="empty"><div class="big">🗓️</div><h3>Deze dag is nog leeg</h3>'
+      +'<p>Kies taken in het tabblad Taken en veeg ze naar rechts om deze dag te plannen.</p>'
+      +'<button class="btn primary" type="button" data-act="tab" data-tab="tasks">Taken bekijken</button>'
+      +(S.repeats.length?'':'<div><button class="linkbtn" type="button" data-act="starter">Of voeg een startroutine toe</button></div>')
       +'</div>';
   }
   main.innerHTML=html;
   bindSwipes(main);
+  afterRender(main);
 }
 
-/* ---------- render: week ---------- */
+/* ---------- opbouw: week ---------- */
 function renderWeek(){
   const main=$('#main');
   let html=whoBar();
@@ -843,49 +1097,51 @@ function renderWeek(){
     const mins=list.reduce((a,t)=>a+t.min,0);
     html+='<section class="wk'+(k===todayKey()?' today':'')+'">'
       +'<button class="wk-head" type="button" data-act="openday" data-key="'+k+'">'
-      +'<span class="wk-name">'+F_SHORT.format(d)+' <b>'+d.getDate()+'</b></span>'
-      +'<span class="wk-meta">'+(list.length?list.length+(list.length===1?' task, ':' tasks, ')+fmtMin(mins):'No tasks')+'</span></button>';
+      +'<span class="wk-name">'+cap(dow(k))+' <b>'+d.getDate()+'</b></span>'
+      +'<span class="wk-meta">'+(list.length?nTaken(list.length)+', '+fmtMin(mins):'Geen taken')+'</span></button>';
     if(list.length)html+='<div class="list">'+list.map(t=>planRow(t,k,true)).join('')+'</div>';
-    else html+='<div class="wk-empty"><span>Free day</span><button type="button" data-act="planday" data-key="'+k+'">Add tasks</button></div>';
+    else html+='<div class="wk-empty"><span>Vrije dag</span><button type="button" data-act="planday" data-key="'+k+'">Taken toevoegen</button></div>';
     html+='</section>';
   }
+  html+='<button class="btn wide" type="button" data-act="shareweek">📤 Deel deze week</button>';
   main.innerHTML=html;
   bindSwipes(main);
+  afterRender(main);
 }
 
-/* ---------- render: tasks ---------- */
+/* ---------- opbouw: taken ---------- */
 function libRow(t){
   const c=catOf(t.cat);
   return '<div class="swipe lib cat" data-tid="'+t.id+'"'+(t.custom?' data-custom="1"':'')+' style="--h:'+c.hue+'">'
-    +'<div class="bg"><span class="bg-r">Add</span><span class="bg-l">Delete</span></div>'
+    +'<div class="bg"><span class="bg-r">Toevoegen</span><span class="bg-l">Verwijderen</span></div>'
     +'<div class="card">'
     +'<span class="tile">'+esc(t.emoji)+'</span>'
     +'<div class="txt"><div class="nm">'+esc(t.name)+'</div><div class="sub"><span>'+fmtMin(t.min)+'</span></div></div>'
     +'<span class="planned" hidden></span>'
-    +'<button class="addbtn" type="button" data-act="add" aria-label="Add '+esc(t.name)+' to the selected day">'+ICON_PLUS+'</button>'
+    +'<button class="addbtn" type="button" data-act="add" aria-label="Voeg '+esc(t.name)+' toe aan de gekozen dag">'+ICON_PLUS+'</button>'
     +'</div></div>';
 }
 function assignBar(){
   if(!S.people.length)return '';
-  return '<p class="hint sm">Assign new tasks to</p><div class="chips" id="assignbar">'
-    +'<button class="chip all'+(!S.addWho?' on':'')+'" type="button" data-act="assignto" data-w="">Nobody</button>'
+  return '<p class="hint sm">Nieuwe taken toewijzen aan</p><div class="chips" id="assignbar">'
+    +'<button class="chip all'+(!S.addWho?' on':'')+'" type="button" data-act="assignto" data-w="">Niemand</button>'
     +S.people.map(p=>'<button class="chip cat'+(S.addWho===p.id?' on':'')+'" type="button" data-act="assignto" data-w="'+p.id+'" style="--h:'+p.hue+'">'+esc(p.name)+'</button>').join('')+'</div>';
 }
 function renderTasks(){
   const main=$('#main');
-  const chips='<button class="chip all'+(S.filter==='all'?' on':'')+'" type="button" data-act="filter" data-f="all">All</button>'
+  const chips='<button class="chip all'+(S.filter==='all'?' on':'')+'" type="button" data-act="filter" data-f="all">Alle</button>'
     +allCats().map(c=>'<button class="chip cat'+(S.filter===c.id?' on':'')+'" type="button" data-act="filter" data-f="'+c.id+'" style="--h:'+c.hue+'"><span>'+esc(c.emoji)+'</span>'+esc(c.name)+'</button>').join('');
   main.innerHTML='<p class="hint" id="hint"></p>'
     +assignBar()
-    +'<div class="tools"><div class="search">'+ICON_SEARCH+'<input id="q" type="search" placeholder="Search '+allTasks().length+' tasks" value="'+esc(S.q)+'" autocomplete="off" enterkeyhint="search" aria-label="Search tasks"></div>'
-    +'<button class="btn-new" type="button" data-act="newtask">New task</button></div>'
+    +'<div class="tools"><div class="search">'+ICON_SEARCH+'<input id="q" type="search" placeholder="Zoek in '+allTasks().length+' taken" value="'+esc(S.q)+'" autocomplete="off" enterkeyhint="search" aria-label="Zoek taken"></div>'
+    +'<button class="btn-new" type="button" data-act="newtask">Nieuwe taak</button></div>'
     +'<div class="chips" id="chips">'+chips+'</div>'
     +'<div id="tasklist"></div>';
   renderTaskList();updateHint();
 }
 function updateHint(){
   const h=$('#hint');
-  if(h)h.innerHTML='Swipe a task right to add it to <b>'+esc(midLabel(S.sel))+'</b>. Tap a task to pick days, time or repeat.';
+  if(h)h.innerHTML='Veeg een taak naar rechts om hem toe te voegen aan <b>'+esc(midLabel(S.sel))+'</b>. Tik op een taak voor dagen, tijd of herhaling.';
 }
 function renderTaskList(){
   const el=$('#tasklist');
@@ -896,8 +1152,8 @@ function renderTaskList(){
   })).filter(g=>g.items.length);
   if(!groups.length){
     el.innerHTML=q
-      ?'<div class="empty small"><p>No task matches “'+esc(S.q.trim())+'”.</p><button class="btn primary" type="button" data-act="newtask" data-name="'+esc(S.q.trim())+'">Create this task</button></div>'
-      :'<div class="empty small"><p>No tasks in this branch yet.</p><button class="btn primary" type="button" data-act="newtask" data-cat="'+esc(S.filter)+'">New task</button></div>';
+      ?'<div class="empty small"><p>Geen taak gevonden voor “'+esc(S.q.trim())+'”.</p><button class="btn primary" type="button" data-act="newtask" data-name="'+esc(S.q.trim())+'">Deze taak maken</button></div>'
+      :'<div class="empty small"><p>Nog geen taken in deze categorie.</p><button class="btn primary" type="button" data-act="newtask" data-cat="'+esc(S.filter)+'">Nieuwe taak</button></div>';
     return;
   }
   el.innerHTML=groups.map(g=>'<section class="grp cat" style="--h:'+g.c.hue+'"><h3><span class="ge">'+esc(g.c.emoji)+'</span>'+esc(g.c.name)+'<span class="gc">'+g.items.length+'</span></h3><div class="list">'+g.items.map(libRow).join('')+'</div></section>').join('');
@@ -912,49 +1168,67 @@ function refreshBadges(){
     const n=counts[r.dataset.tid]||0;
     const b=r.querySelector('.planned');
     b.hidden=!n;
-    b.textContent='On '+d+(n>1?' ×'+n:'');
-    r.querySelector('.bg-r').textContent='Add to '+d;
+    b.textContent='Op '+d+(n>1?' ×'+n:'');
+    r.querySelector('.bg-r').textContent='Toevoegen aan '+d;
   });
 }
 
-/* ---------- render: home ---------- */
+/* ---------- opbouw: thuis ---------- */
 let HOME_GROUPS=[];
 function renderHome(){
   const main=$('#main');
-  const items=[];
-  for(let i=0;i<7;i++){(S.plan[keyOf(addDays(S.weekStart,i))]||[]).forEach(t=>items.push(t));}
+  const items=weekItems();
   const total=items.length,done=items.filter(t=>t.done).length;
   const pct=total?Math.round(done/total*100):0;
-  const tm=items.reduce((a,t)=>a+t.min,0),dm=items.filter(t=>t.done).reduce((a,t)=>a+t.min,0);
-  let html='<div class="hcard"><div class="sum"><div class="ring" style="--p:'+pct+'"><div class="ring-in"><b>'+pct+'%</b></div></div>'
-    +'<div><h3>'+(total?done+' of '+total+' done':'Nothing planned')+'</h3><p>'
-    +(total?fmtMin(dm)+' finished of '+fmtMin(tm)+' this week':'Plan some tasks to see your week take shape.')+'</p></div></div></div>';
+  const tm=items.reduce((a,t)=>a+t.min,0),dm=ptsOf(items);
+  const all=totalPoints(),li=levelIndex(all),lv=LEVELS[li],nx=LEVELS[li+1];
+  const st=streak();
+
+  let html='<div class="hcard hero"><div class="hero-top"><div class="lvl-emoji">'+lv[2]+'</div><div><div class="lvl-name">'+lv[1]+'</div>'
+    +'<div class="lvl-sub">'+(nx?'Nog '+(nx[0]-all)+' punten tot '+nx[1]:'Hoogste niveau bereikt!')+'</div></div></div>'
+    +'<div class="hbar"><i style="width:'+(nx?Math.round((all-lv[0])/(nx[0]-lv[0])*100):100)+'%"></i></div>'
+    +'<div class="stats3"><div><b>🔥 '+st+'</b><span>'+(st===1?'dag':'dagen')+' op rij</span></div>'
+    +'<div><b>⭐ '+dm+'</b><span>deze week</span></div><div><b>🏆 '+all+'</b><span>totaal</span></div></div></div>';
+
+  html+='<div class="hcard"><div class="sum"><div class="ring" style="--p:'+pct+'"><div class="ring-in"><b>'+pct+'%</b></div></div>'
+    +'<div><h3>'+(total?done+' van '+total+' klaar':'Niets gepland')+'</h3><p>'
+    +(total?fmtMin(dm)+' klaar van '+fmtMin(tm)+' deze week':'Plan taken om je week vorm te zien krijgen.')+'</p></div></div></div>';
 
   const byCat={};
   items.forEach(function(t){const o=byCat[t.cat]=byCat[t.cat]||{n:0,d:0};o.n++;if(t.done)o.d++;});
   const catRows=allCats().filter(c=>byCat[c.id]);
   if(catRows.length){
-    html+='<div class="hcard"><h3>This week by branch</h3>'
+    html+='<div class="hcard"><h3>Deze week per categorie</h3>'
       +catRows.map(function(c){
         const o=byCat[c.id];
         return '<div class="brow cat" style="--h:'+c.hue+'"><span class="bn">'+esc(c.emoji)+' '+esc(c.name)+'</span><div class="track"><i style="width:'+Math.round(o.d/o.n*100)+'%"></i></div><span class="bc">'+o.d+'/'+o.n+'</span></div>';
       }).join('')+'</div>';
   }
 
-  html+='<div class="hcard"><h3>People</h3>';
+  const board=S.people.map(p=>({p:p,pts:ptsOf(items.filter(t=>t.who===p.id))})).sort((a,b)=>b.pts-a.pts);
+  if(board.length&&board[0].pts>0){
+    html+='<div class="hcard"><h3>Ranglijst deze week</h3>'
+      +board.map(function(r,i){
+        return '<div class="prow"><span class="medal">'+(r.pts>0&&i<3?['🥇','🥈','🥉'][i]:'')+'</span>'
+          +'<span class="av cat" style="--h:'+r.p.hue+'">'+esc(ini(r.p.name))+'</span>'
+          +'<div class="pt"><b>'+esc(r.p.name)+'</b></div><span class="pts">⭐ '+r.pts+'</span></div>';
+      }).join('')+'</div>';
+  }
+
+  html+='<div class="hcard"><h3>Mensen</h3>';
   if(S.people.length){
     const un=items.filter(t=>!t.who);
     html+=S.people.map(function(p){
       const mine=items.filter(t=>t.who===p.id);
       const mm=mine.reduce((a,t)=>a+t.min,0);
-      return '<div class="prow"><span class="av cat" style="--h:'+p.hue+'">'+esc(ini(p.name))+'</span><div class="pt"><b>'+esc(p.name)+'</b><span>'+(mine.length?mine.length+(mine.length===1?' task, ':' tasks, ')+fmtMin(mm)+' this week':'No tasks this week')+'</span></div>'
-        +'<button class="iconbtn" type="button" data-act="delperson" data-id="'+p.id+'" aria-label="Remove '+esc(p.name)+'">'+ICON_X+'</button></div>';
+      return '<div class="prow"><span class="av cat" style="--h:'+p.hue+'">'+esc(ini(p.name))+'</span><div class="pt"><b>'+esc(p.name)+'</b><span>'+(mine.length?nTaken(mine.length)+', '+fmtMin(mm)+' deze week':'Geen taken deze week')+'</span></div>'
+        +'<button class="iconbtn" type="button" data-act="delperson" data-id="'+p.id+'" aria-label="Verwijder '+esc(p.name)+'">'+ICON_X+'</button></div>';
     }).join('');
-    if(un.length)html+='<p class="sm" style="margin:8px 0 0;color:var(--muted);font-size:13.5px">'+un.length+(un.length===1?' task':' tasks')+' not assigned to anyone.</p>';
+    if(un.length)html+='<p class="sm" style="margin:8px 0 0;color:var(--muted);font-size:13.5px">'+nTaken(un.length)+' zonder eigenaar.</p>';
   }else{
-    html+='<p class="sm">Add the people you share the house with, then give each task an owner.</p>';
+    html+='<p class="sm">Voeg de mensen toe met wie je het huis deelt en geef elke taak een eigenaar.</p>';
   }
-  html+='<div class="addrow"><input class="inp" id="p-name" type="text" maxlength="20" placeholder="Name" autocomplete="off"><button class="btn primary" type="button" data-act="addperson">Add</button></div></div>';
+  html+='<div class="addrow"><input class="inp" id="p-name" type="text" maxlength="20" placeholder="Naam" autocomplete="off"><button class="btn primary" type="button" data-act="addperson">Toevoegen</button></div></div>';
 
   const g={};
   S.repeats.forEach(function(r){
@@ -962,34 +1236,37 @@ function renderHome(){
     (g[k]=g[k]||{r:r,wds:[]}).wds.push(r.wd);
   });
   HOME_GROUPS=Object.keys(g).map(k=>g[k]);
-  html+='<div class="hcard"><h3>Weekly routines</h3>';
+  const WD=['ma','di','wo','do','vr','za','zo'];
+  html+='<div class="hcard"><h3>Wekelijkse routines</h3>';
   if(HOME_GROUPS.length){
     html+=HOME_GROUPS.map(function(gr,i){
       const c=catOf(gr.r.cat);
       const wds=gr.wds.slice().sort((a,b)=>a-b);
-      const label=wds.length===7?'Every day':wds.map(x=>WD[x]).join(', ');
+      const label=wds.length===7?'Elke dag':wds.map(x=>WD[x]).join(', ');
       return '<div class="prow cat" style="--h:'+c.hue+'"><span class="tile">'+esc(gr.r.emoji)+'</span><div class="pt"><b>'+esc(gr.r.name)+'</b><span>'+label+'</span></div>'
         +'<button class="textbtn" type="button" data-act="stoprule" data-gi="'+i+'">Stop</button></div>';
     }).join('');
-    html+='<p class="sm" style="margin:10px 0 0;color:var(--muted);font-size:13.5px">Routines fill in every week on their own. Tap any task to make it repeat.</p>';
+    html+='<p class="sm" style="margin:10px 0 0;color:var(--muted);font-size:13.5px">Routines vullen elke week vanzelf aan. Tik op een taak om hem te laten herhalen.</p>';
   }else{
-    html+='<p class="sm">Tasks you repeat show up here. Try a ready-made set to begin.</p>'
-      +'<button class="btn wide" type="button" data-act="starter">Add a starter routine</button>';
+    html+='<p class="sm">Taken die je herhaalt staan hier. Begin met een kant-en-klare set.</p>'
+      +'<button class="btn wide" type="button" data-act="starter">Startroutine toevoegen</button>';
   }
   html+='</div>';
 
-  html+='<div class="hcard"><h3>Week tools</h3><div class="stack">'
-    +'<button class="btn wide" type="button" data-act="copyweek">Copy this week to next week</button>'
+  html+='<div class="hcard"><h3>Weektools</h3><div class="stack">'
+    +'<button class="btn wide" type="button" data-act="splitfair">⚖️ Verdeel taken eerlijk</button>'
+    +'<button class="btn wide" type="button" data-act="shareweek">📤 Deel je week</button>'
+    +'<button class="btn wide" type="button" data-act="copyweek">📅 Kopieer deze week naar volgende week</button>'
+    +'</div><p class="sm" style="margin:12px 0 0;color:var(--muted);font-size:13.5px">Eerlijk verdelen geeft taken zonder eigenaar aan wie het minste te doen heeft.</p></div>';
+
+  html+='<div class="hcard"><h3>Uiterlijk</h3><div class="seg" role="group" aria-label="Thema">'
+    +[['auto','Auto'],['light','Licht'],['dark','Donker']].map(x=>'<button type="button" data-act="theme" data-th="'+x[0]+'" aria-pressed="'+(S.theme===x[0])+'">'+x[1]+'</button>').join('')
     +'</div></div>';
 
-  html+='<div class="hcard"><h3>Appearance</h3><div class="seg" role="group" aria-label="Theme">'
-    +['auto','light','dark'].map(x=>'<button type="button" data-act="theme" data-th="'+x+'" aria-pressed="'+(S.theme===x)+'">'+x.charAt(0).toUpperCase()+x.slice(1)+'</button>').join('')
-    +'</div></div>';
+  html+='<div class="hcard"><h3>Help</h3><button class="btn wide" type="button" data-act="intro">Bekijk de intro opnieuw</button></div>';
 
-  html+='<div class="hcard"><h3>Help</h3><button class="btn wide" type="button" data-act="intro">Watch the intro again</button></div>';
-
-  html+='<div class="hcard"><h3>Your data</h3><p class="sm">Everything is saved on this device only.</p>'
-    +'<button class="btn danger wide" type="button" data-act="reset">Erase all my data</button></div>';
+  html+='<div class="hcard"><h3>Jouw gegevens</h3><p class="sm">Alles wordt alleen op dit apparaat bewaard.</p>'
+    +'<button class="btn danger wide" type="button" data-act="reset">Wis al mijn gegevens</button></div>';
   main.innerHTML=html;
 }
 
@@ -1018,7 +1295,7 @@ function minChips(cur){
   return [5,10,15,20,30,45,60,90].map(m=>'<button type="button" class="opt'+(cur===m?' on':'')+'" data-act="'+(TS?'tmin':'fmin')+'" data-m="'+m+'">'+fmtMin(m)+'</button>').join('');
 }
 
-/* new custom task */
+/* nieuwe taak */
 function openNewTask(preset){
   preset=preset||{};
   FM={name:preset.name||'',cat:preset.cat||(S.filter!=='all'?S.filter:'cleaning'),min:15,also:true,nb:false,bname:'',bemoji:'📌',err:''};
@@ -1028,28 +1305,28 @@ function openNewTask(preset){
 function renderNewTask(focusId){
   const sh=$('#sheet');
   sh.innerHTML='<div class="backdrop" data-act="closesheet"></div>'
-  +'<div class="panel" role="dialog" aria-modal="true" aria-label="New task">'
-  +'<div class="grab"></div><h2>New task</h2>'
-  +'<label class="fld"><span>Task</span><input class="inp" id="f-name" type="text" maxlength="60" placeholder="For example: Clean the oven" autocomplete="off" value="'+esc(FM.name)+'"></label>'
-  +'<div class="fld"><span>Branch</span><div class="opts">'
+  +'<div class="panel" role="dialog" aria-modal="true" aria-label="Nieuwe taak">'
+  +'<div class="grab"></div><h2>Nieuwe taak</h2>'
+  +'<label class="fld"><span>Taak</span><input class="inp" id="f-name" type="text" maxlength="60" placeholder="Bijvoorbeeld: Oven schoonmaken" autocomplete="off" value="'+esc(FM.name)+'"></label>'
+  +'<div class="fld"><span>Categorie</span><div class="opts">'
   +allCats().map(c=>'<button type="button" class="opt cat'+(!FM.nb&&FM.cat===c.id?' on':'')+'" data-act="fcat" data-c="'+c.id+'" style="--h:'+c.hue+'">'+esc(c.emoji)+' '+esc(c.name)+'</button>').join('')
-  +'<button type="button" class="opt'+(FM.nb?' on':'')+'" data-act="fnb">+ New branch</button></div></div>'
-  +(FM.nb?'<div class="row2"><label class="fld em"><span>Icon</span><input class="inp" id="f-bemoji" maxlength="4" value="'+esc(FM.bemoji)+'"></label>'
-    +'<label class="fld grow"><span>Branch name</span><input class="inp" id="f-bname" maxlength="24" placeholder="For example: Garage" value="'+esc(FM.bname)+'"></label></div>':'')
-  +'<div class="fld"><span>Time needed</span><div class="opts">'+minChips(FM.min)+'</div></div>'
-  +'<button type="button" class="toggle" role="switch" aria-checked="'+FM.also+'" data-act="falso"><span>Also add to '+esc(midLabel(S.sel))+'</span><i class="knob"></i></button>'
+  +'<button type="button" class="opt'+(FM.nb?' on':'')+'" data-act="fnb">+ Nieuwe categorie</button></div></div>'
+  +(FM.nb?'<div class="row2"><label class="fld em"><span>Icoon</span><input class="inp" id="f-bemoji" maxlength="4" value="'+esc(FM.bemoji)+'"></label>'
+    +'<label class="fld grow"><span>Naam categorie</span><input class="inp" id="f-bname" maxlength="24" placeholder="Bijvoorbeeld: Garage" value="'+esc(FM.bname)+'"></label></div>':'')
+  +'<div class="fld"><span>Benodigde tijd</span><div class="opts">'+minChips(FM.min)+'</div></div>'
+  +'<button type="button" class="toggle" role="switch" aria-checked="'+FM.also+'" data-act="falso"><span>Ook toevoegen aan '+esc(midLabel(S.sel))+'</span><i class="knob"></i></button>'
   +(FM.err?'<p class="err">'+esc(FM.err)+'</p>':'')
-  +'<div class="actions"><button type="button" class="btn ghost" data-act="closesheet">Cancel</button><button type="button" class="btn primary" data-act="savetask">Save task</button></div>'
+  +'<div class="actions"><button type="button" class="btn ghost" data-act="closesheet">Annuleren</button><button type="button" class="btn primary" data-act="savetask">Taak opslaan</button></div>'
   +'</div>';
   if(focusId){const i=$('#'+focusId);if(i)i.focus();}
 }
 function saveNewTask(){
   const name=FM.name.trim();
-  if(!name){FM.err='Give the task a name.';redraw('f-name');return;}
+  if(!name){FM.err='Geef de taak een naam.';redraw('f-name');return;}
   let cat=FM.cat;
   if(FM.nb){
     const bn=FM.bname.trim();
-    if(!bn){FM.err='Name the new branch.';redraw('f-bname');return;}
+    if(!bn){FM.err='Geef de nieuwe categorie een naam.';redraw('f-bname');return;}
     cat='x'+uid();
     S.customCats.push({id:cat,name:bn,emoji:(FM.bemoji||'📌').trim()||'📌',hue:EXTRA_HUES[S.customCats.length%EXTRA_HUES.length]});
     S.filter=cat;
@@ -1059,15 +1336,15 @@ function saveNewTask(){
   const also=FM.also;
   if(also)(S.plan[S.sel]=S.plan[S.sel]||[]).push({id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:'any',who:S.addWho||null,note:'',done:false});
   save();closeSheet();renderAll();
-  toast(also?'Saved and added to '+dow(S.sel):'Task saved');
+  toast(also?'Opgeslagen en toegevoegd aan '+dow(S.sel):'Taak opgeslagen');
 }
 
-/* plan / edit a task */
+/* taak plannen / aanpassen */
 function openTaskSheet(o){
   if(o.mode==='add'){
     const t=taskById(o.tid);
     if(!t)return;
-    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,days:[S.sel],time:DEF[t.name]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
+    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,days:[S.sel],time:DEF[t.id]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
   }else{
     const it=(S.plan[o.key]||[]).find(x=>x.id===o.id);
     if(!it)return;
@@ -1081,37 +1358,38 @@ function renderTaskSheet(focusId){
   let days='';
   for(let i=0;i<7;i++){
     const k=keyOf(addDays(S.weekStart,i)),on=T.days.indexOf(k)>=0;
-    days+='<button type="button" class="opt'+(on?' on':'')+'" data-act="tday" data-k="'+k+'" aria-pressed="'+on+'">'+F_SHORT.format(fromKey(k))+' '+fromKey(k).getDate()+'</button>';
+    days+='<button type="button" class="opt'+(on?' on':'')+'" data-act="tday" data-k="'+k+'" aria-pressed="'+on+'">'+cap(dow(k))+' '+fromKey(k).getDate()+'</button>';
   }
   const when=TIMES.slice().sort((a,b)=>(a[0]==='any'?-1:0)-(b[0]==='any'?-1:0)).map(x=>'<button type="button" class="opt'+(T.time===x[0]?' on':'')+'" data-act="ttime" data-t="'+x[0]+'">'+x[2]+' '+x[1]+'</button>').join('');
   const who=S.people.length
-    ?'<div class="fld"><span>Who does it</span><div class="opts"><button type="button" class="opt'+(!T.who?' on':'')+'" data-act="twho" data-w="">Nobody</button>'
+    ?'<div class="fld"><span>Wie doet het</span><div class="opts"><button type="button" class="opt'+(!T.who?' on':'')+'" data-act="twho" data-w="">Niemand</button>'
       +S.people.map(p=>'<button type="button" class="opt cat'+(T.who===p.id?' on':'')+'" data-act="twho" data-w="'+p.id+'" style="--h:'+p.hue+'">'+esc(p.name)+'</button>').join('')+'</div></div>'
     :'';
   const sh=$('#sheet');
   sh.innerHTML='<div class="backdrop" data-act="closesheet"></div>'
-  +'<div class="panel" role="dialog" aria-modal="true" aria-label="'+(multi?'Plan task':'Edit task')+'">'
+  +'<div class="panel" role="dialog" aria-modal="true" aria-label="'+(multi?'Taak plannen':'Taak aanpassen')+'">'
   +'<div class="grab"></div>'
   +'<div class="sh-top"><span class="tile cat" style="--h:'+c.hue+'">'+esc(T.emoji)+'</span>'
-  +(multi?'<h2>'+esc(T.name)+'</h2>':'<input class="inp" id="t-name" type="text" maxlength="60" aria-label="Task name" value="'+esc(T.name)+'">')+'</div>'
-  +'<div class="fld"><span>'+(multi?'Days (pick one or more)':'Day')+'</span><div class="opts">'+days+'</div></div>'
-  +'<div class="fld"><span>When</span><div class="opts">'+when+'</div></div>'
+  +(multi?'<h2>'+esc(T.name)+'</h2>':'<input class="inp" id="t-name" type="text" maxlength="60" aria-label="Naam van de taak" value="'+esc(T.name)+'">')+'</div>'
+  +'<div class="fld"><span>'+(multi?'Dagen (kies er een of meer)':'Dag')+'</span><div class="opts">'+days+'</div></div>'
+  +'<div class="fld"><span>Wanneer</span><div class="opts">'+when+'</div></div>'
   +who
-  +'<div class="fld"><span>Time needed</span><div class="opts">'+minChips(T.min)+'</div></div>'
-  +'<label class="fld"><span>Note</span><input class="inp" id="t-note" type="text" maxlength="80" placeholder="Optional" autocomplete="off" value="'+esc(T.note)+'"></label>'
-  +'<button type="button" class="toggle" role="switch" aria-checked="'+T.repeat+'" data-act="trep"><span>Repeat every week'+(multi&&T.days.length>1?' on these days':'')+'</span><i class="knob"></i></button>'
-  +(T.hadRule?'<p class="help">Turn this off to stop repeating from this day on.</p>':'')
+  +'<div class="fld"><span>Benodigde tijd</span><div class="opts">'+minChips(T.min)+'</div></div>'
+  +'<label class="fld"><span>Notitie</span><input class="inp" id="t-note" type="text" maxlength="80" placeholder="Optioneel" autocomplete="off" value="'+esc(T.note)+'"></label>'
+  +'<button type="button" class="toggle" role="switch" aria-checked="'+T.repeat+'" data-act="trep"><span>Elke week herhalen'+(multi&&T.days.length>1?' op deze dagen':'')+'</span><i class="knob"></i></button>'
+  +(T.hadRule?'<p class="help">Zet dit uit om vanaf deze dag te stoppen met herhalen.</p>':'')
+  +(multi?'':'<button type="button" class="btn wide" data-act="timerstart" style="margin-bottom:12px">⏱️ Timer starten ('+fmtMin(T.min)+')</button>')
   +(T.err?'<p class="err">'+esc(T.err)+'</p>':'')
   +'<div class="actions">'
-  +(multi?'<button type="button" class="btn ghost" data-act="closesheet">Cancel</button><button type="button" class="btn primary" data-act="tsave">Add to '+T.days.length+(T.days.length===1?' day':' days')+'</button>'
-         :'<button type="button" class="btn danger" data-act="tdelete">Delete</button><button type="button" class="btn primary" data-act="tsave">Save</button>')
+  +(multi?'<button type="button" class="btn ghost" data-act="closesheet">Annuleren</button><button type="button" class="btn primary" data-act="tsave">Toevoegen aan '+T.days.length+(T.days.length===1?' dag':' dagen')+'</button>'
+         :'<button type="button" class="btn danger" data-act="tdelete">Verwijderen</button><button type="button" class="btn primary" data-act="tsave">Opslaan</button>')
   +'</div></div>';
   if(focusId){const i=$('#'+focusId);if(i)i.focus();}
 }
 function saveTaskSheet(){
   const T=TS;
   if(T.mode==='add'){
-    if(!T.days.length){T.err='Pick at least one day.';redraw();return;}
+    if(!T.days.length){T.err='Kies minstens één dag.';redraw();return;}
     const note=T.note.trim();
     T.days.slice().sort().forEach(function(k){
       const item={id:uid(),tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,time:T.time,who:T.who,note:note,done:false};
@@ -1123,14 +1401,14 @@ function saveTaskSheet(){
     });
     const n=T.days.length,rep=T.repeat;
     save();closeSheet();renderAll();
-    toast('Added to '+n+(n===1?' day':' days')+(rep?', repeating weekly':''));
+    toast('Toegevoegd aan '+n+(n===1?' dag':' dagen')+(rep?', herhaalt wekelijks':''));
     return;
   }
   const arr=S.plan[T.key]||[];
   const it=arr.find(x=>x.id===T.id);
   if(!it){closeSheet();return;}
   const name=T.name.trim();
-  if(!name){T.err='Give the task a name.';redraw('t-name');return;}
+  if(!name){T.err='Geef de taak een naam.';redraw('t-name');return;}
   it.name=name;it.min=T.min;it.time=T.time;it.who=T.who;it.note=T.note.trim();
   let rule=it.rid?S.repeats.find(r=>r.id===it.rid):null;
   if(rule&&!T.repeat){
@@ -1157,36 +1435,40 @@ function saveTaskSheet(){
     S.repeats.push(r);it.rid=r.id;
   }
   save();closeSheet();renderAll();
-  toast(newKey!==T.key?'Moved to '+dow(newKey):'Task updated');
+  toast(newKey!==T.key?'Verplaatst naar '+dow(newKey):'Taak bijgewerkt');
 }
 
-/* ---------- intro walkthrough ---------- */
-function mockSwipe(kind,label,emoji,name,hue,trailing){
+/* ---------- intro ---------- */
+function mockSwipe(kind,label,emoji,name,hue){
   return '<div class="ill"><div class="mock cat '+kind+'" style="--h:'+hue+'" aria-hidden="true"><div class="mbg">'+label+'</div>'
-    +'<div class="mcard"><span class="tile cat" style="--h:'+hue+'">'+emoji+'</span><b>'+name+'</b>'+(trailing||'')+'</div></div></div>';
+    +'<div class="mcard"><span class="tile cat" style="--h:'+hue+'">'+emoji+'</span><b>'+name+'</b></div></div></div>';
 }
 const SLIDES=[
-  {ill:mockSwipe('','Add to Mon','🧹','Vacuum the living room',210,''),
-   h:'Swipe tasks into your week',
-   p:'Pick from more than 80 chores, sorted by branch. Swipe a task right to plan it on the day you chose.'},
+  {ill:mockSwipe('','Toevoegen aan ma','🧹','Woonkamer stofzuigen',210),
+   h:'Veeg taken in je week',
+   p:'Kies uit meer dan 80 klusjes, gesorteerd per categorie. Veeg een taak naar rechts om hem te plannen op de dag die je hebt gekozen.'},
   {ill:'<div class="ill"><div class="mock2" aria-hidden="true">'
-      +'<div class="opts"><span class="opt on">Mon</span><span class="opt">Tue</span><span class="opt on">Wed</span><span class="opt">Thu</span></div>'
-      +'<div class="opts"><span class="opt">Anytime</span><span class="opt">☀️ Morning</span><span class="opt on">🌙 Evening</span></div>'
-      +'<div class="toggle" aria-checked="true"><span>Repeat every week</span><i class="knob"></i></div></div></div>',
-   h:'Tap a task to make it yours',
-   p:'Choose days, a time of day and who does it. Switch on repeat and it comes back every week.'},
-  {ill:mockSwipe('done','Done','🍽️','Load the dishwasher',175,'<span class="check" style="pointer-events:none"></span>'),
-   h:'Swipe right when it is done',
-   p:'Swipe left to remove a task. Made a mistake? Undo is always one tap away.'}
+      +'<div class="opts"><span class="opt on">Ma</span><span class="opt">Di</span><span class="opt on">Wo</span><span class="opt">Do</span></div>'
+      +'<div class="opts"><span class="opt">Flexibel</span><span class="opt">☀️ Ochtend</span><span class="opt on">🌙 Avond</span></div>'
+      +'<div class="toggle" aria-checked="true"><span>Elke week herhalen</span><i class="knob"></i></div></div></div>',
+   h:'Tik op een taak en maak hem van jou',
+   p:'Kies dagen, een dagdeel en wie het doet. Zet herhalen aan en de taak komt elke week terug.'},
+  {ill:mockSwipe('done','Klaar','🍽️','Vaatwasser inruimen',175),
+   h:'Veeg naar rechts als het klaar is',
+   p:'Veeg naar links om een taak te verwijderen. Iets fout gedaan? Ongedaan maken kan altijd.'},
+  {ill:'<div class="ill"><div class="mock2" aria-hidden="true"><div class="lvlrow"><span>🦸</span><div><b>Huishoudheld</b><small>Nog 120 punten tot Klusbaas</small></div></div>'
+      +'<div class="bar2"><i></i></div><div class="opts"><span class="opt on">🔥 3 dagen op rij</span><span class="opt">⭐ 85 punten</span></div></div></div>',
+   h:'Verdien punten en houd je reeks vol',
+   p:'Elke klus levert punten op. Rond dagen af, bouw een reeks op en stijg in niveau. Met confetti natuurlijk.'}
 ];
 let IN=0;
 function renderIntro(anim){
   const el=$('#intro');
   const s=SLIDES[IN],last=IN===SLIDES.length-1;
-  el.innerHTML='<div class="in-wrap"><div class="in-top">'+(last?'':'<button class="linkbtn" type="button" data-act="introskip">Skip</button>')+'</div>'
+  el.innerHTML='<div class="in-wrap"><div class="in-top">'+(last?'':'<button class="linkbtn" type="button" data-act="introskip">Overslaan</button>')+'</div>'
     +'<div class="in-body'+(anim?' anim':'')+'">'+s.ill+'<h2>'+s.h+'</h2><p>'+s.p+'</p></div>'
     +'<div class="in-bot"><div class="dots2" aria-hidden="true">'+SLIDES.map((_,i)=>'<i'+(i===IN?' class="on"':'')+'></i>').join('')+'</div>'
-    +'<button class="btn primary wide" type="button" data-act="intronext" style="padding:15px;font-size:16.5px">'+(last?'Get started':'Next')+'</button></div></div>';
+    +'<button class="btn primary wide" type="button" data-act="intronext" style="padding:15px;font-size:16.5px">'+(last?'Aan de slag':'Volgende')+'</button></div></div>';
 }
 function openIntro(){
   IN=0;
@@ -1195,17 +1477,15 @@ function openIntro(){
   renderIntro(false);
 }
 function finishIntro(){
-  S.intro=true;save();
+  S.intro=INTRO_V;save();
   const el=$('#intro');
   el.classList.add('out');
   setTimeout(function(){el.hidden=true;el.innerHTML='';},320);
 }
-
-/* ---------- splash ---------- */
 function runSplash(){
   const sp=$('#splash');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!S.intro)openIntro();
+  if(S.intro<INTRO_V)openIntro();
   let closed=false;
   function close(){
     if(closed)return;closed=true;
@@ -1216,7 +1496,7 @@ function runSplash(){
   setTimeout(close,reduce?900:2200);
 }
 
-/* ---------- home screen icon fallback ---------- */
+/* ---------- app-icoon als terugval ---------- */
 (function(){
   const link=document.querySelector('link[rel="apple-touch-icon"]');
   if(!link)return;
@@ -1266,12 +1546,14 @@ document.addEventListener('click',function(e){
     S.addWho=b.dataset.w;
     $$('#assignbar .chip').forEach(c=>c.classList.toggle('on',c.dataset.w===S.addWho));
   }
-  else if(a==='openday'){S.sel=b.dataset.key;S.tab='day';renderAll();window.scrollTo(0,0);}
+  else if(a==='openday'){S.sel=b.dataset.key;S.tab='day';S.anim=true;renderAll();window.scrollTo(0,0);}
   else if(a==='planday'){S.sel=b.dataset.key;S.tab='tasks';renderAll();window.scrollTo(0,0);}
   else if(a==='clearday')clearDay();
   else if(a==='starter')addStarter();
   else if(a==='tipdone'){S.tip=true;save();renderDay();}
   else if(a==='copyweek')copyWeek();
+  else if(a==='splitfair')splitFair();
+  else if(a==='shareweek')shareWeek();
   else if(a==='addperson'){
     const i=$('#p-name');
     if(i&&addPerson(i.value)){const n=$('#p-name');if(n)n.focus();}
@@ -1284,19 +1566,19 @@ document.addEventListener('click',function(e){
       const before=snap();
       S.repeats.filter(r=>r.tid===gr.r.tid&&r.name===gr.r.name).map(r=>r.id).forEach(id=>dropRule(id,todayKey()));
       save();renderAll();
-      toast('Stopped “'+gr.r.name+'”','Undo',function(){restore(before);});
+      toast('Gestopt met “'+gr.r.name+'”','Ongedaan maken',function(){restore(before);});
     }
   }
   else if(a==='theme'){S.theme=b.dataset.th;applyTheme();save();renderHome();}
   else if(a==='reset'){
-    b.dataset.act='reset2';b.textContent='Tap again to erase everything';
-    setTimeout(function(){if(b.isConnected&&b.dataset.act==='reset2'){b.dataset.act='reset';b.textContent='Erase all my data';}},4000);
+    b.dataset.act='reset2';b.textContent='Tik nogmaals om alles te wissen';
+    setTimeout(function(){if(b.isConnected&&b.dataset.act==='reset2'){b.dataset.act='reset';b.textContent='Wis al mijn gegevens';}},4000);
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=false;S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();S.tab='day';renderAll();window.scrollTo(0,0);
-    toast('All data erased');
+    toast('Alle gegevens gewist');
   }
   else if(a==='intro')openIntro();
   else if(a==='introskip')finishIntro();
@@ -1328,6 +1610,25 @@ document.addEventListener('click',function(e){
     const k=TS.key,id=TS.id;
     closeSheet();removePlanned(k,id);
   }
+  else if(a==='timerstart'){
+    const k=TS.key,id=TS.id,m=TS.min;
+    closeSheet();startTimer(k,id,m);
+  }
+  else if(a==='timerpause'&&TM){
+    if(!TM.paused){TM.paused=true;TM.left=Math.max(0,Math.ceil((TM.end-Date.now())/1000));}
+    else{TM.paused=false;TM.end=Date.now()+TM.left*1000;}
+    renderTimer();
+  }
+  else if(a==='timermore'&&TM){
+    TM.total=300;TM.end=Date.now()+300000;TM.left=300;TM.over=false;renderTimer();
+  }
+  else if(a==='timerdone'&&TM){
+    const k=TM.key,id=TM.id;
+    stopTimer();
+    const it=(S.plan[k]||[]).find(x=>x.id===id);
+    if(it&&!it.done)toggleDone(k,id);
+  }
+  else if(a==='timerstop')stopTimer();
 });
 document.addEventListener('input',function(e){
   const id=e.target.id;
@@ -1357,6 +1658,7 @@ applyTheme();
 const now=new Date();
 S.weekStart=mondayOf(now);
 S.sel=keyOf(now);
+S.anim=true;
 renderAll();
 runSplash();
 })();
