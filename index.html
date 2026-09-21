@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Home Week</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Home Week">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%201024%201024'%3E%3Cdefs%3E%3ClinearGradient%20id='g'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%234C66FF'/%3E%3Cstop%20offset='1'%20stop-color='%232233CC'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width='1024'%20height='1024'%20rx='232'%20fill='url%28%23g%29'/%3E%3Cpath%20d='M512%20206%20L846%20484%20V822%20H178%20V484%20Z'%20fill='%23fff'%20stroke='%23fff'%20stroke-width='48'%20stroke-linejoin='round'/%3E%3Cpath%20d='M368%20552%20L476%20660%20L664%20458'%20fill='none'%20stroke='%231FA267'%20stroke-width='70'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
@@ -244,6 +250,49 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 .actions{display:flex;gap:10px}
 .actions .btn{flex:1;padding:13px}
 
+/* splash */
+#splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(120% 80% at 50% 28%,#1D2760 0%,#0B0F1E 70%);color:#fff;transition:opacity .45s ease;cursor:pointer}
+#splash.out{opacity:0;pointer-events:none}
+.sp-inner{display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center}
+.sp-icon{width:132px;height:132px;margin-bottom:6px;filter:drop-shadow(0 18px 40px rgba(47,75,240,.5));animation:spPop .7s cubic-bezier(.2,.9,.25,1.2) both}
+.sp-house{animation:spHouse .6s .1s cubic-bezier(.2,.9,.25,1.1) both}
+.sp-check{stroke-dasharray:420;stroke-dashoffset:420;animation:spDraw .55s .65s ease-out forwards}
+.sp-title{font-size:38px;line-height:1.05;font-weight:800;letter-spacing:-.03em;animation:spUp .6s .85s both}
+.sp-tag{color:#A9B4D8;font-size:16px;animation:spUp .6s 1.05s both}
+@keyframes spPop{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}
+@keyframes spHouse{from{transform:translateY(60px);opacity:0}to{transform:none;opacity:1}}
+@keyframes spDraw{to{stroke-dashoffset:0}}
+@keyframes spUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* intro walkthrough */
+#intro{position:fixed;inset:0;z-index:90;background:var(--bg);display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 24px calc(env(safe-area-inset-bottom,0px) + 22px);transition:opacity .3s ease}
+#intro.out{opacity:0;pointer-events:none}
+.in-wrap{width:100%;max-width:520px;margin:0 auto;flex:1;display:flex;flex-direction:column}
+.in-top{display:flex;justify-content:flex-end;min-height:44px}
+.in-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px}
+.in-body.anim{animation:inUp .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes inUp{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+.in-body h2{margin:18px 0 0;font-size:29px;line-height:1.1;font-weight:800;letter-spacing:-.025em}
+.in-body p{margin:8px 0 0;max-width:32ch;color:var(--muted);font-size:16.5px}
+.in-bot{display:flex;flex-direction:column;align-items:center;gap:18px}
+.dots2{display:flex;gap:7px;align-items:center;height:10px}
+.dots2 i{width:8px;height:8px;border-radius:99px;background:var(--line-strong);transition:width .25s,background .25s}
+.dots2 i.on{width:24px;background:var(--ink)}
+.ill{width:100%;min-height:170px;display:grid;place-items:center}
+.mock{position:relative;width:min(320px,88%);border-radius:16px;overflow:hidden}
+.mock.cat{background:var(--c);--on:var(--on-c)}
+.mock.done{background:var(--ok);--on:#fff}
+.mock .mbg{position:absolute;inset:0;display:flex;align-items:center;padding:0 20px;color:var(--on);font-weight:700;font-size:15px}
+.mock .mcard{position:relative;display:flex;align-items:center;gap:12px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;text-align:left;animation:mswipe 2.8s ease-in-out .3s infinite}
+.mock .mcard b{flex:1;min-width:0;font-weight:600;font-size:16px;line-height:1.25}
+@keyframes mswipe{0%,18%{transform:translateX(0)}42%,66%{transform:translateX(132px)}90%,100%{transform:translateX(0)}}
+.mock2{width:min(340px,92%);display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;text-align:left;pointer-events:none}
+.mock2 .toggle{margin:0}
+
+@media (prefers-reduced-motion: reduce){
+  .sp-check{stroke-dashoffset:0}
+}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
 }
@@ -281,6 +330,26 @@ main{padding-top:6px;padding-bottom:120px;outline:none}
 
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="sheet" class="sheet" hidden></div>
+
+<div id="intro" role="dialog" aria-modal="true" aria-label="Welcome to Home Week" hidden></div>
+
+<div id="splash" role="presentation">
+  <div class="sp-inner">
+    <svg class="sp-icon" viewBox="0 0 1024 1024" aria-hidden="true">
+      <defs>
+        <linearGradient id="spg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4C66FF"/><stop offset="1" stop-color="#2233CC"/></linearGradient>
+        <clipPath id="spc"><rect width="1024" height="1024" rx="232"/></clipPath>
+      </defs>
+      <g clip-path="url(#spc)">
+        <rect width="1024" height="1024" fill="url(#spg)"/>
+        <path class="sp-house" d="M512 206 L846 484 V822 H178 V484 Z" fill="#fff" stroke="#fff" stroke-width="48" stroke-linejoin="round"/>
+        <path class="sp-check" d="M368 552 L476 660 L664 458" fill="none" stroke="#1FA267" stroke-width="70" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </svg>
+    <div class="sp-title">Home Week</div>
+    <div class="sp-tag">Plan the house, one swipe at a time</div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -376,19 +445,19 @@ const WD=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
 /* ---------- state + storage ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:false};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
     if(raw){
       const o=JSON.parse(raw);
       S.plan=o.plan||{};S.custom=o.custom||[];S.customCats=o.cats||[];
-      S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;
+      S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;S.intro=!!o.intro;
     }
   }catch(e){}
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,intro:S.intro}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people});}
 function restore(s){
@@ -917,6 +986,8 @@ function renderHome(){
     +['auto','light','dark'].map(x=>'<button type="button" data-act="theme" data-th="'+x+'" aria-pressed="'+(S.theme===x)+'">'+x.charAt(0).toUpperCase()+x.slice(1)+'</button>').join('')
     +'</div></div>';
 
+  html+='<div class="hcard"><h3>Help</h3><button class="btn wide" type="button" data-act="intro">Watch the intro again</button></div>';
+
   html+='<div class="hcard"><h3>Your data</h3><p class="sm">Everything is saved on this device only.</p>'
     +'<button class="btn danger wide" type="button" data-act="reset">Erase all my data</button></div>';
   main.innerHTML=html;
@@ -1089,6 +1160,82 @@ function saveTaskSheet(){
   toast(newKey!==T.key?'Moved to '+dow(newKey):'Task updated');
 }
 
+/* ---------- intro walkthrough ---------- */
+function mockSwipe(kind,label,emoji,name,hue,trailing){
+  return '<div class="ill"><div class="mock cat '+kind+'" style="--h:'+hue+'" aria-hidden="true"><div class="mbg">'+label+'</div>'
+    +'<div class="mcard"><span class="tile cat" style="--h:'+hue+'">'+emoji+'</span><b>'+name+'</b>'+(trailing||'')+'</div></div></div>';
+}
+const SLIDES=[
+  {ill:mockSwipe('','Add to Mon','🧹','Vacuum the living room',210,''),
+   h:'Swipe tasks into your week',
+   p:'Pick from more than 80 chores, sorted by branch. Swipe a task right to plan it on the day you chose.'},
+  {ill:'<div class="ill"><div class="mock2" aria-hidden="true">'
+      +'<div class="opts"><span class="opt on">Mon</span><span class="opt">Tue</span><span class="opt on">Wed</span><span class="opt">Thu</span></div>'
+      +'<div class="opts"><span class="opt">Anytime</span><span class="opt">☀️ Morning</span><span class="opt on">🌙 Evening</span></div>'
+      +'<div class="toggle" aria-checked="true"><span>Repeat every week</span><i class="knob"></i></div></div></div>',
+   h:'Tap a task to make it yours',
+   p:'Choose days, a time of day and who does it. Switch on repeat and it comes back every week.'},
+  {ill:mockSwipe('done','Done','🍽️','Load the dishwasher',175,'<span class="check" style="pointer-events:none"></span>'),
+   h:'Swipe right when it is done',
+   p:'Swipe left to remove a task. Made a mistake? Undo is always one tap away.'}
+];
+let IN=0;
+function renderIntro(anim){
+  const el=$('#intro');
+  const s=SLIDES[IN],last=IN===SLIDES.length-1;
+  el.innerHTML='<div class="in-wrap"><div class="in-top">'+(last?'':'<button class="linkbtn" type="button" data-act="introskip">Skip</button>')+'</div>'
+    +'<div class="in-body'+(anim?' anim':'')+'">'+s.ill+'<h2>'+s.h+'</h2><p>'+s.p+'</p></div>'
+    +'<div class="in-bot"><div class="dots2" aria-hidden="true">'+SLIDES.map((_,i)=>'<i'+(i===IN?' class="on"':'')+'></i>').join('')+'</div>'
+    +'<button class="btn primary wide" type="button" data-act="intronext" style="padding:15px;font-size:16.5px">'+(last?'Get started':'Next')+'</button></div></div>';
+}
+function openIntro(){
+  IN=0;
+  const el=$('#intro');
+  el.classList.remove('out');el.hidden=false;
+  renderIntro(false);
+}
+function finishIntro(){
+  S.intro=true;save();
+  const el=$('#intro');
+  el.classList.add('out');
+  setTimeout(function(){el.hidden=true;el.innerHTML='';},320);
+}
+
+/* ---------- splash ---------- */
+function runSplash(){
+  const sp=$('#splash');
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!S.intro)openIntro();
+  let closed=false;
+  function close(){
+    if(closed)return;closed=true;
+    sp.classList.add('out');
+    setTimeout(function(){sp.hidden=true;},480);
+  }
+  sp.addEventListener('click',close);
+  setTimeout(close,reduce?900:2200);
+}
+
+/* ---------- home screen icon fallback ---------- */
+(function(){
+  const link=document.querySelector('link[rel="apple-touch-icon"]');
+  if(!link)return;
+  const ICON_SVG='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4C66FF"/><stop offset="1" stop-color="#2233CC"/></linearGradient></defs><rect width="1024" height="1024" fill="url(#g)"/><path d="M512 206 L846 484 V822 H178 V484 Z" fill="#fff" stroke="#fff" stroke-width="48" stroke-linejoin="round"/><path d="M368 552 L476 660 L664 458" fill="none" stroke="#1FA267" stroke-width="70" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const probe=new Image();
+  probe.onerror=function(){
+    const img=new Image();
+    img.onload=function(){
+      try{
+        const c=document.createElement('canvas');c.width=c.height=180;
+        c.getContext('2d').drawImage(img,0,0,180,180);
+        link.href=c.toDataURL('image/png');
+      }catch(e){}
+    };
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(ICON_SVG);
+  };
+  probe.src=link.href;
+})();
+
 /* ---------- events ---------- */
 document.addEventListener('click',function(e){
   const b=e.target.closest('[data-act]');
@@ -1147,9 +1294,15 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=false;S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('All data erased');
+  }
+  else if(a==='intro')openIntro();
+  else if(a==='introskip')finishIntro();
+  else if(a==='intronext'){
+    if(IN>=SLIDES.length-1)finishIntro();
+    else{IN++;renderIntro(true);}
   }
   else if(a==='newtask')openNewTask({name:b.dataset.name,cat:b.dataset.cat});
   else if(a==='closesheet')closeSheet();
@@ -1205,6 +1358,7 @@ const now=new Date();
 S.weekStart=mondayOf(now);
 S.sel=keyOf(now);
 renderAll();
+runSplash();
 })();
 </script>
 </body>
