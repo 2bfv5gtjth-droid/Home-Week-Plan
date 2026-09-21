@@ -226,7 +226,7 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 
 /* nav */
 #nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:color-mix(in srgb,var(--surface) 92%,transparent);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-#nav .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);padding:6px 8px 4px}
+#nav .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);padding:6px 4px 4px}
 #nav button{background:none;border:0;padding:6px 0;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600;color:var(--muted)}
 #nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #nav button[aria-current="page"]{color:var(--ink)}
@@ -330,6 +330,34 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .mock2 .bar2{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
 .mock2 .bar2 i{display:block;width:62%;height:100%;background:var(--accent);border-radius:99px}
 
+/* extra: late banner, verras me, prestaties, heatmap */
+.late{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-left:4px solid #F5A524;border-radius:14px;padding:10px 8px 10px 14px;margin:0 0 14px}
+.late .lt{flex:1;min-width:0;font-size:14px;line-height:1.3}
+.late .lt b{display:block;font-weight:700}
+.late .lt span{color:var(--muted)}
+.late .btn{padding:9px 12px;font-size:14px;white-space:nowrap}
+.sug{display:flex;gap:14px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:16px;background:var(--bg);margin-bottom:14px;animation:rowIn .3s cubic-bezier(.2,.8,.2,1) both}
+.sug .tile{width:54px;height:54px;font-size:28px;border-radius:16px}
+.sug .nm{font-size:18px;font-weight:700}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bdg{border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:3px;background:var(--surface)}
+.bdg .be{font-size:28px;line-height:1.1}
+.bdg b{font-size:15px;font-weight:700}
+.bdg span:not(.be){font-size:12.5px;color:var(--muted);line-height:1.3}
+.bdg.locked{opacity:.62}
+.bdg.locked .be{filter:grayscale(1)}
+.bdg.got{border-color:color-mix(in srgb,var(--ok) 55%,var(--line));background:color-mix(in srgb,var(--ok) 9%,var(--surface))}
+.bp{height:5px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
+.bp i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.hm-head,.hm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.hm-head span{text-align:center;font-size:12px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.hm{aspect-ratio:1;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:600;background:var(--bg);color:var(--muted)}
+.hm.l1{background:var(--line);color:var(--ink)}
+.hm.l2{background:color-mix(in srgb,var(--ok) 42%,var(--surface));color:var(--ink)}
+.hm.l3{background:var(--ok);color:var(--on-c)}
+.hm.fut{opacity:.45}
+.hm.now{box-shadow:0 0 0 2px var(--accent)}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -362,6 +390,7 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
     <button data-act="tab" data-tab="day"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Dag</button>
     <button data-act="tab" data-tab="week"><svg viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M3.5 9.5h17M9.2 9.5V20M14.8 9.5V20"/></svg>Week</button>
     <button data-act="tab" data-tab="tasks"><svg viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10"/><path d="M3.8 6l1.2 1.2L7.2 5M3.8 12l1.2 1.2 2.2-2.2M3.8 18l1.2 1.2 2.2-2.2"/></svg>Taken</button>
+    <button data-act="tab" data-tab="list"><svg viewBox="0 0 24 24"><circle cx="9.5" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.5l2.2 10.2a1.5 1.5 0 0 0 1.5 1.2h7.6a1.5 1.5 0 0 0 1.5-1.1L20 8H6.2"/></svg>Lijst</button>
     <button data-act="tab" data-tab="home"><svg viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg>Thuis</button>
   </div>
 </nav>
@@ -404,55 +433,61 @@ const CATS=[
   {id:'groceries',name:'Boodschappen',emoji:'🛒',hue:88},
   {id:'garden',name:'Tuin & buiten',emoji:'🌿',hue:145},
   {id:'pets',name:'Huisdieren',emoji:'🐾',hue:4},
-  {id:'admin',name:'Admin & regelen',emoji:'📬',hue:235}
+  {id:'admin',name:'Admin & regelen',emoji:'📬',hue:235},
+  {id:'family',name:'Gezin',emoji:'👨‍👩‍👧',hue:300}
 ];
 const RAW={
   cleaning:[
     ['Woonkamer stofzuigen','🧹',20],['Vloeren dweilen','🪣',25],['Alles afstoffen','🪶',15],
     ['Deurklinken en schakelaars afnemen','🚪',10],['Ramen lappen','🪟',30],['Woonkamer opruimen','🛋️',15],
     ['Alle prullenbakken legen','🗑️',10],['Spiegels poetsen','🪞',10],['Trap stofzuigen','🪜',15],
-    ['Plinten afnemen','🧽',20],['Hal opruimen','👟',10],['Balkon schoonmaken','☀️',20]
+    ['Plinten afnemen','🧽',20],['Hal opruimen','👟',10],['Balkon schoonmaken','☀️',20],['Stofzuiger leegmaken','🌪️',5],['Lampen afstoffen','💡',10],['Vloerkleed schoonmaken','🧶',25],['Bank en kussens opschudden','🛋️',5]
   ],
   dishes:[
     ['Vaatwasser inruimen','🍽️',10],['Vaatwasser uitruimen','🥣',10],['Afwassen met de hand','🫧',20],
     ['Pannen schrobben','🍳',15],['Gootsteen schoonmaken','🚰',5],['Afdruiprek schoonmaken','🧼',10],
-    ['Vaatwasser laten reinigen','♻️',5],['Schone vaat opruimen','🥄',5]
+    ['Vaatwasser laten reinigen','♻️',5],['Schone vaat opruimen','🥄',5],['Keukenhanddoeken verschonen','🧻',5]
   ],
   laundry:[
     ['Wasmachine aanzetten','🧺',10],['Was in de droger doen','🌀',10],['Was opvouwen en sorteren','👚',20],
     ['Overhemden strijken','♨️',30],['Kleren opbergen','🧦',10],['Bed verschonen','🛏️',20],
-    ['Handdoeken wassen','🧺',10],['Was ophangen','🧷',10],['Vlekken behandelen','✨',10]
+    ['Handdoeken wassen','🧺',10],['Was ophangen','🧷',10],['Vlekken behandelen','✨',10],['Wasmachine schoonmaken','🫧',15],['Wasmand leegmaken','🧺',5]
   ],
   kitchen:[
     ['Avondeten koken','🍲',40],['Maaltijdprep voor de week','🥗',60],['Weekmenu plannen','📝',15],
     ['Aanrecht en fornuis afnemen','🧽',10],['Koelkast schoonmaken','🧊',25],['Magnetron schoonmaken','🔥',10],
-    ['Oven schoonmaken','🔥',30],['Kastjes afnemen','🚪',15],['Waterkoker ontkalken','☕',10],['GFT-bakje leegmaken','🍌',5]
+    ['Oven schoonmaken','🔥',30],['Kastjes afnemen','🚪',15],['Waterkoker ontkalken','☕',10],['GFT-bakje leegmaken','🍌',5],['Lunch klaarmaken','🥪',15],['Afzuigkap schoonmaken','🍳',15],['Vriezer ontdooien','🧊',30],['Keukenvuilbak schoonmaken','🗑️',10]
   ],
   bathroom:[
     ['Toilet schoonmaken','🚽',10],['Douche schrobben','🚿',20],['Wastafel en kraan poetsen','🚰',10],
     ['Badkamervloer dweilen','🪣',10],['Badmatten wassen','🧺',5],['Wc-papier en zeep bijvullen','🧻',5],
-    ['Badkamerspiegel poetsen','🪞',5],['Badkamerprullenbak legen','🗑️',3],['Bad schoonmaken','🛁',20]
+    ['Badkamerspiegel poetsen','🪞',5],['Badkamerprullenbak legen','🗑️',3],['Bad schoonmaken','🛁',20],['Afvoer ontstoppen','🪠',15],['Handdoeken verwisselen','🧺',5]
   ],
   bedroom:[
     ['Bed opmaken','🛏️',5],['Slaapkamer stofzuigen','🧹',15],['Nachtkastjes opruimen','🕯️',10],
-    ['Kledingkast sorteren','👗',30],['Matras keren','🔄',10],['Slaapkamer afstoffen','🪶',10],['Kamer luchten','🌬️',5]
+    ['Kledingkast sorteren','👗',30],['Matras keren','🔄',10],['Slaapkamer afstoffen','🪶',10],['Kamer luchten','🌬️',5],['Beddengoed luchten','🌬️',10],['Kussens opschudden','🛏️',5]
   ],
   groceries:[
     ['Boodschappenlijstje maken','📝',10],['Boodschappen doen','🛒',60],['Boodschappen opruimen','🥕',15],
-    ['Voorraadkast checken','🥫',10],['Boodschappen online bestellen','📱',15],['Houdbaarheidsdatums checken','🥛',10]
+    ['Voorraadkast checken','🥫',10],['Boodschappen online bestellen','📱',15],['Houdbaarheidsdatums checken','🥛',10],['Vers brood halen','🥖',10],['Aanbiedingen checken','🏷️',10]
   ],
   garden:[
     ['Planten water geven','🪴',10],['Gras maaien','🌱',40],['Onkruid wieden','🌼',30],
     ['Stoep vegen','🧹',15],['Kliko’s aan de straat zetten','♻️',10],['Auto wassen','🚗',45],
-    ['Planten snoeien','✂️',25],['Vogelvoer bijvullen','🐦',5]
+    ['Planten snoeien','✂️',25],['Vogelvoer bijvullen','🐦',5],['Bladeren harken','🍂',30],['Terrasmeubels schoonmaken','🪑',20],['Regenton legen','🌧️',10]
   ],
   pets:[
     ['Huisdieren voeren','🥣',5],['Hond uitlaten','🐕',30],['Kattenbak schoonmaken','🐈',10],
-    ['Voerbakjes afwassen','🥣',5],['Huisdier borstelen','🪮',15],['Dierenharen opzuigen','🧹',15]
+    ['Voerbakjes afwassen','🥣',5],['Huisdier borstelen','🪮',15],['Dierenharen opzuigen','🧹',15],['Nagels knippen','✂️',10],['Dierenarts bellen','📞',10],['Speeltjes wassen','🧸',10]
   ],
   admin:[
     ['Rekeningen betalen','💳',20],['Post sorteren','📬',10],['Papierwerk ordenen','🗂️',30],
-    ['Afspraak maken','📞',10],['Pakketje wegbrengen','📦',25],['Huishoudbudget bekijken','📊',20],['Foto’s van telefoon back-uppen','🖼️',15]
+    ['Afspraak maken','📞',10],['Pakketje wegbrengen','📦',25],['Huishoudbudget bekijken','📊',20],['Foto’s van telefoon back-uppen','🖼️',15],['Abonnementen checken','🔁',15],['Verzekeringen bekijken','📑',30],['Vervaldata van documenten checken','📅',10]
+  ],
+  family:[
+    ['Schooltas inpakken','🎒',10],['Lunchtrommel klaarmaken','🥪',10],['Huiswerk begeleiden','📚',30],
+    ['Speelgoed opruimen','🧸',15],['Kinderkamer opruimen','🧺',20],['Kleren voor morgen klaarleggen','👕',5],
+    ['Voorlezen','📖',15],['Kinderen naar bed brengen','🌙',30]
   ]
 };
 const BUILTIN=Object.keys(RAW).flatMap(cat=>RAW[cat].map((a,i)=>({id:cat+'-'+i,cat:cat,name:a[0],emoji:a[1],min:a[2]})));
@@ -480,7 +515,7 @@ const INTRO_V=2;
 
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:''};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -489,6 +524,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.plan=o.plan||{};S.custom=o.custom||[];S.customCats=o.cats||[];
       S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;
       S.intro=typeof o.introV==='number'?o.introV:(o.intro?1:0);
+      S.list=o.list||[];S.badges=Array.isArray(o.badges)?o.badges:null;S.stats=Object.assign({timers:0,rolls:0,bought:0},o.stats||{});
     }
   }catch(e){}
   const byId={};BUILTIN.forEach(t=>{byId[t.id]=t;});
@@ -496,11 +532,11 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats}));}catch(e){}
 }
-function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people});}
+function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
-  try{const o=JSON.parse(s);S.plan=o.plan;S.repeats=o.repeats;S.people=o.people;}catch(e){return;}
+  try{const o=JSON.parse(s);S.plan=o.plan;S.repeats=o.repeats;S.people=o.people;S.list=o.list||[];}catch(e){return;}
   save();renderAll();
 }
 function applyTheme(){
@@ -584,6 +620,54 @@ function streak(){
   return n;
 }
 function levelIndex(p){let i=0;LEVELS.forEach((l,j)=>{if(p>=l[0])i=j;});return i;}
+
+/* ---------- prestaties ---------- */
+function calcStats(){
+  let done=0,pts=0,early=0;
+  const per={},weeks={};
+  Object.keys(S.plan).forEach(function(k){
+    const wk=keyOf(mondayOf(fromKey(k)));
+    (S.plan[k]||[]).forEach(function(t){
+      const w=weeks[wk]=weeks[wk]||{n:0,d:0};
+      w.n++;
+      if(t.done){
+        w.d++;done++;pts+=t.min;
+        if(t.doneAt&&new Date(t.doneAt).getHours()<9)early++;
+        if(t.who)per[t.who]=(per[t.who]||0)+1;
+      }
+    });
+  });
+  let perfect=0;
+  Object.keys(weeks).forEach(k=>{if(weeks[k].n>=5&&weeks[k].d===weeks[k].n)perfect++;});
+  const team=Object.keys(per).filter(id=>per[id]>=3&&personOf(id)).length;
+  return {done:done,pts:pts,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0};
+}
+const BADGES=[
+  {id:'first',emoji:'🎯',name:'Eerste klus',desc:'Rond je eerste taak af',goal:1,cur:s=>s.done},
+  {id:'bee',emoji:'🐝',name:'Werkbijtje',desc:'Rond 25 taken af',goal:25,cur:s=>s.done},
+  {id:'hundred',emoji:'💯',name:'Honderdklapper',desc:'Rond 100 taken af',goal:100,cur:s=>s.done},
+  {id:'points',emoji:'⭐',name:'Puntenjager',desc:'Verdien 500 punten',goal:500,cur:s=>s.pts},
+  {id:'streak3',emoji:'🔥',name:'Op stoom',desc:'3 dagen op rij alles klaar',goal:3,cur:s=>s.streak},
+  {id:'streak7',emoji:'🌋',name:'Weekwinnaar',desc:'7 dagen op rij alles klaar',goal:7,cur:s=>s.streak},
+  {id:'perfect',emoji:'🌟',name:'Perfecte week',desc:'Rond een hele week af (minstens 5 taken)',goal:1,cur:s=>s.perfect},
+  {id:'early',emoji:'🐦',name:'Vroege vogel',desc:'Rond 5 taken af vóór 9 uur',goal:5,cur:s=>s.early},
+  {id:'team',emoji:'🤝',name:'Teamspeler',desc:'Twee mensen ronden elk 3 taken af',goal:2,cur:s=>s.team},
+  {id:'timer',emoji:'⏱️',name:'Tijdmeester',desc:'Rond 5 taken af met de timer',goal:5,cur:s=>s.timers},
+  {id:'dice',emoji:'🎲',name:'Durfal',desc:'Kies 3 keer een verrassingsklus',goal:3,cur:s=>s.rolls},
+  {id:'cart',emoji:'🛒',name:'Boodschapper',desc:'Vink 20 boodschappen af',goal:20,cur:s=>s.bought}
+];
+function checkBadges(){
+  const st=calcStats();
+  const fresh=BADGES.filter(b=>S.badges.indexOf(b.id)<0&&b.cur(st)>=b.goal);
+  if(!fresh.length)return;
+  fresh.forEach(b=>S.badges.push(b.id));
+  save();
+  setTimeout(function(){
+    confetti();haptic([30,50,30]);
+    toast('🏆 Nieuwe prestatie: '+fresh.map(b=>b.emoji+' '+b.name).join(', '));
+  },1500);
+}
+
 
 /* ---------- confetti ---------- */
 function confetti(){
@@ -693,6 +777,11 @@ function bindSwipes(root){
         right:function(){toggleDone(row.dataset.key,row.dataset.id);},
         left:function(){removePlanned(row.dataset.key,row.dataset.id);}
       });
+    }else if(row.classList.contains('li')){
+      attachSwipe(row,{
+        right:function(){toggleLi(row.dataset.id);},
+        left:function(){removeLi(row.dataset.id);}
+      });
     }else{
       attachSwipe(row,{
         right:function(){addToDay(row.dataset.tid,S.sel);},
@@ -709,6 +798,7 @@ function toggleDone(key,id){
   if(!t)return;
   const wasFull=arr.length>0&&arr.every(x=>x.done);
   t.done=!t.done;
+  if(t.done)t.doneAt=Date.now();else delete t.doneAt;
   const nowFull=arr.every(x=>x.done);
   if(t.done)S.pop=t.id;
   save();renderAll();S.pop=null;
@@ -719,6 +809,7 @@ function toggleDone(key,id){
       toast('Dag afgerond! 🎉 '+ptsOf(arr)+' punten');
     }
   }
+  checkBadges();
 }
 function removePlanned(key,id){
   const arr=S.plan[key]||[];
@@ -848,6 +939,143 @@ function setTab(tab){
   S.tab=tab;S.anim=true;renderAll();window.scrollTo(0,0);
 }
 
+
+function makeItem(t){
+  return {id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:DEF[t.id]||'any',who:S.addWho||null,note:'',done:false};
+}
+function overdueItems(){
+  const out=[];
+  for(let i=1;i<=7;i++){
+    const k=keyOf(addDays(new Date(),-i));
+    (S.plan[k]||[]).forEach(t=>{if(!t.done&&!t.rid)out.push({k:k,t:t});});
+  }
+  return out;
+}
+function lateBanner(){
+  if(S.sel!==todayKey()||S.lateHide===todayKey())return '';
+  const n=overdueItems().length;
+  if(!n)return '';
+  return '<div class="late"><div class="lt"><b>'+nTaken(n)+' van de afgelopen dagen</b><span>staan nog open.</span></div>'
+    +'<button class="btn primary" type="button" data-act="moveoverdue">Naar vandaag</button>'
+    +'<button class="iconbtn" type="button" data-act="hidelate" aria-label="Later">'+ICON_X+'</button></div>';
+}
+function moveOverdue(){
+  const list=overdueItems();
+  if(!list.length)return;
+  const before=snap(),today=todayKey();
+  list.forEach(function(o){
+    const src=S.plan[o.k],i=src.indexOf(o.t);
+    if(i>=0)src.splice(i,1);
+    (S.plan[today]=S.plan[today]||[]).push(o.t);
+  });
+  save();renderAll();
+  toast(nTaken(list.length)+' verplaatst naar vandaag','Ongedaan maken',function(){restore(before);});
+}
+
+/* ---------- boodschappenlijst ---------- */
+const QUICK=['Melk','Brood','Eieren','Kaas','Boter','Koffie','Bananen','Tomaten','Wc-papier','Afwastabletten','Pasta','Rijst','Kip','Appels','Yoghurt'];
+function addLi(name){
+  name=(name||'').trim();
+  if(!name)return false;
+  const ex=S.list.find(x=>x.name.toLowerCase()===name.toLowerCase()&&!x.done);
+  if(ex){toast('“'+ex.name+'” staat al op je lijst.');return true;}
+  S.list.push({id:uid(),name:cap(name.slice(0,40)),done:false});
+  save();renderList();haptic(8);
+  return true;
+}
+function toggleLi(id){
+  const x=S.list.find(i=>i.id===id);
+  if(!x)return;
+  x.done=!x.done;
+  if(x.done)S.stats.bought=(S.stats.bought||0)+1;
+  save();renderList();
+  if(x.done){
+    haptic(10);
+    if(S.list.length>=3&&S.list.every(i=>i.done)){confetti();toast('Alles in het mandje! 🛒');}
+    checkBadges();
+  }
+}
+function removeLi(id){
+  const i=S.list.findIndex(x=>x.id===id);
+  if(i<0)return;
+  const before=snap(),name=S.list[i].name;
+  S.list.splice(i,1);
+  save();renderList();
+  toast('“'+name+'” verwijderd','Ongedaan maken',function(){restore(before);});
+}
+function clearDoneLi(){
+  const n=S.list.filter(x=>x.done).length;
+  if(!n)return;
+  const before=snap();
+  S.list=S.list.filter(x=>!x.done);
+  save();renderList();
+  toast(n+(n===1?' item gewist':' items gewist'),'Ongedaan maken',function(){restore(before);});
+}
+function liRow(x){
+  return '<div class="swipe li" data-id="'+x.id+'" style="--rbg:'+(x.done?'var(--muted)':'var(--ok)')+'">'
+    +'<div class="bg"><span class="bg-r">'+(x.done?'Terugzetten':'In mandje')+'</span><span class="bg-l">Verwijderen</span></div>'
+    +'<div class="card'+(x.done?' isdone':'')+'"><button class="check" type="button" data-act="checkli" aria-pressed="'+!!x.done+'" aria-label="'+(x.done?'Zet terug op de lijst':'Doe in het mandje')+'">'+ICON_CHECK+'</button>'
+    +'<div class="txt"><div class="nm">'+esc(x.name)+'</div></div></div></div>';
+}
+function renderList(){
+  const main=$('#main');
+  const open=S.list.filter(x=>!x.done),done=S.list.filter(x=>x.done);
+  const quick=QUICK.filter(q=>!S.list.some(x=>x.name.toLowerCase()===q.toLowerCase())).slice(0,10);
+  let html='<section class="dayhead"><h2>Boodschappen</h2><p>'
+    +(S.list.length?open.length+' te halen'+(done.length?', '+done.length+' in het mandje':''):'Je lijst is nog leeg')+'</p></section>'
+    +'<div class="addrow" style="margin:0 0 10px"><input class="inp" id="li-name" type="text" maxlength="40" placeholder="Wat heb je nodig?" autocomplete="off" enterkeyhint="done"><button class="btn primary" type="button" data-act="addli">Toevoegen</button></div>';
+  if(quick.length)html+='<div class="chips">'+quick.map(q=>'<button class="chip" type="button" data-act="quickli" data-n="'+esc(q)+'">+ '+esc(q)+'</button>').join('')+'</div>';
+  if(open.length)html+='<div class="list">'+open.map(liRow).join('')+'</div>';
+  if(done.length)html+='<h3 class="tgrp">🧺 In het mandje</h3><div class="list">'+done.map(liRow).join('')+'</div>'
+    +'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearli">Wis afgevinkte</button></div>';
+  if(!S.list.length)html+='<div class="empty small"><div class="big">🛒</div><p>Typ iets in of tik op een suggestie om je lijst te beginnen.</p></div>';
+  else html+='<p class="tip">Veeg naar rechts om iets in je mandje te doen, naar links om te verwijderen.</p>'
+    +'<button class="btn wide" type="button" data-act="sharelist" style="margin-top:12px">📤 Deel de lijst</button>';
+  main.innerHTML=html;
+  bindSwipes(main);
+  afterRender(main);
+}
+function listText(){
+  const lines=['🛒 Boodschappenlijst'];
+  S.list.filter(x=>!x.done).forEach(x=>lines.push('• '+x.name));
+  if(lines.length===1)lines.push('Alles is al gehaald!');
+  return lines.join('\n');
+}
+
+/* ---------- verras me ---------- */
+let VM=null;
+function pickSurprise(){
+  const planned=(S.plan[todayKey()]||[]).map(p=>p.tid);
+  let pool=allTasks().filter(t=>t.min<=VM.min&&planned.indexOf(t.id)<0);
+  if(!pool.length)pool=allTasks().filter(t=>t.min<=VM.min);
+  if(!pool.length){VM.t=null;return;}
+  let t,tries=0;
+  do{t=pool[Math.floor(Math.random()*pool.length)];tries++;}while(VM.t&&t.id===VM.t.id&&pool.length>1&&tries<12);
+  VM.t=t;
+}
+function openSurprise(){VM={min:15,t:null};pickSurprise();openSheetWith(renderSurprise);}
+function renderSurprise(){
+  const t=VM.t,c=t?catOf(t.cat):null;
+  $('#sheet').innerHTML='<div class="backdrop" data-act="closesheet"></div><div class="panel" role="dialog" aria-modal="true" aria-label="Verras me"><div class="grab"></div><h2>Verras me 🎲</h2>'
+    +'<p class="help" style="margin:-6px 0 12px">Hoeveel tijd heb je? Ik kies een klus die daarin past.</p>'
+    +'<div class="opts" style="margin-bottom:16px">'+[5,10,15,30,45].map(m=>'<button type="button" class="opt'+(VM.min===m?' on':'')+'" data-act="vmin" data-m="'+m+'">Tot '+m+' min</button>').join('')+'</div>'
+    +(t?'<div class="sug cat" style="--h:'+c.hue+'"><span class="tile">'+esc(t.emoji)+'</span><div class="txt"><div class="nm">'+esc(t.name)+'</div><div class="sub"><span class="cn">'+esc(c.name)+'</span><span>'+fmtMin(t.min)+'</span></div></div></div>'
+      +'<div class="stack"><button type="button" class="btn primary wide" data-act="vnow">⏱️ Nu doen, met timer</button>'
+      +'<div class="actions"><button type="button" class="btn" data-act="vroll">🎲 Nog een</button><button type="button" class="btn" data-act="vadd">Toevoegen aan vandaag</button></div></div>'
+     :'<p class="help">Geen klus gevonden die zo kort duurt.</p>')
+    +'</div>';
+}
+function surpriseAdd(now){
+  if(!VM||!VM.t)return;
+  const t=VM.t,key=todayKey(),item=makeItem(t);
+  (S.plan[key]=S.plan[key]||[]).push(item);
+  S.stats.rolls=(S.stats.rolls||0)+1;
+  save();closeSheet();renderAll();
+  if(now)startTimer(key,item.id,t.min);
+  else toast(t.name+' toegevoegd aan vandaag');
+  checkBadges();
+}
+
 /* ---------- delen ---------- */
 function rangeText(){
   const s=S.weekStart,e=addDays(s,6);
@@ -875,24 +1103,26 @@ function weekText(){
   return lines.join('\n');
 }
 let TX='';
-async function shareWeek(){
-  TX=weekText();
+async function shareText(title,text,copiedMsg){
+  TX=text;
   try{
-    if(navigator.share){await navigator.share({title:'Huisweek',text:TX});return;}
+    if(navigator.share){await navigator.share({title:title,text:text});return;}
   }catch(e){
     if(e&&e.name==='AbortError')return;
   }
   try{
-    await navigator.clipboard.writeText(TX);
-    toast('Weekplanning gekopieerd. Plak hem in WhatsApp.');
+    await navigator.clipboard.writeText(text);
+    toast(copiedMsg);
     return;
   }catch(e){}
   openSheetWith(renderTextSheet);
   setTimeout(function(){const t=$('#tx');if(t){t.focus();t.select();}},320);
 }
+function shareWeek(){return shareText('Huisweek',weekText(),'Weekplanning gekopieerd. Plak hem in WhatsApp.');}
+function shareList(){return shareText('Boodschappenlijst',listText(),'Boodschappenlijst gekopieerd. Plak hem in WhatsApp.');}
 function renderTextSheet(){
   $('#sheet').innerHTML='<div class="backdrop" data-act="closesheet"></div>'
-    +'<div class="panel" role="dialog" aria-modal="true" aria-label="Deel je week"><div class="grab"></div><h2>Deel je week</h2>'
+    +'<div class="panel" role="dialog" aria-modal="true" aria-label="Tekst delen"><div class="grab"></div><h2>Tekst delen</h2>'
     +'<p class="help" style="margin:-6px 0 12px">Kopieer deze tekst en plak hem in WhatsApp of een bericht.</p>'
     +'<textarea class="inp" id="tx" rows="10" readonly style="font-size:15px;line-height:1.4">'+esc(TX)+'</textarea>'
     +'<div class="actions" style="margin-top:14px"><button type="button" class="btn primary" data-act="closesheet">Sluiten</button></div></div>';
@@ -984,7 +1214,7 @@ function renderHead(){
 }
 function renderStrip(){
   const strip=$('#strip');
-  const hide=S.tab==='week'||S.tab==='home';
+  const hide=S.tab==='week'||S.tab==='home'||S.tab==='list';
   strip.hidden=hide;
   $('#top').classList.toggle('compact-top',hide);
   let html='';
@@ -1010,6 +1240,7 @@ function renderAll(){
   if(S.tab==='day')renderDay();
   else if(S.tab==='week')renderWeek();
   else if(S.tab==='tasks')renderTasks();
+  else if(S.tab==='list')renderList();
   else renderHome();
   S.anim=false;
 }
@@ -1065,6 +1296,7 @@ function renderDay(){
     +((st>0||pts>0)?'<div class="pills">'+(st>0?'<span class="pill">🔥 '+st+(st===1?' dag':' dagen')+' op rij</span>':'')+(pts>0?'<span class="pill">⭐ '+pts+' punten</span>':'')+'</div>':'')
     +(list.length?'<div class="prog" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>':'')
     +'</section>';
+  html+=lateBanner();
   if(list.length){
     const groups=TIMES.map(function(tm){return {tm:tm,items:list.filter(t=>(t.time||'any')===tm[0])};}).filter(g=>g.items.length);
     const flat=groups.length===1&&groups[0].tm[0]==='any';
@@ -1133,6 +1365,7 @@ function renderTasks(){
     +allCats().map(c=>'<button class="chip cat'+(S.filter===c.id?' on':'')+'" type="button" data-act="filter" data-f="'+c.id+'" style="--h:'+c.hue+'"><span>'+esc(c.emoji)+'</span>'+esc(c.name)+'</button>').join('');
   main.innerHTML='<p class="hint" id="hint"></p>'
     +assignBar()
+    +'<button class="btn wide" type="button" data-act="surprise" style="margin-bottom:12px">🎲 Verras me met een klus</button>'
     +'<div class="tools"><div class="search">'+ICON_SEARCH+'<input id="q" type="search" placeholder="Zoek in '+allTasks().length+' taken" value="'+esc(S.q)+'" autocomplete="off" enterkeyhint="search" aria-label="Zoek taken"></div>'
     +'<button class="btn-new" type="button" data-act="newtask">Nieuwe taak</button></div>'
     +'<div class="chips" id="chips">'+chips+'</div>'
@@ -1174,6 +1407,31 @@ function refreshBadges(){
 }
 
 /* ---------- opbouw: thuis ---------- */
+function heatmapCard(){
+  const start=addDays(mondayOf(new Date()),-28),tk=todayKey();
+  let cells='';
+  for(let i=0;i<35;i++){
+    const d=addDays(start,i),k=keyOf(d),l=S.plan[k]||[];
+    let lv=0;
+    if(l.length){const dn=l.filter(t=>t.done).length;lv=dn===l.length?3:(dn>0?2:1);}
+    cells+='<div class="hm l'+lv+(k>tk?' fut':'')+(k===tk?' now':'')+'" title="'+esc(longLabel(k))+'">'+d.getDate()+'</div>';
+  }
+  return '<div class="hcard"><h3>Laatste 5 weken</h3><div class="hm-head">'+['ma','di','wo','do','vr','za','zo'].map(x=>'<span>'+x+'</span>').join('')+'</div>'
+    +'<div class="hm-grid">'+cells+'</div>'
+    +'<p class="sm" style="margin:12px 0 0;font-size:13px">Groen = alles klaar, licht groen = deels klaar, grijs = gepland.</p></div>';
+}
+function badgesCard(){
+  const st=calcStats();
+  const got=BADGES.filter(b=>S.badges.indexOf(b.id)>=0).length;
+  return '<div class="hcard"><h3>Prestaties <span style="color:var(--muted);font-weight:600;font-size:14px">'+got+' van '+BADGES.length+'</span></h3><div class="bgrid">'
+    +BADGES.map(function(b){
+      const ok=S.badges.indexOf(b.id)>=0;
+      const cur=Math.min(b.cur(st),b.goal);
+      return '<div class="bdg'+(ok?' got':' locked')+'"><span class="be">'+b.emoji+'</span><b>'+b.name+'</b><span>'+b.desc+'</span>'
+        +(ok?'':'<div class="bp"><i style="width:'+Math.round(cur/b.goal*100)+'%"></i></div>')+'</div>';
+    }).join('')+'</div></div>';
+}
+
 let HOME_GROUPS=[];
 function renderHome(){
   const main=$('#main');
@@ -1193,6 +1451,8 @@ function renderHome(){
   html+='<div class="hcard"><div class="sum"><div class="ring" style="--p:'+pct+'"><div class="ring-in"><b>'+pct+'%</b></div></div>'
     +'<div><h3>'+(total?done+' van '+total+' klaar':'Niets gepland')+'</h3><p>'
     +(total?fmtMin(dm)+' klaar van '+fmtMin(tm)+' deze week':'Plan taken om je week vorm te zien krijgen.')+'</p></div></div></div>';
+  html+=heatmapCard();
+  html+=badgesCard();
 
   const byCat={};
   items.forEach(function(t){const o=byCat[t.cat]=byCat[t.cat]||{n:0,d:0};o.n++;if(t.done)o.d++;});
@@ -1273,6 +1533,7 @@ function renderHome(){
 /* ---------- sheets ---------- */
 let CUR=null,FM=null,TS=null;
 function openSheetWith(fn){
+  $('#toast').classList.remove('show');
   CUR=fn;fn();
   const sh=$('#sheet');
   sh.hidden=false;
@@ -1446,7 +1707,7 @@ function mockSwipe(kind,label,emoji,name,hue){
 const SLIDES=[
   {ill:mockSwipe('','Toevoegen aan ma','🧹','Woonkamer stofzuigen',210),
    h:'Veeg taken in je week',
-   p:'Kies uit meer dan 80 klusjes, gesorteerd per categorie. Veeg een taak naar rechts om hem te plannen op de dag die je hebt gekozen.'},
+   p:'Kies uit meer dan 100 klusjes, gesorteerd per categorie. Veeg een taak naar rechts om hem te plannen op de dag die je hebt gekozen.'},
   {ill:'<div class="ill"><div class="mock2" aria-hidden="true">'
       +'<div class="opts"><span class="opt on">Ma</span><span class="opt">Di</span><span class="opt on">Wo</span><span class="opt">Do</span></div>'
       +'<div class="opts"><span class="opt">Flexibel</span><span class="opt">☀️ Ochtend</span><span class="opt on">🌙 Avond</span></div>'
@@ -1524,6 +1785,7 @@ document.addEventListener('click',function(e){
     if(row&&!e.target.closest('.sheet')){
       if(row._dragEnd&&Date.now()-row._dragEnd<350)return;
       if(row.classList.contains('plan'))openTaskSheet({mode:'edit',key:row.dataset.key,id:row.dataset.id});
+      else if(row.classList.contains('li'))toggleLi(row.dataset.id);
       else openTaskSheet({mode:'add',tid:row.dataset.tid});
     }
     return;
@@ -1576,7 +1838,7 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
@@ -1626,9 +1888,22 @@ document.addEventListener('click',function(e){
     const k=TM.key,id=TM.id;
     stopTimer();
     const it=(S.plan[k]||[]).find(x=>x.id===id);
-    if(it&&!it.done)toggleDone(k,id);
+    if(it&&!it.done){S.stats.timers=(S.stats.timers||0)+1;save();toggleDone(k,id);}
+    checkBadges();
   }
   else if(a==='timerstop')stopTimer();
+  else if(a==='addli'){const i=$('#li-name');if(i&&addLi(i.value)){const n=$('#li-name');if(n)n.focus();}}
+  else if(a==='quickli')addLi(b.dataset.n);
+  else if(a==='checkli'){const r=b.closest('.swipe');toggleLi(r.dataset.id);}
+  else if(a==='clearli')clearDoneLi();
+  else if(a==='sharelist')shareList();
+  else if(a==='moveoverdue')moveOverdue();
+  else if(a==='hidelate'){S.lateHide=todayKey();renderDay();}
+  else if(a==='surprise')openSurprise();
+  else if(a==='vmin'){VM.min=Number(b.dataset.m);pickSurprise();redraw();}
+  else if(a==='vroll'){pickSurprise();redraw();}
+  else if(a==='vadd')surpriseAdd(false);
+  else if(a==='vnow')surpriseAdd(true);
 });
 document.addEventListener('input',function(e){
   const id=e.target.id;
@@ -1645,6 +1920,7 @@ document.addEventListener('keydown',function(e){
     const id=e.target.id;
     if(FM&&(id==='f-name'||id==='f-bname')){e.preventDefault();saveNewTask();}
     else if(TS&&(id==='t-name'||id==='t-note')){e.preventDefault();saveTaskSheet();}
+    else if(id==='li-name'){e.preventDefault();const i=$('#li-name');if(addLi(i.value)){const n=$('#li-name');if(n)n.focus();}}
     else if(id==='p-name'){e.preventDefault();const i=$('#p-name');if(addPerson(i.value)){const n=$('#p-name');if(n)n.focus();}}
   }
 });
@@ -1658,6 +1934,7 @@ applyTheme();
 const now=new Date();
 S.weekStart=mondayOf(now);
 S.sel=keyOf(now);
+if(S.badges===null){S.badges=BADGES.filter(b=>b.cur(calcStats())>=b.goal).map(b=>b.id);save();}
 S.anim=true;
 renderAll();
 runSplash();
