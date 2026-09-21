@@ -358,6 +358,22 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .hm.fut{opacity:.45}
 .hm.now{box-shadow:0 0 0 2px var(--accent)}
 
+/* winkel */
+#splash{background:radial-gradient(120% 80% at 50% 28%,var(--splash1,#1D2760) 0%,var(--splash2,#0B0F1E) 70%)}
+.hero{background:var(--hero,linear-gradient(135deg,#4C66FF,#2233CC))}
+.heroBtn{width:100%;margin-top:12px;background:rgba(255,255,255,.2);border:0;color:#fff;font-weight:700}
+.floatpts{position:fixed;z-index:72;font-weight:800;font-size:19px;color:var(--ok);pointer-events:none;transform:translate(-50%,0);animation:floatUp 1s ease-out forwards;text-shadow:0 1px 0 var(--surface),0 0 8px var(--surface)}
+@keyframes floatUp{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-52px)}}
+.shopgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.shopc{border:1px solid var(--line);border-radius:16px;padding:10px;background:var(--surface);display:flex;flex-direction:column;gap:6px}
+.shopc.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.swatch{height:64px;border-radius:12px;display:grid;place-items:center;font-size:28px}
+.shopc b{font-size:15.5px;font-weight:700}
+.shopc small{color:var(--muted);font-size:12.5px;line-height:1.3;flex:1}
+.shopc .btn{padding:9px 8px;font-size:14px}
+.btn.locked{color:var(--muted)}
+.btn[disabled]{opacity:.7;cursor:default}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -510,12 +526,38 @@ const STARTER=[
   ['groceries-0','any',[4]],
   ['groceries-1','afternoon',[5]]
 ];
-const LEVELS=[[0,'Klusnieuweling','🌱'],[100,'Opruimer','🧹'],[300,'Poetser','✨'],[700,'Huishoudheld','🦸'],[1500,'Klusbaas','👑'],[3000,'Schoonmaaklegende','🏆']];
+const LEVELS=[[0,'Klusnieuweling','🌱'],[200,'Opruimer','🧹'],[600,'Poetser','✨'],[1400,'Huishoudheld','🦸'],[3000,'Klusbaas','👑'],[6000,'Schoonmaaklegende','🏆']];
 const INTRO_V=2;
+const HEAVY={'cleaning-1':1,'cleaning-4':1,'cleaning-9':1,'cleaning-14':1,'dishes-3':1,'laundry-3':1,'laundry-9':1,'kitchen-1':1,'kitchen-4':1,'kitchen-6':1,'kitchen-11':1,'kitchen-12':1,
+  'bathroom-0':1,'bathroom-1':1,'bathroom-8':1,'bathroom-9':1,'bedroom-3':1,'bedroom-4':1,'garden-1':1,'garden-2':1,'garden-5':1,'garden-8':1,'garden-9':1,'pets-2':1,'family-2':1,'family-7':1,'admin-2':1,'admin-8':1};
+const WEIGHTS=[[1,'Licht','×1'],[1.5,'Normaal','×1,5'],[2,'Zwaar','×2'],[3,'Extra zwaar','×3']];
+const THEMES=[
+  {id:'default',name:'Kobalt',emoji:'💙',price:0,desc:'Het standaardthema.',a:'#2F4BF0',ad:'#8DA1FF',hero:'linear-gradient(135deg,#4C66FF,#2233CC)',bg:'#F1F3F7',bgd:'#0E1117',s1:'#1D2760',s2:'#0B0F1E'},
+  {id:'oranje',name:'Oranje',emoji:'🧡',price:200,desc:'Hup Holland hup!',a:'#E8590C',ad:'#FF9F5E',hero:'linear-gradient(135deg,#FF9147,#E0500A)',bg:'#FFF4EA',bgd:'#160F0A',s1:'#6A2E0B',s2:'#170B04'},
+  {id:'bos',name:'Bos',emoji:'🌲',price:300,desc:'Rustig groen, als een wandeling.',a:'#1E7A4C',ad:'#58D69A',hero:'linear-gradient(135deg,#3FAE7A,#0F5C38)',bg:'#EEF6F1',bgd:'#0A130E',s1:'#154A2E',s2:'#06130C'},
+  {id:'oceaan',name:'Oceaan',emoji:'🌊',price:300,desc:'Frisse blauwgroene golven.',a:'#0A7EA4',ad:'#5AC8EE',hero:'linear-gradient(135deg,#25BDD9,#0B5C8E)',bg:'#ECF6F9',bgd:'#09131A',s1:'#0F4560',s2:'#061219'},
+  {id:'tulp',name:'Tulpen',emoji:'🌷',price:400,desc:'Roze en warm, zoals in het voorjaar.',a:'#D6336C',ad:'#FF7EA8',hero:'linear-gradient(135deg,#F06595,#AE1450)',bg:'#FDF0F4',bgd:'#170C11',s1:'#6B1735',s2:'#170812'},
+  {id:'delft',name:'Delfts blauw',emoji:'🏺',price:500,desc:'Klassiek Hollands.',a:'#1C4E9A',ad:'#7DA6E8',hero:'linear-gradient(135deg,#3271CC,#123A78)',bg:'#F2F5FB',bgd:'#0A111C',s1:'#163669',s2:'#070D18'},
+  {id:'zon',name:'Zonsondergang',emoji:'🌅',price:800,desc:'Oranje, roze en paars in één.',a:'#D9480F',ad:'#FF8F5A',hero:'linear-gradient(135deg,#FF7A45,#E8407A 55%,#7A3FD4)',bg:'#FFF2EC',bgd:'#150C13',s1:'#5B1F49',s2:'#160810'},
+  {id:'nacht',name:'Middernacht',emoji:'🌌',price:1000,desc:'Diep paars met een vleugje magie.',a:'#6D3FE0',ad:'#B197FC',hero:'linear-gradient(135deg,#8258FF,#3B1FA8)',bg:'#F2F0FA',bgd:'#0C0A17',s1:'#2C1B6B',s2:'#08061A'},
+  {id:'goud',name:'Goud',emoji:'👑',price:1500,desc:'Voor echte klusleiders.',a:'#A9700F',ad:'#F2C94C',oa:'#FFFFFF',oad:'#1A1200',hero:'linear-gradient(135deg,#D9A62B,#8A5A0B)',bg:'#FBF6E8',bgd:'#14110A',s1:'#5E4210',s2:'#120D04'}
+];
+const CONFETTI=[
+  {id:'classic',name:'Klassiek',emoji:'🎉',price:0,desc:'Bonte confetti.'},
+  {id:'oranje',name:'Oranje regen',emoji:'🧡',price:150,desc:'Alles in het oranje.',cols:['#FF6B00','#FF9F1C','#FFB84D','#FFFFFF','#E8590C']},
+  {id:'poets',name:'Poetsbuien',emoji:'🫧',price:250,desc:'Zeepbellen, sponsjes en glitters.',emojis:['🫧','🧽','✨','🧼','🧹']},
+  {id:'hartjes',name:'Hartjesregen',emoji:'💕',price:250,desc:'Zoveel liefde voor je huis.',emojis:['❤️','💖','💕','💗','💘']},
+  {id:'feest',name:'Feestje',emoji:'🥳',price:400,desc:'Ballonnen en slingers.',emojis:['🎉','🎊','🥳','🎈','⭐']}
+];
+const EXTRAS=[
+  {id:'boost',name:'Dubbele punten',emoji:'⚡',price:400,desc:'24 uur lang levert elke afgeronde taak dubbele punten.'},
+  {id:'shield',name:'Reeksschild',emoji:'🛡️',price:300,desc:'Bescherm je reeks op een dag die je hebt gemist.'}
+];
+
 
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:''};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -525,19 +567,32 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.repeats=o.repeats||[];S.people=o.people||[];S.theme=o.theme||'auto';S.tip=!!o.tip;
       S.intro=typeof o.introV==='number'?o.introV:(o.intro?1:0);
       S.list=o.list||[];S.badges=Array.isArray(o.badges)?o.badges:null;S.stats=Object.assign({timers:0,rolls:0,bought:0},o.stats||{});
+      S.spent=o.spent||0;S.owned=Array.isArray(o.owned)?o.owned:S.owned;S.themeId=o.themeId||'default';S.confettiId=o.confettiId||'classic';
+      S.boostUntil=o.boostUntil||0;S.shields=o.shields||0;S.shielded=o.shielded||{};S.shopHint=!!o.shopHint;
+      S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
+  ['theme:default','conf:classic'].forEach(x=>{if(S.owned.indexOf(x)<0)S.owned.push(x);});
   const byId={};BUILTIN.forEach(t=>{byId[t.id]=t;});
   Object.keys(S.plan).forEach(k=>(S.plan[k]||[]).forEach(t=>{if(byId[t.tid])t.name=byId[t.tid].name;}));
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
   try{const o=JSON.parse(s);S.plan=o.plan;S.repeats=o.repeats;S.people=o.people;S.list=o.list||[];}catch(e){return;}
   save();renderAll();
+}
+function applyThemeStyle(){
+  const th=THEMES.find(x=>x.id===(S.preview||S.themeId))||THEMES[0];
+  let el=document.getElementById('themestyle');
+  if(!el){el=document.createElement('style');el.id='themestyle';document.head.appendChild(el);}
+  const common='--hero:'+th.hero+';--splash1:'+th.s1+';--splash2:'+th.s2+';';
+  const L='--accent:'+th.a+';--on-accent:'+(th.oa||'#FFFFFF')+';--bg:'+th.bg+';'+common;
+  const D='--accent:'+th.ad+';--on-accent:'+(th.oad||'#0E1117')+';--bg:'+th.bgd+';'+common;
+  el.textContent=':root{'+L+'}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){'+D+'}}:root[data-theme="dark"]{'+D+'}';
 }
 function applyTheme(){
   const r=document.documentElement;
@@ -589,8 +644,25 @@ const ICON_REPEAT='<svg viewBox="0 0 24 24"><path d="M17 3l3 3-3 3"/><path d="M4
 const ICON_X='<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
 /* ---------- punten, reeks, niveau ---------- */
-const ptsOf=list=>list.filter(t=>t.done).reduce((a,t)=>a+t.min,0);
-function totalPoints(){return Object.keys(S.plan).reduce((a,k)=>a+ptsOf(S.plan[k]||[]),0);}
+function defaultW(t){const k=t.tid||t.id;return HEAVY[k]?2:((t.min||0)>=20?1.5:1);}
+function pointsOf(t){const w=t.w||defaultW(t);return Math.max(5,Math.round((t.min||0)*w/5)*5);}
+const boostActive=()=>Date.now()<(S.boostUntil||0);
+const earnedOf=t=>t.done?(t.pts!=null?t.pts:pointsOf(t)):0;
+const ptsOf=list=>list.reduce((a,t)=>a+earnedOf(t),0);
+function totalPoints(){return S.earned;}
+const balance=()=>Math.max(0,S.earned-S.spent);
+function boostTime(){return new Date(S.boostUntil).toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'});}
+function floatPoints(el,text){
+  try{
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const r=el.getBoundingClientRect();
+    const f=document.createElement('div');
+    f.className='floatpts';f.textContent=text;
+    f.style.left=(r.left+r.width/2)+'px';f.style.top=(r.top-4)+'px';
+    document.body.appendChild(f);
+    setTimeout(function(){f.remove();},1000);
+  }catch(e){}
+}
 function weekItems(){
   const out=[];
   for(let i=0;i<7;i++){(S.plan[keyOf(addDays(S.weekStart,i))]||[]).forEach(t=>out.push(t));}
@@ -605,7 +677,9 @@ function streak(){
   let n=0,gap=0;
   const today=new Date();
   for(let i=0;i<180;i++){
-    const st=dayState(keyOf(addDays(today,-i)));
+    const dk=keyOf(addDays(today,-i));
+    if(S.shielded&&S.shielded[dk])continue;
+    const st=dayState(dk);
     if(st==='full'){
       if(n===0&&i>2)return 0;
       n++;gap=0;
@@ -640,13 +714,13 @@ function calcStats(){
   let perfect=0;
   Object.keys(weeks).forEach(k=>{if(weeks[k].n>=5&&weeks[k].d===weeks[k].n)perfect++;});
   const team=Object.keys(per).filter(id=>per[id]>=3&&personOf(id)).length;
-  return {done:done,pts:pts,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0};
+  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0};
 }
 const BADGES=[
   {id:'first',emoji:'🎯',name:'Eerste klus',desc:'Rond je eerste taak af',goal:1,cur:s=>s.done},
   {id:'bee',emoji:'🐝',name:'Werkbijtje',desc:'Rond 25 taken af',goal:25,cur:s=>s.done},
   {id:'hundred',emoji:'💯',name:'Honderdklapper',desc:'Rond 100 taken af',goal:100,cur:s=>s.done},
-  {id:'points',emoji:'⭐',name:'Puntenjager',desc:'Verdien 500 punten',goal:500,cur:s=>s.pts},
+  {id:'points',emoji:'⭐',name:'Puntenjager',desc:'Verdien 1000 punten',goal:1000,cur:s=>s.pts},
   {id:'streak3',emoji:'🔥',name:'Op stoom',desc:'3 dagen op rij alles klaar',goal:3,cur:s=>s.streak},
   {id:'streak7',emoji:'🌋',name:'Weekwinnaar',desc:'7 dagen op rij alles klaar',goal:7,cur:s=>s.streak},
   {id:'perfect',emoji:'🌟',name:'Perfecte week',desc:'Rond een hele week af (minstens 5 taken)',goal:1,cur:s=>s.perfect},
@@ -654,7 +728,9 @@ const BADGES=[
   {id:'team',emoji:'🤝',name:'Teamspeler',desc:'Twee mensen ronden elk 3 taken af',goal:2,cur:s=>s.team},
   {id:'timer',emoji:'⏱️',name:'Tijdmeester',desc:'Rond 5 taken af met de timer',goal:5,cur:s=>s.timers},
   {id:'dice',emoji:'🎲',name:'Durfal',desc:'Kies 3 keer een verrassingsklus',goal:3,cur:s=>s.rolls},
-  {id:'cart',emoji:'🛒',name:'Boodschapper',desc:'Vink 20 boodschappen af',goal:20,cur:s=>s.bought}
+  {id:'cart',emoji:'🛒',name:'Boodschapper',desc:'Vink 20 boodschappen af',goal:20,cur:s=>s.bought},
+  {id:'shop',emoji:'🛍️',name:'Winkelmuis',desc:'Koop je eerste artikel in de winkel',goal:1,cur:s=>s.shopped},
+  {id:'rich',emoji:'💰',name:'Spaarvarken',desc:'Spaar 1000 punten tegelijk',goal:1000,cur:s=>s.bal}
 ];
 function checkBadges(){
   const st=calcStats();
@@ -673,14 +749,15 @@ function checkBadges(){
 function confetti(){
   try{
     if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const cf=CONFETTI.find(x=>x.id===S.confettiId)||CONFETTI[0];
     const c=document.createElement('canvas');c.className='confetti';
     const dpr=Math.min(2,window.devicePixelRatio||1),W=window.innerWidth,H=window.innerHeight;
     c.width=W*dpr;c.height=H*dpr;document.body.appendChild(c);
     const x=c.getContext('2d');x.scale(dpr,dpr);
-    const cols=['#4C66FF','#1FA267','#F5A524','#E5484D','#A855F7','#06B6D4'];
+    const cols=cf.cols||['#4C66FF','#1FA267','#F5A524','#E5484D','#A855F7','#06B6D4'];
     const ps=[];
-    for(let i=0;i<120;i++){
-      ps.push({x:W/2+(Math.random()-.5)*90,y:H*.55,vx:(Math.random()-.5)*12,vy:-(6+Math.random()*11),g:.3+Math.random()*.12,s:5+Math.random()*7,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,c:cols[i%cols.length]});
+    for(let i=0;i<(cf.emojis?70:120);i++){
+      ps.push({x:W/2+(Math.random()-.5)*90,y:H*.55,vx:(Math.random()-.5)*12,vy:-(6+Math.random()*11),g:.3+Math.random()*.12,s:5+Math.random()*7,r:Math.random()*6.28,vr:(Math.random()-.5)*.4,c:cols[i%cols.length],e:cf.emojis?cf.emojis[i%cf.emojis.length]:null});
     }
     const t0=performance.now();
     (function f(t){
@@ -688,7 +765,10 @@ function confetti(){
       x.clearRect(0,0,W,H);
       ps.forEach(function(p){
         p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.992;p.r+=p.vr;
-        x.save();x.translate(p.x,p.y);x.rotate(p.r);x.globalAlpha=Math.max(0,1-el/2300);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);x.restore();
+        x.save();x.translate(p.x,p.y);x.rotate(p.e?p.r*.3:p.r);x.globalAlpha=Math.max(0,1-el/2300);
+        if(p.e){x.font=Math.round(p.s*2.6)+'px serif';x.textAlign='center';x.textBaseline='middle';x.fillText(p.e,0,0);}
+        else{x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);}
+        x.restore();
       });
       if(el<2300)requestAnimationFrame(f);else c.remove();
     })(t0);
@@ -697,7 +777,7 @@ function confetti(){
 
 /* ---------- routines ---------- */
 function makeRule(base,wd,start){
-  return {id:uid(),tid:base.tid,name:base.name,emoji:base.emoji,cat:base.cat,min:base.min,time:base.time||'any',who:base.who||null,note:base.note||'',wd:wd,start:start,skip:[]};
+  return {id:uid(),tid:base.tid,name:base.name,emoji:base.emoji,cat:base.cat,min:base.min,w:base.w||null,time:base.time||'any',who:base.who||null,note:base.note||'',wd:wd,start:start,skip:[]};
 }
 function ensureWeek(){
   let changed=false;
@@ -708,7 +788,7 @@ function ensureWeek(){
       if((r.skip||[]).indexOf(k)>=0)return;
       const arr=(S.plan[k]=S.plan[k]||[]);
       if(arr.some(x=>x.rid===r.id))return;
-      arr.push({id:uid(),rid:r.id,tid:r.tid,name:r.name,emoji:r.emoji,cat:r.cat,min:r.min,time:r.time||'any',who:r.who||null,note:r.note||'',done:false});
+      arr.push({id:uid(),rid:r.id,tid:r.tid,name:r.name,emoji:r.emoji,cat:r.cat,min:r.min,w:r.w||null,time:r.time||'any',who:r.who||null,note:r.note||'',done:false});
       changed=true;
     });
   }
@@ -798,11 +878,18 @@ function toggleDone(key,id){
   if(!t)return;
   const wasFull=arr.length>0&&arr.every(x=>x.done);
   t.done=!t.done;
-  if(t.done)t.doneAt=Date.now();else delete t.doneAt;
+  if(t.done){
+    t.pts=pointsOf(t)*(boostActive()?2:1);t.doneAt=Date.now();S.earned+=t.pts;
+  }else{
+    const back=t.pts!=null?t.pts:pointsOf(t);
+    S.earned=Math.max(0,S.earned-back);if(S.spent>S.earned)S.spent=S.earned;
+    delete t.pts;delete t.doneAt;
+  }
   const nowFull=arr.every(x=>x.done);
   if(t.done)S.pop=t.id;
   save();renderAll();S.pop=null;
   if(t.done){
+    const chk=$('.check.pop');if(chk)floatPoints(chk,'+'+t.pts+' ⭐'+(boostActive()?' ⚡':''));
     haptic(14);
     if(nowFull&&!wasFull){
       confetti();haptic([20,40,20]);
@@ -828,7 +915,7 @@ function addToDay(tid,key){
   const t=taskById(tid);
   if(!t)return;
   const before=snap();
-  const item={id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:DEF[t.id]||'any',who:S.addWho||null,note:'',done:false};
+  const item=makeItem(t);
   (S.plan[key]=S.plan[key]||[]).push(item);
   save();renderStrip();refreshBadges();
   haptic(10);
@@ -893,13 +980,13 @@ function splitFair(){
   const items=weekItems();
   const load={};
   S.people.forEach(p=>{load[p.id]=0;});
-  items.forEach(t=>{if(t.who&&load[t.who]!==undefined)load[t.who]+=t.min;});
-  const un=items.filter(t=>!t.who&&!t.done).sort((a,b)=>b.min-a.min);
+  items.forEach(t=>{if(t.who&&load[t.who]!==undefined)load[t.who]+=pointsOf(t);});
+  const un=items.filter(t=>!t.who&&!t.done).sort((a,b)=>pointsOf(b)-pointsOf(a));
   if(!un.length){toast('Alle taken hebben al een eigenaar.');return;}
   un.forEach(function(t){
     let best=S.people[0];
     S.people.forEach(p=>{if(load[p.id]<load[best.id])best=p;});
-    t.who=best.id;load[best.id]+=t.min;
+    t.who=best.id;load[best.id]+=pointsOf(t);
   });
   save();renderAll();
   toast(nTaken(un.length)+' eerlijk verdeeld','Ongedaan maken',function(){restore(before);});
@@ -936,12 +1023,13 @@ function selectDay(key){
   if(S.tab==='tasks'){updateHint();refreshBadges();}
 }
 function setTab(tab){
+  if(S.preview)clearPreview();
   S.tab=tab;S.anim=true;renderAll();window.scrollTo(0,0);
 }
 
 
 function makeItem(t){
-  return {id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:DEF[t.id]||'any',who:S.addWho||null,note:'',done:false};
+  return {id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,w:t.w||null,time:DEF[t.id]||'any',who:S.addWho||null,note:'',done:false};
 }
 function overdueItems(){
   const out=[];
@@ -1214,7 +1302,7 @@ function renderHead(){
 }
 function renderStrip(){
   const strip=$('#strip');
-  const hide=S.tab==='week'||S.tab==='home'||S.tab==='list';
+  const hide=S.tab==='week'||S.tab==='home'||S.tab==='list'||S.tab==='shop';
   strip.hidden=hide;
   $('#top').classList.toggle('compact-top',hide);
   let html='';
@@ -1228,7 +1316,7 @@ function renderStrip(){
 }
 function renderNav(){
   $$('#nav button').forEach(function(b){
-    if(b.dataset.tab===S.tab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+    if(b.dataset.tab===(S.tab==='shop'?'home':S.tab))b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
   });
 }
 function renderAll(){
@@ -1241,6 +1329,7 @@ function renderAll(){
   else if(S.tab==='week')renderWeek();
   else if(S.tab==='tasks')renderTasks();
   else if(S.tab==='list')renderList();
+  else if(S.tab==='shop')renderShop();
   else renderHome();
   S.anim=false;
 }
@@ -1258,7 +1347,7 @@ function planRow(t,key,compact){
     +'<div class="card'+(t.done?' isdone':'')+'">'
     +'<span class="tile">'+esc(t.emoji)+'</span>'
     +'<div class="txt"><div class="nm">'+esc(t.name)+'</div>'
-    +'<div class="sub"><span class="cn">'+esc(c.name)+'</span><span>'+fmtMin(t.min)+'</span>'
+    +'<div class="sub"><span class="cn">'+esc(c.name)+'</span><span>'+fmtMin(t.min)+'</span><span>⭐ '+(t.done?earnedOf(t):pointsOf(t)*(boostActive()?2:1))+'</span>'
     +(tm&&compact?'<span>'+tm[1]+'</span>':'')
     +(t.rid?'<span class="rep" title="Herhaalt wekelijks">'+ICON_REPEAT+'</span>':'')+'</div>'
     +(t.note?'<div class="note">'+esc(t.note)+'</div>':'')+'</div>'
@@ -1293,7 +1382,7 @@ function renderDay(){
   html+='<section class="dayhead">'+(S.sel===todayKey()?'<p class="greet">'+greet()+' 👋</p>':'')
     +'<h2>'+esc(longLabel(S.sel))+'</h2><p>'
     +(list.length?done+' van '+list.length+' klaar, '+fmtMin(mins)+' gepland':(all.length?'Niets voor deze persoon':'Nog niets gepland'))+'</p>'
-    +((st>0||pts>0)?'<div class="pills">'+(st>0?'<span class="pill">🔥 '+st+(st===1?' dag':' dagen')+' op rij</span>':'')+(pts>0?'<span class="pill">⭐ '+pts+' punten</span>':'')+'</div>':'')
+    +((st>0||pts>0||boostActive()||S.shielded[S.sel])?'<div class="pills">'+(st>0?'<span class="pill">🔥 '+st+(st===1?' dag':' dagen')+' op rij</span>':'')+(pts>0?'<span class="pill">⭐ '+pts+' punten</span>':'')+(boostActive()?'<span class="pill">⚡ Dubbele punten tot '+boostTime()+'</span>':'')+(S.shielded[S.sel]?'<span class="pill">🛡️ Beschermd</span>':'')+'</div>':'')
     +(list.length?'<div class="prog" role="progressbar" aria-valuenow="'+pct+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pct+'%"></i></div>':'')
     +'</section>';
   html+=lateBanner();
@@ -1306,7 +1395,7 @@ function renderDay(){
     }).join('');
     html+='<p class="tip">Veeg naar rechts om af te ronden, naar links om te verwijderen. Tik op een taak om hem aan te passen.</p>'
       +'<button class="addmore" type="button" data-act="tab" data-tab="tasks">Meer taken toevoegen</button>'
-      +'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearday">Deze dag leegmaken</button></div>';
+      +shieldBtn(all)+'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearday">Deze dag leegmaken</button></div>';
   }else if(!all.length){
     html+='<div class="empty"><div class="big">🗓️</div><h3>Deze dag is nog leeg</h3>'
       +'<p>Kies taken in het tabblad Taken en veeg ze naar rechts om deze dag te plannen.</p>'
@@ -1348,7 +1437,7 @@ function libRow(t){
     +'<div class="bg"><span class="bg-r">Toevoegen</span><span class="bg-l">Verwijderen</span></div>'
     +'<div class="card">'
     +'<span class="tile">'+esc(t.emoji)+'</span>'
-    +'<div class="txt"><div class="nm">'+esc(t.name)+'</div><div class="sub"><span>'+fmtMin(t.min)+'</span></div></div>'
+    +'<div class="txt"><div class="nm">'+esc(t.name)+'</div><div class="sub"><span>'+fmtMin(t.min)+'</span><span>⭐ '+pointsOf({tid:t.id,min:t.min,w:t.w})+'</span></div></div>'
     +'<span class="planned" hidden></span>'
     +'<button class="addbtn" type="button" data-act="add" aria-label="Voeg '+esc(t.name)+' toe aan de gekozen dag">'+ICON_PLUS+'</button>'
     +'</div></div>';
@@ -1407,6 +1496,110 @@ function refreshBadges(){
 }
 
 /* ---------- opbouw: thuis ---------- */
+/* ---------- winkel ---------- */
+function findItem(kind,id){
+  const list=kind==='theme'?THEMES:(kind==='conf'?CONFETTI:EXTRAS);
+  return list.find(x=>x.id===id);
+}
+function clearPreview(){
+  if(!S.preview)return;
+  S.preview=null;applyThemeStyle();
+}
+function buyItem(kind,id){
+  const it=findItem(kind,id);
+  if(!it)return;
+  if(kind!=='extra'&&S.owned.indexOf(kind+':'+id)>=0)return;
+  if(balance()<it.price){
+    toast('Nog '+(it.price-balance())+' punten nodig voor '+it.name+'.');haptic([30,40]);
+    return;
+  }
+  S.spent+=it.price;
+  S.stats.shopped=(S.stats.shopped||0)+1;
+  if(kind==='extra'){
+    if(id==='boost')S.boostUntil=Math.max(Date.now(),S.boostUntil||0)+86400000;
+    else S.shields=(S.shields||0)+1;
+  }else{
+    S.owned.push(kind+':'+id);
+    if(kind==='theme'){S.themeId=id;S.preview=null;applyThemeStyle();}
+    else S.confettiId=id;
+  }
+  save();renderShop();confetti();haptic([20,30,20]);
+  toast('Gekocht: '+it.emoji+' '+it.name);
+  checkBadges();
+}
+function equipItem(kind,id){
+  if(S.owned.indexOf(kind+':'+id)<0)return;
+  if(kind==='theme'){S.themeId=id;S.preview=null;applyThemeStyle();}
+  else S.confettiId=id;
+  save();renderShop();
+  const it=findItem(kind,id);
+  toast(it.emoji+' '+it.name+' is nu actief');
+  if(kind==='conf')confetti();
+}
+function previewTheme(id){
+  const th=findItem('theme',id);
+  if(!th)return;
+  S.preview=id;applyThemeStyle();
+  toast('Voorbeeld: '+th.emoji+' '+th.name,'Terug',function(){clearPreview();});
+  setTimeout(function(){if(S.preview===id)clearPreview();},9000);
+}
+function useShield(key){
+  if((S.shields||0)<1||S.shielded[key])return;
+  S.shields--;S.shielded[key]=true;
+  save();renderAll();
+  toast('🛡️ Reeksschild gebruikt. Je reeks is veilig.');
+}
+function shieldBtn(all){
+  if(!(S.shields>0)||S.sel>=todayKey()||S.shielded[S.sel]||!all.some(t=>!t.done))return '';
+  return '<div style="text-align:center"><button class="linkbtn" type="button" data-act="useshield" data-key="'+S.sel+'">🛡️ Reeksschild gebruiken ('+S.shields+')</button></div>';
+}
+function buyBtn(kind,it,bal){
+  const aff=bal>=it.price;
+  return '<button class="btn wide'+(aff?' primary':' locked')+'" type="button" data-act="buy" data-k="'+kind+'" data-id="'+it.id+'">'+(aff?'Koop ⭐ '+it.price:'🔒 ⭐ '+it.price)+'</button>';
+}
+function renderShop(){
+  const main=$('#main');
+  const bal=balance();
+  let html='<button class="linkbtn" type="button" data-act="tab" data-tab="home" style="text-decoration:none;padding-left:0">‹ Terug naar Thuis</button>';
+  html+='<div class="hcard hero"><div class="hero-top"><div class="lvl-emoji">🛍️</div><div><div class="lvl-name">Winkel</div><div class="lvl-sub">Geef je punten uit aan thema’s en extra’s</div></div></div>'
+    +'<div class="stats3" style="grid-template-columns:1fr 1fr"><div><b>⭐ '+bal+'</b><span>te besteden</span></div><div><b>🏆 '+S.earned+'</b><span>totaal verdiend</span></div></div></div>';
+
+  const ex=[[1,'bedroom-0'],[1.5,'cleaning-0'],[2,'bathroom-0'],[3,'kitchen-6']];
+  html+='<div class="hcard"><h3>Zo verdien je punten</h3><p class="sm">Punten = minuten × zwaarte. Zwaarder of viezer werk levert dus meer op. Standaard telt een taak vanaf 20 minuten ×1,5 en vies of zwaar werk ×2. Je kunt de zwaarte van elke taak zelf aanpassen.</p>'
+    +ex.map(function(e){
+      const t=BUILTIN.find(x=>x.id===e[1]),wt=WEIGHTS.find(x=>x[0]===e[0]);
+      return '<div class="prow"><span class="pts" style="width:96px;font-size:14px">'+wt[1]+' '+wt[2]+'</span><div class="pt"><b style="font-weight:600;font-size:14.5px">'+esc(t.name)+'</b><span>'+t.min+' min</span></div><span class="pts">⭐ '+pointsOf({tid:t.id,min:t.min,w:e[0]})+'</span></div>';
+    }).join('')+'</div>';
+
+  html+='<div class="hcard"><h3>Thema’s</h3><div class="shopgrid">'
+    +THEMES.map(function(th){
+      const owned=S.owned.indexOf('theme:'+th.id)>=0,active=S.themeId===th.id;
+      return '<div class="shopc'+(active?' active':'')+'"><div class="swatch" style="background:'+th.hero+'"><span>'+th.emoji+'</span></div><b>'+esc(th.name)+'</b><small>'+esc(th.desc)+'</small>'
+        +(active?'<button class="btn wide" type="button" disabled>✓ In gebruik</button>'
+          :owned?'<button class="btn wide" type="button" data-act="equip" data-k="theme" data-id="'+th.id+'">Gebruiken</button>'
+          :buyBtn('theme',th,bal)+'<button class="linkbtn" type="button" data-act="preview" data-id="'+th.id+'" style="padding:2px;text-decoration:none">👀 Voorbeeld</button>')
+        +'</div>';
+    }).join('')+'</div></div>';
+
+  html+='<div class="hcard"><h3>Confetti</h3>'
+    +CONFETTI.map(function(cf){
+      const owned=S.owned.indexOf('conf:'+cf.id)>=0,active=S.confettiId===cf.id;
+      return '<div class="prow cat" style="--h:48"><span class="tile">'+cf.emoji+'</span><div class="pt"><b>'+esc(cf.name)+'</b><span>'+esc(cf.desc)+'</span></div>'
+        +'<div style="width:112px">'+(active?'<button class="btn wide" type="button" disabled style="padding:8px">✓ Actief</button>'
+          :owned?'<button class="btn wide" type="button" data-act="equip" data-k="conf" data-id="'+cf.id+'" style="padding:8px">Gebruiken</button>'
+          :buyBtn('conf',cf,bal).replace('class="btn wide','style="padding:8px" class="btn wide'))+'</div></div>';
+    }).join('')+'</div>';
+
+  html+='<div class="hcard"><h3>Extra’s</h3>'
+    +EXTRAS.map(function(it){
+      const status=it.id==='boost'?(boostActive()?'⚡ Actief tot '+boostTime():'Niet actief'):('Je hebt er '+(S.shields||0));
+      return '<div class="prow cat" style="--h:48"><span class="tile">'+it.emoji+'</span><div class="pt"><b>'+esc(it.name)+'</b><span>'+esc(it.desc)+'</span><span style="display:block;margin-top:2px;font-weight:700;color:var(--ink)">'+status+'</span></div>'
+        +'<div style="width:112px">'+buyBtn('extra',it,bal).replace('class="btn wide','style="padding:8px" class="btn wide')+'</div></div>';
+    }).join('')+'</div>';
+  main.innerHTML=html;
+  afterRender(main);
+}
+
 function heatmapCard(){
   const start=addDays(mondayOf(new Date()),-28),tk=todayKey();
   let cells='';
@@ -1438,7 +1631,7 @@ function renderHome(){
   const items=weekItems();
   const total=items.length,done=items.filter(t=>t.done).length;
   const pct=total?Math.round(done/total*100):0;
-  const tm=items.reduce((a,t)=>a+t.min,0),dm=ptsOf(items);
+  const tm=items.reduce((a,t)=>a+t.min,0),dm=items.filter(t=>t.done).reduce((a,t)=>a+t.min,0),wp=ptsOf(items);
   const all=totalPoints(),li=levelIndex(all),lv=LEVELS[li],nx=LEVELS[li+1];
   const st=streak();
 
@@ -1446,11 +1639,12 @@ function renderHome(){
     +'<div class="lvl-sub">'+(nx?'Nog '+(nx[0]-all)+' punten tot '+nx[1]:'Hoogste niveau bereikt!')+'</div></div></div>'
     +'<div class="hbar"><i style="width:'+(nx?Math.round((all-lv[0])/(nx[0]-lv[0])*100):100)+'%"></i></div>'
     +'<div class="stats3"><div><b>🔥 '+st+'</b><span>'+(st===1?'dag':'dagen')+' op rij</span></div>'
-    +'<div><b>⭐ '+dm+'</b><span>deze week</span></div><div><b>🏆 '+all+'</b><span>totaal</span></div></div></div>';
+    +'<div><b>⭐ '+balance()+'</b><span>saldo</span></div><div><b>🏆 '+all+'</b><span>totaal</span></div></div>'
+    +'<button class="btn heroBtn" type="button" data-act="tab" data-tab="shop">🛍️ Naar de winkel</button></div>';
 
   html+='<div class="hcard"><div class="sum"><div class="ring" style="--p:'+pct+'"><div class="ring-in"><b>'+pct+'%</b></div></div>'
     +'<div><h3>'+(total?done+' van '+total+' klaar':'Niets gepland')+'</h3><p>'
-    +(total?fmtMin(dm)+' klaar van '+fmtMin(tm)+' deze week':'Plan taken om je week vorm te zien krijgen.')+'</p></div></div></div>';
+    +(total?fmtMin(dm)+' klaar van '+fmtMin(tm)+' deze week, ⭐ '+wp+' punten':'Plan taken om je week vorm te zien krijgen.')+'</p></div></div></div>';
   html+=heatmapCard();
   html+=badgesCard();
 
@@ -1552,6 +1746,12 @@ function closeSheet(){
   CUR=null;FM=null;TS=null;
   setTimeout(function(){if(!CUR){sh.hidden=true;sh.innerHTML='';}},260);
 }
+function weightSection(w,tid,min,act){
+  const eff=w||defaultW({tid:tid,min:min});
+  const pts=Math.max(5,Math.round(min*eff/5)*5);
+  return '<div class="fld"><span>Zwaarte <small style="font-weight:600;color:var(--muted)">→ ⭐ '+pts+' punten</small></span><div class="opts">'
+    +WEIGHTS.map(x=>'<button type="button" class="opt'+(eff===x[0]?' on':'')+'" data-act="'+act+'" data-w="'+x[0]+'">'+x[1]+' '+x[2]+'</button>').join('')+'</div></div>';
+}
 function minChips(cur){
   return [5,10,15,20,30,45,60,90].map(m=>'<button type="button" class="opt'+(cur===m?' on':'')+'" data-act="'+(TS?'tmin':'fmin')+'" data-m="'+m+'">'+fmtMin(m)+'</button>').join('');
 }
@@ -1559,7 +1759,7 @@ function minChips(cur){
 /* nieuwe taak */
 function openNewTask(preset){
   preset=preset||{};
-  FM={name:preset.name||'',cat:preset.cat||(S.filter!=='all'?S.filter:'cleaning'),min:15,also:true,nb:false,bname:'',bemoji:'📌',err:''};
+  FM={name:preset.name||'',cat:preset.cat||(S.filter!=='all'?S.filter:'cleaning'),min:15,also:true,nb:false,bname:'',bemoji:'📌',w:null,err:''};
   openSheetWith(renderNewTask);
   setTimeout(function(){const i=$('#f-name');if(i&&FM&&!FM.name)i.focus();},280);
 }
@@ -1575,6 +1775,7 @@ function renderNewTask(focusId){
   +(FM.nb?'<div class="row2"><label class="fld em"><span>Icoon</span><input class="inp" id="f-bemoji" maxlength="4" value="'+esc(FM.bemoji)+'"></label>'
     +'<label class="fld grow"><span>Naam categorie</span><input class="inp" id="f-bname" maxlength="24" placeholder="Bijvoorbeeld: Garage" value="'+esc(FM.bname)+'"></label></div>':'')
   +'<div class="fld"><span>Benodigde tijd</span><div class="opts">'+minChips(FM.min)+'</div></div>'
+  +weightSection(FM.w,'nieuw',FM.min,'fw')
   +'<button type="button" class="toggle" role="switch" aria-checked="'+FM.also+'" data-act="falso"><span>Ook toevoegen aan '+esc(midLabel(S.sel))+'</span><i class="knob"></i></button>'
   +(FM.err?'<p class="err">'+esc(FM.err)+'</p>':'')
   +'<div class="actions"><button type="button" class="btn ghost" data-act="closesheet">Annuleren</button><button type="button" class="btn primary" data-act="savetask">Taak opslaan</button></div>'
@@ -1593,9 +1794,10 @@ function saveNewTask(){
     S.filter=cat;
   }
   const t={id:'u'+uid(),cat:cat,name:name,emoji:catOf(cat).emoji,min:FM.min,custom:true};
+  if(FM.w)t.w=FM.w;
   S.custom.push(t);
   const also=FM.also;
-  if(also)(S.plan[S.sel]=S.plan[S.sel]||[]).push({id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,time:'any',who:S.addWho||null,note:'',done:false});
+  if(also)(S.plan[S.sel]=S.plan[S.sel]||[]).push({id:uid(),tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,w:t.w||null,time:'any',who:S.addWho||null,note:'',done:false});
   save();closeSheet();renderAll();
   toast(also?'Opgeslagen en toegevoegd aan '+dow(S.sel):'Taak opgeslagen');
 }
@@ -1605,12 +1807,12 @@ function openTaskSheet(o){
   if(o.mode==='add'){
     const t=taskById(o.tid);
     if(!t)return;
-    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,days:[S.sel],time:DEF[t.id]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
+    TS={mode:'add',tid:t.id,name:t.name,emoji:t.emoji,cat:t.cat,min:t.min,w:t.w||null,days:[S.sel],time:DEF[t.id]||'any',who:S.addWho||null,note:'',repeat:false,hadRule:false,err:''};
   }else{
     const it=(S.plan[o.key]||[]).find(x=>x.id===o.id);
     if(!it)return;
     const rule=it.rid?S.repeats.find(r=>r.id===it.rid):null;
-    TS={mode:'edit',key:o.key,id:it.id,tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,days:[o.key],time:it.time||'any',who:it.who||null,note:it.note||'',repeat:!!rule,hadRule:!!rule,err:''};
+    TS={mode:'edit',key:o.key,id:it.id,tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w||null,days:[o.key],time:it.time||'any',who:it.who||null,note:it.note||'',repeat:!!rule,hadRule:!!rule,err:''};
   }
   openSheetWith(renderTaskSheet);
 }
@@ -1636,6 +1838,7 @@ function renderTaskSheet(focusId){
   +'<div class="fld"><span>Wanneer</span><div class="opts">'+when+'</div></div>'
   +who
   +'<div class="fld"><span>Benodigde tijd</span><div class="opts">'+minChips(T.min)+'</div></div>'
+  +weightSection(T.w,T.tid,T.min,'tw')
   +'<label class="fld"><span>Notitie</span><input class="inp" id="t-note" type="text" maxlength="80" placeholder="Optioneel" autocomplete="off" value="'+esc(T.note)+'"></label>'
   +'<button type="button" class="toggle" role="switch" aria-checked="'+T.repeat+'" data-act="trep"><span>Elke week herhalen'+(multi&&T.days.length>1?' op deze dagen':'')+'</span><i class="knob"></i></button>'
   +(T.hadRule?'<p class="help">Zet dit uit om vanaf deze dag te stoppen met herhalen.</p>':'')
@@ -1653,9 +1856,9 @@ function saveTaskSheet(){
     if(!T.days.length){T.err='Kies minstens één dag.';redraw();return;}
     const note=T.note.trim();
     T.days.slice().sort().forEach(function(k){
-      const item={id:uid(),tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,time:T.time,who:T.who,note:note,done:false};
+      const item={id:uid(),tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w||null,time:T.time,who:T.who,note:note,done:false};
       if(T.repeat){
-        const r=makeRule({tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,time:T.time,who:T.who,note:note},wdOf(k),k);
+        const r=makeRule({tid:T.tid,name:T.name,emoji:T.emoji,cat:T.cat,min:T.min,w:T.w,time:T.time,who:T.who,note:note},wdOf(k),k);
         S.repeats.push(r);item.rid=r.id;
       }
       (S.plan[k]=S.plan[k]||[]).push(item);
@@ -1670,12 +1873,12 @@ function saveTaskSheet(){
   if(!it){closeSheet();return;}
   const name=T.name.trim();
   if(!name){T.err='Geef de taak een naam.';redraw('t-name');return;}
-  it.name=name;it.min=T.min;it.time=T.time;it.who=T.who;it.note=T.note.trim();
+  it.name=name;it.min=T.min;it.w=T.w||null;it.time=T.time;it.who=T.who;it.note=T.note.trim();
   let rule=it.rid?S.repeats.find(r=>r.id===it.rid):null;
   if(rule&&!T.repeat){
     delete it.rid;dropRule(rule.id,T.key);rule=null;
   }else if(rule){
-    rule.name=name;rule.min=T.min;rule.time=T.time;rule.who=T.who;rule.note=it.note;
+    rule.name=name;rule.min=T.min;rule.w=T.w||null;rule.time=T.time;rule.who=T.who;rule.note=it.note;
   }
   const newKey=T.days[0]||T.key;
   let fk=T.key;
@@ -1692,7 +1895,7 @@ function saveTaskSheet(){
     fk=newKey;
   }
   if(!rule&&!T.hadRule&&T.repeat){
-    const r=makeRule({tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,time:it.time,who:it.who,note:it.note},wdOf(fk),fk);
+    const r=makeRule({tid:it.tid,name:it.name,emoji:it.emoji,cat:it.cat,min:it.min,w:it.w,time:it.time,who:it.who,note:it.note},wdOf(fk),fk);
     S.repeats.push(r);it.rid=r.id;
   }
   save();closeSheet();renderAll();
@@ -1719,8 +1922,8 @@ const SLIDES=[
    p:'Veeg naar links om een taak te verwijderen. Iets fout gedaan? Ongedaan maken kan altijd.'},
   {ill:'<div class="ill"><div class="mock2" aria-hidden="true"><div class="lvlrow"><span>🦸</span><div><b>Huishoudheld</b><small>Nog 120 punten tot Klusbaas</small></div></div>'
       +'<div class="bar2"><i></i></div><div class="opts"><span class="opt on">🔥 3 dagen op rij</span><span class="opt">⭐ 85 punten</span></div></div></div>',
-   h:'Verdien punten en houd je reeks vol',
-   p:'Elke klus levert punten op. Rond dagen af, bouw een reeks op en stijg in niveau. Met confetti natuurlijk.'}
+   h:'Verdien punten en shop ze leeg',
+   p:'Elke klus levert punten op, zwaarder werk meer. Spaar ze en koop thema’s en extra’s in de winkel.'}
 ];
 let IN=0;
 function renderIntro(anim){
@@ -1743,6 +1946,11 @@ function finishIntro(){
   el.classList.add('out');
   setTimeout(function(){el.hidden=true;el.innerHTML='';},320);
 }
+function shopHint(){
+  if(S.shopHint||S.intro<INTRO_V)return;
+  S.shopHint=true;save();
+  toast('Nieuw: de winkel! Koop thema’s met je punten. 🛍️','Bekijken',function(){setTab('shop');});
+}
 function runSplash(){
   const sp=$('#splash');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1752,6 +1960,7 @@ function runSplash(){
     if(closed)return;closed=true;
     sp.classList.add('out');
     setTimeout(function(){sp.hidden=true;},480);
+    setTimeout(shopHint,1200);
   }
   sp.addEventListener('click',close);
   setTimeout(close,reduce?900:2200);
@@ -1838,8 +2047,8 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
-    applyTheme();S.tab='day';renderAll();window.scrollTo(0,0);
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
+    applyTheme();applyThemeStyle();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
   else if(a==='intro')openIntro();
@@ -1904,6 +2113,12 @@ document.addEventListener('click',function(e){
   else if(a==='vroll'){pickSurprise();redraw();}
   else if(a==='vadd')surpriseAdd(false);
   else if(a==='vnow')surpriseAdd(true);
+  else if(a==='buy')buyItem(b.dataset.k,b.dataset.id);
+  else if(a==='equip')equipItem(b.dataset.k,b.dataset.id);
+  else if(a==='preview')previewTheme(b.dataset.id);
+  else if(a==='useshield')useShield(b.dataset.key);
+  else if(a==='tw'){TS.w=Number(b.dataset.w);redraw();}
+  else if(a==='fw'){FM.w=Number(b.dataset.w);redraw();}
 });
 document.addEventListener('input',function(e){
   const id=e.target.id;
@@ -1931,6 +2146,7 @@ document.addEventListener('visibilitychange',function(){
 
 /* ---------- start ---------- */
 applyTheme();
+applyThemeStyle();
 const now=new Date();
 S.weekStart=mondayOf(now);
 S.sel=keyOf(now);
