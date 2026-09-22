@@ -470,6 +470,14 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .wn-ul li{margin-bottom:10px;font-size:15px;line-height:1.4}
 .wn-card .btn{margin-top:8px}
 
+.excl{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.35);color:#fff;font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:3px 7px;border-radius:99px}
+.swatch{position:relative}
+.shopc.dimmed{opacity:.62}
+.shopc.dimmed .swatch{filter:grayscale(.35)}
+.lockline{margin-top:2px;font-size:12.5px;color:var(--muted);font-weight:600;line-height:1.35;padding:9px 8px;background:var(--bg);border-radius:10px;text-align:center}
+html.theme-stars body{background-image:radial-gradient(1.5px 1.5px at 20% 15%,rgba(255,255,255,.55) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 70% 8%,rgba(255,255,255,.4) 50%,transparent 52%),radial-gradient(1px 1px at 45% 25%,rgba(255,255,255,.5) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 85% 35%,rgba(255,255,255,.35) 50%,transparent 52%),radial-gradient(1px 1px at 10% 45%,rgba(255,255,255,.4) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 60% 55%,rgba(255,255,255,.3) 50%,transparent 52%);background-repeat:no-repeat;background-attachment:fixed}
+html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#fff 50%,transparent 52%),radial-gradient(2px 2px at 80% 15%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 50% 10%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 30% 60%,#fff 50%,transparent 52%),radial-gradient(2px 2px at 90% 70%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 65% 45%,#fff 50%,transparent 52%)}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -639,6 +647,10 @@ const CHANGELOG=[
   {v:'1.1',items:[
     'Nieuw: je Klusmaatje op het Thuis-scherm. Het groeit mee met je punten en wil elke dag wel een aaitje.',
     'Na een update zie je voortaan dit schermpje met wat er veranderd is.'
+  ]},
+  {v:'1.2',items:[
+    'Thema’s passen nu echt de hele app aan: kaarten, tekst en randen kleuren mee, niet meer alleen de knoppen.',
+    'Drie nieuwe, exclusieve thema’s die je niet kunt kopen maar verdient met een prestatie: 🍫 Chocolade, 🍬 Pepermunt en 🌌 Sterrenhemel.'
   ]}
 ];
 const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
@@ -664,15 +676,54 @@ const LADDERS={
 };
 const WEIGHTS=[[1,'Licht','×1'],[1.5,'Normaal','×1,5'],[2,'Zwaar','×2'],[3,'Extra zwaar','×3']];
 const THEMES=[
-  {id:'default',name:'Kobalt',emoji:'💙',price:0,desc:'Het standaardthema.',a:'#2F4BF0',ad:'#8DA1FF',hero:'linear-gradient(135deg,#4C66FF,#2233CC)',bg:'#F1F3F7',bgd:'#0E1117',s1:'#1D2760',s2:'#0B0F1E'},
-  {id:'oranje',name:'Oranje',emoji:'🧡',price:200,desc:'Hup Holland hup!',a:'#E8590C',ad:'#FF9F5E',hero:'linear-gradient(135deg,#FF9147,#E0500A)',bg:'#FFF4EA',bgd:'#160F0A',s1:'#6A2E0B',s2:'#170B04'},
-  {id:'bos',name:'Bos',emoji:'🌲',price:300,desc:'Rustig groen, als een wandeling.',a:'#1E7A4C',ad:'#58D69A',hero:'linear-gradient(135deg,#3FAE7A,#0F5C38)',bg:'#EEF6F1',bgd:'#0A130E',s1:'#154A2E',s2:'#06130C'},
-  {id:'oceaan',name:'Oceaan',emoji:'🌊',price:300,desc:'Frisse blauwgroene golven.',a:'#0A7EA4',ad:'#5AC8EE',hero:'linear-gradient(135deg,#25BDD9,#0B5C8E)',bg:'#ECF6F9',bgd:'#09131A',s1:'#0F4560',s2:'#061219'},
-  {id:'tulp',name:'Tulpen',emoji:'🌷',price:400,desc:'Roze en warm, zoals in het voorjaar.',a:'#D6336C',ad:'#FF7EA8',hero:'linear-gradient(135deg,#F06595,#AE1450)',bg:'#FDF0F4',bgd:'#170C11',s1:'#6B1735',s2:'#170812'},
-  {id:'delft',name:'Delfts blauw',emoji:'🏺',price:500,desc:'Klassiek Hollands.',a:'#1C4E9A',ad:'#7DA6E8',hero:'linear-gradient(135deg,#3271CC,#123A78)',bg:'#F2F5FB',bgd:'#0A111C',s1:'#163669',s2:'#070D18'},
-  {id:'zon',name:'Zonsondergang',emoji:'🌅',price:800,desc:'Oranje, roze en paars in één.',a:'#D9480F',ad:'#FF8F5A',hero:'linear-gradient(135deg,#FF7A45,#E8407A 55%,#7A3FD4)',bg:'#FFF2EC',bgd:'#150C13',s1:'#5B1F49',s2:'#160810'},
-  {id:'nacht',name:'Middernacht',emoji:'🌌',price:1000,desc:'Diep paars met een vleugje magie.',a:'#6D3FE0',ad:'#B197FC',hero:'linear-gradient(135deg,#8258FF,#3B1FA8)',bg:'#F2F0FA',bgd:'#0C0A17',s1:'#2C1B6B',s2:'#08061A'},
-  {id:'goud',name:'Goud',emoji:'👑',price:1500,desc:'Voor echte klusleiders.',a:'#A9700F',ad:'#F2C94C',oa:'#FFFFFF',oad:'#1A1200',hero:'linear-gradient(135deg,#D9A62B,#8A5A0B)',bg:'#FBF6E8',bgd:'#14110A',s1:'#5E4210',s2:'#120D04'}
+  {id:'default',name:'Kobalt',emoji:'💙',price:0,desc:'Het standaardthema: fris en helder.',
+   L:{bg:'#F1F3F7',surface:'#FFFFFF',ink:'#151A27',muted:'#667085',line:'#E1E5EC',lineS:'#C9CFDA',accent:'#2F4BF0',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:62,catL:44,softS:75,softL:93},
+   D:{bg:'#0E1117',surface:'#171B24',ink:'#EDF0F6',muted:'#98A1B3',line:'#252B37',lineS:'#3A4252',accent:'#8DA1FF',onAccent:'#0E1117',ok:'#3CC885',danger:'#F07168',catS:75,catL:68,softS:38,softL:21},
+   hero:'linear-gradient(135deg,#4C66FF,#2233CC)',s1:'#1D2760',s2:'#0B0F1E'},
+  {id:'oranje',name:'Oranje',emoji:'🧡',price:200,desc:'Hup Holland hup! Warm en energiek.',
+   L:{bg:'#FFF4EA',surface:'#FFFFFF',ink:'#2B1608',muted:'#8A6A4E',line:'#F2DCC4',lineS:'#E4C29C',accent:'#E8590C',onAccent:'#FFFFFF',ok:'#3C8A3E',danger:'#D9433B',catS:70,catL:46,softS:72,softL:92},
+   D:{bg:'#160F0A',surface:'#241708',ink:'#FBEBDA',muted:'#C6A281',line:'#3B2A16',lineS:'#503A20',accent:'#FF9F5E',onAccent:'#1A0D02',ok:'#5FCB63',danger:'#F07168',catS:74,catL:64,softS:40,softL:22},
+   hero:'linear-gradient(135deg,#FF9147,#E0500A)',s1:'#6A2E0B',s2:'#170B04'},
+  {id:'bos',name:'Bos',emoji:'🌲',price:300,desc:'Rustig groen, als een wandeling in het bos.',
+   L:{bg:'#EEF6F1',surface:'#FFFFFF',ink:'#0E2318',muted:'#597566',line:'#D6E9DD',lineS:'#B9D9C5',accent:'#1E7A4C',onAccent:'#FFFFFF',ok:'#2F9E5C',danger:'#C9483C',catS:55,catL:42,softS:60,softL:91},
+   D:{bg:'#0A130E',surface:'#132018',ink:'#DEF0E5',muted:'#8DAB98',line:'#213A2C',lineS:'#2E5140',accent:'#58D69A',onAccent:'#082013',ok:'#4FDB8C',danger:'#F07168',catS:60,catL:62,softS:35,softL:20},
+   hero:'linear-gradient(135deg,#3FAE7A,#0F5C38)',s1:'#154A2E',s2:'#06130C'},
+  {id:'oceaan',name:'Oceaan',emoji:'🌊',price:300,desc:'Frisse blauwgroene golven.',
+   L:{bg:'#ECF6F9',surface:'#FFFFFF',ink:'#082430',muted:'#4E7B8B',line:'#CFEAF1',lineS:'#A9DAE7',accent:'#0A7EA4',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:64,catL:44,softS:68,softL:92},
+   D:{bg:'#09131A',surface:'#101F29',ink:'#DCF0F6',muted:'#87ADBA',line:'#1B333F',lineS:'#264757',accent:'#5AC8EE',onAccent:'#052029',ok:'#3CC885',danger:'#F07168',catS:68,catL:64,softS:36,softL:20},
+   hero:'linear-gradient(135deg,#25BDD9,#0B5C8E)',s1:'#0F4560',s2:'#061219'},
+  {id:'tulp',name:'Tulpen',emoji:'🌷',price:400,desc:'Roze en warm, zoals in het voorjaar.',
+   L:{bg:'#FDF0F4',surface:'#FFFFFF',ink:'#2B0E18',muted:'#8C5D6D',line:'#F6D9E3',lineS:'#EEB9CB',accent:'#D6336C',onAccent:'#FFFFFF',ok:'#2F9E5C',danger:'#C9483C',catS:66,catL:48,softS:70,softL:93},
+   D:{bg:'#170C11',surface:'#26141C',ink:'#FAE3EC',muted:'#C99AAB',line:'#3C2029',lineS:'#522C39',accent:'#FF7EA8',onAccent:'#22050E',ok:'#4FDB8C',danger:'#F07168',catS:70,catL:66,softS:38,softL:22},
+   hero:'linear-gradient(135deg,#F06595,#AE1450)',s1:'#6B1735',s2:'#170812'},
+  {id:'delft',name:'Delfts blauw',emoji:'🏺',price:500,desc:'Klassiek Hollands wit-en-blauw.',
+   L:{bg:'#F2F5FB',surface:'#FFFFFF',ink:'#0B1830',muted:'#5A6B8C',line:'#D9E1F2',lineS:'#B9C8E8',accent:'#1C4E9A',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:58,catL:40,softS:68,softL:92},
+   D:{bg:'#0A111C',surface:'#101A2C',ink:'#DEE6F6',muted:'#8896B8',line:'#1E2C48',lineS:'#2A3D60',accent:'#7DA6E8',onAccent:'#08101E',ok:'#3CC885',danger:'#F07168',catS:62,catL:64,softS:34,softL:20},
+   hero:'linear-gradient(135deg,#3271CC,#123A78)',s1:'#163669',s2:'#070D18'},
+  {id:'zon',name:'Zonsondergang',emoji:'🌅',price:800,desc:'Oranje, roze en paars in één lucht.',
+   L:{bg:'#FFF2EC',surface:'#FFFFFF',ink:'#2B0F16',muted:'#8F5F6C',line:'#F6DCE2',lineS:'#EFBFCB',accent:'#D9480F',onAccent:'#FFFFFF',ok:'#2F9E5C',danger:'#C9483C',catS:68,catL:48,softS:72,softL:93},
+   D:{bg:'#150C13',surface:'#241521',ink:'#FAE3E9',muted:'#C79AA9',line:'#3B2033',lineS:'#502C45',accent:'#FF8F5A',onAccent:'#1F0A06',ok:'#4FDB8C',danger:'#F07168',catS:72,catL:66,softS:40,softL:22},
+   hero:'linear-gradient(135deg,#FF7A45,#E8407A 55%,#7A3FD4)',s1:'#5B1F49',s2:'#160810'},
+  {id:'nacht',name:'Middernacht',emoji:'🌌',price:1000,desc:'Diep paars met een vleugje magie.',
+   L:{bg:'#F2F0FA',surface:'#FFFFFF',ink:'#170B30',muted:'#6C5F8C',line:'#E1DBF4',lineS:'#C7BBEC',accent:'#6D3FE0',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:60,catL:46,softS:70,softL:93},
+   D:{bg:'#0C0A17',surface:'#161029',ink:'#E9E4F8',muted:'#9C90BE',line:'#28204A',lineS:'#392E62',accent:'#B197FC',onAccent:'#100A22',ok:'#3CC885',danger:'#F07168',catS:64,catL:68,softS:36,softL:22},
+   hero:'linear-gradient(135deg,#8258FF,#3B1FA8)',s1:'#2C1B6B',s2:'#08061A'},
+  {id:'goud',name:'Goud',emoji:'👑',price:1500,desc:'Voor echte klusleiders.',
+   L:{bg:'#FBF6E8',surface:'#FFFFFF',ink:'#241A05',muted:'#8C7A4E',line:'#F0E3BE',lineS:'#E3CE8E',accent:'#A9700F',onAccent:'#FFFFFF',ok:'#3C8A3E',danger:'#C9483C',catS:60,catL:42,softS:68,softL:91},
+   D:{bg:'#14110A',surface:'#241D0F',ink:'#F6EBCE',muted:'#C2AD7C',line:'#3B2F16',lineS:'#4F401F',accent:'#F2C94C',onAccent:'#1A1200',ok:'#5FCB63',danger:'#F07168',catS:64,catL:64,softS:38,softL:22},
+   hero:'linear-gradient(135deg,#D9A62B,#8A5A0B)',s1:'#5E4210',s2:'#120D04'},
+  {id:'chocolade',name:'Chocolade',emoji:'🍫',locked:true,unlock:'bee',desc:'Warme cacaotinten, verdiend met hard werken.',
+   L:{bg:'#F7EFE8',surface:'#FFFFFF',ink:'#2B1A10',muted:'#8A6F5C',line:'#E7D6C6',lineS:'#D6BCA2',accent:'#6B3F23',onAccent:'#FFFFFF',ok:'#5C8A3C',danger:'#C9483C',catS:48,catL:38,softS:55,softL:90},
+   D:{bg:'#160F0A',surface:'#241a11',ink:'#F1E2D3',muted:'#C0A488',line:'#3A2A1C',lineS:'#4F3A26',accent:'#C89568',onAccent:'#1C1108',ok:'#7FCB5F',danger:'#F07168',catS:50,catL:60,softS:32,softL:22},
+   hero:'linear-gradient(135deg,#8B5A34,#4A2C15)',s1:'#3A2410',s2:'#140C06'},
+  {id:'munt',name:'Pepermunt',emoji:'🍬',locked:true,unlock:'rainbow',desc:'Fris en veelzijdig, net als jouw takenpakket.',
+   L:{bg:'#EAFBF5',surface:'#FFFFFF',ink:'#062B24',muted:'#4C8B7C',line:'#C9EFE1',lineS:'#9FE1CC',accent:'#0F9D77',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:60,catL:44,softS:65,softL:92},
+   D:{bg:'#081713',surface:'#0F241D',ink:'#DAF7EC',muted:'#84C1AC',line:'#1B392E',lineS:'#274F3F',accent:'#5FE0BB',onAccent:'#04140F',ok:'#3CC885',danger:'#F07168',catS:64,catL:66,softS:34,softL:20},
+   hero:'linear-gradient(135deg,#2FD9A8,#0A7A5C)',s1:'#0E4536',s2:'#04130E'},
+  {id:'sterrenhemel',name:'Sterrenhemel',emoji:'🌌',locked:true,unlock:'legende',desc:'Het hoogste niveau verdient de mooiste hemel.',
+   L:{bg:'#F1EEFB',surface:'#FFFFFF',ink:'#170B33',muted:'#6A5B92',line:'#E0D8F5',lineS:'#C4B4ED',accent:'#5B2FD9',onAccent:'#FFFFFF',ok:'#1F9D63',danger:'#D9433B',catS:64,catL:48,softS:70,softL:93},
+   D:{bg:'#080716',surface:'#120F26',ink:'#EAE5FA',muted:'#9A8FC2',line:'#231D42',lineS:'#332A5C',accent:'#B79CFF',onAccent:'#0C0920',ok:'#3CC885',danger:'#F07168',catS:70,catL:72,softS:38,softL:22},
+   hero:'linear-gradient(135deg,#6D3FE0 0%,#241164 60%,#0A0620 100%)',s1:'#1B1040',s2:'#050310',stars:true}
 ];
 const CONFETTI=[
   {id:'classic',name:'Klassiek',emoji:'🎉',price:0,desc:'Bonte confetti.'},
@@ -739,14 +790,20 @@ function restore(s){
   try{const o=JSON.parse(s);S.plan=o.plan;S.repeats=o.repeats;S.people=o.people;S.list=o.list||[];}catch(e){return;}
   save();renderAll();
 }
+function themeVars(p){
+  return '--bg:'+p.bg+';--surface:'+p.surface+';--ink:'+p.ink+';--muted:'+p.muted+';--line:'+p.line+';--line-strong:'+p.lineS
+    +';--accent:'+p.accent+';--on-accent:'+p.onAccent+';--ok:'+p.ok+';--danger:'+p.danger
+    +';--c-s:'+p.catS+'%;--c-l:'+p.catL+'%;--soft-s:'+p.softS+'%;--soft-l:'+p.softL+'%;';
+}
 function applyThemeStyle(){
   const th=THEMES.find(x=>x.id===(S.preview||S.themeId))||THEMES[0];
   let el=document.getElementById('themestyle');
   if(!el){el=document.createElement('style');el.id='themestyle';document.head.appendChild(el);}
   const common='--hero:'+th.hero+';--splash1:'+th.s1+';--splash2:'+th.s2+';';
-  const L='--accent:'+th.a+';--on-accent:'+(th.oa||'#FFFFFF')+';--bg:'+th.bg+';'+common;
-  const D='--accent:'+th.ad+';--on-accent:'+(th.oad||'#0E1117')+';--bg:'+th.bgd+';'+common;
+  const L=themeVars(th.L)+common, D=themeVars(th.D)+common;
   el.textContent=':root{'+L+'}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){'+D+'}}:root[data-theme="dark"]{'+D+'}';
+  document.documentElement.setAttribute('data-app-theme',th.id);
+  document.documentElement.classList.toggle('theme-stars',!!th.stars);
 }
 function applyTheme(){
   const r=document.documentElement;
@@ -1015,13 +1072,24 @@ const BADGES=[
   {id:'special',emoji:'🎓',name:'Specialist',desc:'Bereik de hoogste rang in één categorie',goal:1,cur:s=>s.maxRanks},
   {id:'allround',emoji:'🧩',name:'Allrounder',desc:'Bereik rang 4 in drie categorieën',goal:3,cur:s=>s.rank4}
 ];
+function themeUnlocked(th){
+  if(!th.locked)return true;
+  if(th.unlock==='legende')return levelIndex(totalPoints())>=LEVELS.length-1;
+  return (S.badges||[]).indexOf(th.unlock)>=0;
+}
 function checkBadges(){
   const st=calcStats();
   const fresh=BADGES.filter(b=>S.badges.indexOf(b.id)<0&&b.cur(st)>=b.goal);
-  if(!fresh.length)return;
+  const legendeNew=THEMES.some(t=>t.unlock==='legende'&&themeUnlocked(t)&&S.owned.indexOf('theme:'+t.id)<0);
+  if(!fresh.length&&!legendeNew)return;
   fresh.forEach(b=>S.badges.push(b.id));
+  const newThemes=THEMES.filter(t=>t.locked&&themeUnlocked(t)&&S.owned.indexOf('theme:'+t.id)<0);
+  newThemes.forEach(t=>S.owned.push('theme:'+t.id));
   save();
   qToast('🏆 Nieuwe prestatie: '+fresh.map(b=>b.emoji+' '+b.name).join(', '),function(){confetti();haptic([30,50,30]);});
+  newThemes.forEach(function(t){
+    qToast('🎨 Thema ontgrendeld: '+t.emoji+' '+t.name,function(){});
+  });
 }
 
 
@@ -2052,11 +2120,16 @@ function buyItem(kind,id){
   checkBadges();
 }
 function equipItem(kind,id){
-  if(S.owned.indexOf(kind+':'+id)<0)return;
+  const it=findItem(kind,id);
+  if(!it)return;
+  const owned=S.owned.indexOf(kind+':'+id)>=0;
+  if(!owned){
+    if(kind==='theme'&&it.locked&&themeUnlocked(it))S.owned.push(kind+':'+id);
+    else return;
+  }
   if(kind==='theme'){S.themeId=id;S.preview=null;applyThemeStyle();}
   else S.confettiId=id;
   save();renderShop();
-  const it=findItem(kind,id);
   toast(it.emoji+' '+it.name+' is nu actief');
   if(kind==='conf')confetti();
 }
@@ -2077,6 +2150,11 @@ function shieldBtn(all){
   if(!(S.shields>0)||S.sel>=todayKey()||S.shielded[S.sel]||!all.some(t=>!t.done))return '';
   return '<div style="text-align:center"><button class="linkbtn" type="button" data-act="useshield" data-key="'+S.sel+'">🛡️ Reeksschild gebruiken ('+S.shields+')</button></div>';
 }
+function lockLabel(th){
+  if(th.unlock==='legende')return 'Bereik het hoogste totaalniveau (Legende)';
+  const b=BADGES.find(x=>x.id===th.unlock);
+  return b?'Haal de prestatie: '+b.emoji+' '+b.name:'Nog te ontgrendelen';
+}
 function buyBtn(kind,it,bal){
   const aff=bal>=it.price;
   return '<button class="btn wide'+(aff?' primary':' locked')+'" type="button" data-act="buy" data-k="'+kind+'" data-id="'+it.id+'">'+(aff?'Koop ⭐ '+it.price:'🔒 ⭐ '+it.price)+'</button>';
@@ -2095,13 +2173,17 @@ function renderShop(){
       return '<div class="prow"><span class="pts" style="width:96px;font-size:14px">'+wt[1]+' '+wt[2]+'</span><div class="pt"><b style="font-weight:600;font-size:14.5px">'+esc(t.name)+'</b><span>'+t.min+' min</span></div><span class="pts">⭐ '+pointsOf({tid:t.id,min:t.min,w:e[0]})+'</span></div>';
     }).join('')+'</div>';
 
-  html+='<div class="hcard"><h3>Thema’s</h3><div class="shopgrid">'
+  html+='<div class="hcard"><h3>Thema’s</h3><p class="sm">Verander hiermee de kleuren van de hele app: kaarten, tekst, randen en categorieën.</p><div class="shopgrid">'
     +THEMES.map(function(th){
-      const owned=S.owned.indexOf('theme:'+th.id)>=0,active=S.themeId===th.id;
-      return '<div class="shopc'+(active?' active':'')+'"><div class="swatch" style="background:'+th.hero+'"><span>'+th.emoji+'</span></div><b>'+esc(th.name)+'</b><small>'+esc(th.desc)+'</small>'
-        +(active?'<button class="btn wide" type="button" disabled>✓ In gebruik</button>'
-          :owned?'<button class="btn wide" type="button" data-act="equip" data-k="theme" data-id="'+th.id+'">Gebruiken</button>'
-          :buyBtn('theme',th,bal)+'<button class="linkbtn" type="button" data-act="preview" data-id="'+th.id+'" style="padding:2px;text-decoration:none">👀 Voorbeeld</button>')
+      const owned=S.owned.indexOf('theme:'+th.id)>=0,active=S.themeId===th.id,unlocked=themeUnlocked(th);
+      let action;
+      if(active)action='<button class="btn wide" type="button" disabled>✓ In gebruik</button>';
+      else if(owned)action='<button class="btn wide" type="button" data-act="equip" data-k="theme" data-id="'+th.id+'">Gebruiken</button>';
+      else if(th.locked)action=unlocked?'<button class="btn wide primary" type="button" data-act="equip" data-k="theme" data-id="'+th.id+'">Gebruiken</button>':'<div class="lockline">🔒 '+esc(lockLabel(th))+'</div>';
+      else action=buyBtn('theme',th,bal)+'<button class="linkbtn" type="button" data-act="preview" data-id="'+th.id+'" style="padding:2px;text-decoration:none">👀 Voorbeeld</button>';
+      return '<div class="shopc'+(active?' active':'')+(th.locked&&!unlocked?' dimmed':'')+'"><div class="swatch" style="background:'+th.hero+'"><span>'+th.emoji+'</span>'+(th.locked?'<span class="excl">EXCLUSIEF</span>':'')+'</div><b>'+esc(th.name)+'</b><small>'+esc(th.desc)+'</small>'
+        +action
+        +(th.locked&&(unlocked||owned)?'<button class="linkbtn" type="button" data-act="preview" data-id="'+th.id+'" style="padding:2px;text-decoration:none">👀 Voorbeeld</button>':'')
         +'</div>';
     }).join('')+'</div></div>';
 
@@ -2741,6 +2823,7 @@ const now=new Date();
 S.weekStart=mondayOf(now);
 S.sel=keyOf(now);
 if(S.badges===null){S.badges=BADGES.filter(b=>b.cur(calcStats())>=b.goal).map(b=>b.id);save();}
+THEMES.forEach(function(t){if(t.locked&&themeUnlocked(t)&&S.owned.indexOf('theme:'+t.id)<0)S.owned.push('theme:'+t.id);});
 try{const qt=new URLSearchParams(location.search).get('tab');if(qt&&['day','week','tasks','list','ranks','home'].indexOf(qt)>=0)S.tab=qt;}catch(e){}
 S.anim=true;
 renderAll();
