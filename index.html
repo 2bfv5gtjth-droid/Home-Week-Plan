@@ -3154,8 +3154,15 @@ function removeAvatarPhoto(){
   S.profilePhoto=null;save();
   renderHeaderAvatar();renderProfileCard();
 }
-function saveProfileName(v){
+function saveProfileName(v,live){
   S.profileName=(v||'').slice(0,24);save();
+  if(live){
+    if(!S.profilePhoto){
+      const letter=S.profileName?esc(S.profileName.trim().charAt(0).toUpperCase()):'👤';
+      $$('.av-ph').forEach(function(el){el.textContent=letter;});
+    }
+    return;
+  }
   renderHeaderAvatar();renderProfileCard();
 }
 function buyFrame(id){
@@ -3393,7 +3400,7 @@ document.addEventListener('click',function(e){
 document.addEventListener('input',function(e){
   const id=e.target.id;
   if(id==='q'){S.q=e.target.value;renderTaskList();}
-  else if(id==='prof-name'){saveProfileName(e.target.value);}
+  else if(id==='prof-name'){saveProfileName(e.target.value,true);}
   else if(id==='avatarFile'){onAvatarFile(e.target);}
   else if(FM&&id==='f-name'){FM.name=e.target.value;FM.err='';}
   else if(FM&&id==='f-bname'){FM.bname=e.target.value;FM.err='';}
