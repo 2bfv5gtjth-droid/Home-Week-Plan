@@ -490,7 +490,9 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
 .p3-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
 .p3-next{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);padding:3px 10px;border-radius:99px}
 #pet3d{--pc:var(--accent);--pc-l:color-mix(in srgb, var(--accent) 45%, white);--pc-d:color-mix(in srgb, var(--accent) 68%, black)}
-.p3-viewport{height:260px;flex:none;display:flex;align-items:center;justify-content:center;perspective:900px;touch-action:none;cursor:grab;position:relative}
+.p3-viewport{height:270px;flex:none;display:flex;align-items:center;justify-content:center;perspective:900px;touch-action:none;cursor:grab;position:relative}
+.p3-viewport::before{content:'';position:absolute;left:50%;top:50%;width:280px;height:280px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent) 0%,transparent 68%);pointer-events:none}
+.p3-viewport::after{content:'';position:absolute;left:50%;bottom:10px;width:220px;height:220px;transform:translate(-50%,0);border-radius:50%;background:radial-gradient(ellipse 50% 100% at 50% 100%,color-mix(in srgb,var(--accent) 10%,transparent),transparent 70%);pointer-events:none}
 .p3-viewport.grab{cursor:grabbing}
 .p3-scene{position:relative;width:2px;height:2px;transform-style:preserve-3d;animation:p3bob 3.2s ease-in-out infinite}
 @keyframes p3bob{0%,100%{margin-top:0}50%{margin-top:-10px}}
@@ -519,8 +521,10 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
   linear-gradient(15deg,transparent 47%,var(--pc-d) 48%,var(--pc-d) 50%,transparent 51%);
   opacity:0;animation:p3crackin .18s ease forwards}
 @keyframes p3crackin{to{opacity:.85}}
-.p3-shadow{width:120px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.22),transparent 70%);margin-top:-6px}
-.p3-hint{text-align:center;color:var(--muted);font-size:13px;margin:2px 0 14px}
+.p3-shadow{width:130px;height:24px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.26),transparent 70%);margin-top:-10px;position:relative;z-index:-1}
+.p3-hint{text-align:center;color:var(--muted);font-size:13px;margin:2px 0 10px}
+.p3-panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px 20px;margin:0 0 14px}
+.p3-panel .frame-row,.p3-panel .p3-gear{margin:10px -20px 0;padding-left:20px;padding-right:20px}
 .p3-actions{display:flex;gap:10px}
 .p3-actions .btn{flex:1;padding:13px}
 
@@ -649,9 +653,11 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
     <div class="p3-viewport" id="p3-viewport"><div class="p3-scene" id="p3-scene"></div></div>
     <div class="p3-shadow"></div>
     <p class="p3-hint">Sleep om rond te kijken</p>
-    <div id="p3-xp"></div>
-    <div class="p3-gear" id="p3-gear"></div>
-    <div class="p3-actions"><button type="button" class="btn primary" data-act="pet">Aai</button></div>
+    <div class="p3-panel">
+      <div id="p3-xp"></div>
+      <div class="p3-gear" id="p3-gear"></div>
+      <div class="p3-actions"><button type="button" class="btn primary" data-act="pet">Aai</button></div>
+    </div>
     <div id="p3-story"></div>
   </div>
 </div>
@@ -776,6 +782,7 @@ const STARTER=[
 const LEVELS=[[0,'Nieuwkomer','🌱'],[200,'Doorzetter','💪'],[600,'Aanpakker','🔨'],[1400,'Uitblinker','🌟'],[3000,'Kampioen','🏅'],[6000,'Legende','🏆']];
 const INTRO_V=2;
 const MASCOT_STAGES=['🥚','🐣','🐤','🐥','🦜','🐉'];
+const TASK_LINES=['Beloon jezelf nu maar op wat lekkers! 🍫','Lekker bezig, tijd voor een kopje thee ☕','Klusje gepiept! Trakteer jezelf op iets zoets 🍪','Weer eentje minder op de lijst 💪','Chef’s kiss 👌 mooi gedaan','En weer een vinkje erbij ✅','Dat verdient een dansje 💃','Je bent niet te stoppen vandaag 🔥','Zo, dat is opgeruimd! 🧹','Netjes! Neem gerust een snoepje 🍬','Mooi op schema, ga zo door! 🎯','Dat scheelt weer stress later 😌','Huis wordt er alleen maar mooier van ✨','Goed bezig, kleine stapjes tellen ook 👣','Alweer een taak de wereld uit 🌍','Voel je die voldoening al? 😄','Top, op naar de volgende! 🚀','Zo maak je indruk op je huisgenoten 😉','Lekker efficiënt, dit! ⚡','Punten binnen, klus geklaard 🏁','Wat een productief mens ben jij 🙌','Fijn gevoel toch? Klaar is klaar 🌿','Volgende keer nog sneller? 😏','Een schone taak, een blij hoofd 🧠','Goed geregeld! 👍','Dat is er weer een, netjes 🙂','Jij hebt het weer voor elkaar 🎉','Huisgenoten worden hier blij van 💛','Zet je gerust even een muziekje op 🎵','Mooi werk, gun jezelf een pauze ☕'];
 const MASCOT_LINES=['Lekker bezig!','Ik ben trots op je huis.','Zullen we straks nog een klusje doen?','Je bent een topper.','Dankjewel voor het schoonhouden van ons huis!','Kom je me morgen weer aaien?','Samen krijgen we dit voor elkaar.','Wat ruikt het hier fris!'];
 const CHANGELOG=[
   {v:'1.1',items:[
@@ -798,6 +805,12 @@ const CHANGELOG=[
   {v:'1.5',items:[
     'Nieuw: je eigen profiel. Voeg een naam en profielfoto toe uit je fotobibliotheek – je ziet jezelf nu rechtsboven in de app.',
     'Personaliseer je profielfoto met randen uit de winkel, van een simpele kleurrand tot een regenboog- of gouden rand. De mooiste rand verdien je met een prestatie.'
+  ]},
+  {v:'1.6',items:[
+    'Accessoires van je Klusmaatje zitten nu écht goed op zijn plek – geen zwevend hoedje meer.',
+    'De 3D-viewer van je Klusmaatje heeft een mooiere achtergrond en een nettere kaart gekregen.',
+    'Boodschappenlijst helemaal vernieuwd: elk item krijgt automatisch een passend icoontje, en je ziet in één oogopslag hoeveel je al in huis hebt.',
+    'Rond je een taak af, dan krijg je voortaan een leuk berichtje – met tientallen verschillende varianten.'
   ]}
 ];
 const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
@@ -1404,6 +1417,8 @@ function toggleDone(key,id){
     if(nowFull&&!wasFull){
       confetti();haptic([20,40,20]);
       toast('Dag afgerond! 🎉 '+ptsOf(arr)+' punten');
+    }else{
+      toast(TASK_LINES[Math.floor(Math.random()*TASK_LINES.length)]);
     }
   }
   if(rankUp>=0){
@@ -1575,6 +1590,13 @@ function moveOverdue(){
 }
 
 /* ---------- boodschappenlijst ---------- */
+const ICON_GUESS=[['melk','🥛'],['yoghurt','🥣'],['kwark','🥣'],['kaas','🧀'],['boter','🧈'],['ei','🥚'],['brood','🍞'],['croissant','🥐'],['koffie','☕'],['thee','🍵'],['banaan','🍌'],['appel','🍎'],['peer','🍐'],['druiven','🍇'],['sinaasappel','🍊'],['citroen','🍋'],['tomaat','🍅'],['aardappel','🥔'],['ui','🧅'],['knoflook','🧄'],['wortel','🥕'],['komkommer','🥒'],['paprika','🫑'],['sla','🥬'],['broccoli','🥦'],['champignon','🍄'],['avocado','🥑'],['wc-papier','🧻'],['wc papier','🧻'],['keukenpapier','🧻'],['tissue','🧻'],['zakdoek','🧻'],['afwas','🧼'],['zeep','🧼'],['wasmiddel','🧴'],['shampoo','🧴'],['tandpasta','🪥'],['tandenborstel','🪥'],['pasta','🍝'],['spaghetti','🍝'],['rijst','🍚'],['noedel','🍜'],['kip','🍗'],['vlees','🥩'],['worst','🌭'],['vis','🐟'],['zalm','🐟'],['garnaal','🍤'],['sap','🧃'],['water','💧'],['cola','🥤'],['limonade','🥤'],['wijn','🍷'],['bier','🍺'],['chocolade','🍫'],['choco','🍫'],['snoep','🍬'],['koek','🍪'],['chips','🍟'],['pizza','🍕'],['taart','🎂'],['honing','🍯'],['jam','🍯'],['pindakaas','🥜'],['noten','🥜'],['cornflakes','🥣'],['muesli','🥣'],['soep','🍲'],['saus','🥫'],['blikje','🥫'],['blik ','🥫'],['batterij','🔋'],['lamp','💡'],['kaars','🕯️'],['bloemen','💐'],['planten','🪴']];
+function guessIcon(name){
+  const n=name.toLowerCase();
+  for(let i=0;i<ICON_GUESS.length;i++){if(n.indexOf(ICON_GUESS[i][0])>=0)return ICON_GUESS[i][1];}
+  return '🛒';
+}
+
 const QUICK=['Melk','Brood','Eieren','Kaas','Boter','Koffie','Bananen','Tomaten','Wc-papier','Afwastabletten','Pasta','Rijst','Kip','Appels','Yoghurt'];
 function addLi(name){
   name=(name||'').trim();
@@ -1614,19 +1636,24 @@ function clearDoneLi(){
   toast(n+(n===1?' item gewist':' items gewist'),'Ongedaan maken',function(){restore(before);});
 }
 function liRow(x){
-  return '<div class="swipe li" data-id="'+x.id+'" style="--rbg:'+(x.done?'var(--muted)':'var(--ok)')+'">'
+  const gh=catOf('groceries').hue;
+  return '<div class="swipe li cat" data-id="'+x.id+'" style="--h:'+gh+';--rbg:'+(x.done?'var(--muted)':'var(--ok)')+'">'
     +'<div class="bg"><span class="bg-r">'+(x.done?'Terugzetten':'In mandje')+'</span><span class="bg-l">Verwijderen</span></div>'
-    +'<div class="card'+(x.done?' isdone':'')+'"><button class="check" type="button" data-act="checkli" aria-pressed="'+!!x.done+'" aria-label="'+(x.done?'Zet terug op de lijst':'Doe in het mandje')+'">'+ICON_CHECK+'</button>'
-    +'<div class="txt"><div class="nm">'+esc(x.name)+'</div></div></div></div>';
+    +'<div class="card'+(x.done?' isdone':'')+'"><span class="tile">'+guessIcon(x.name)+'</span>'
+    +'<div class="txt"><div class="nm">'+esc(x.name)+'</div></div>'
+    +'<button class="check" type="button" data-act="checkli" aria-pressed="'+!!x.done+'" aria-label="'+(x.done?'Zet terug op de lijst':'Doe in het mandje')+'">'+ICON_CHECK+'</button>'
+    +'</div></div>';
 }
 function renderList(){
   const main=$('#main');
-  const open=S.list.filter(x=>!x.done),done=S.list.filter(x=>x.done);
+  const open=S.list.filter(x=>!x.done),done=S.list.filter(x=>x.done),total=S.list.length;
+  const pct=total?Math.round(done.length/total*100):0;
   const quick=QUICK.filter(q=>!S.list.some(x=>x.name.toLowerCase()===q.toLowerCase())).slice(0,10);
-  let html='<section class="dayhead"><h2>Boodschappen</h2><p>'
-    +(S.list.length?open.length+' te halen'+(done.length?', '+done.length+' in het mandje':''):'Je lijst is nog leeg')+'</p></section>'
-    +'<div class="addrow" style="margin:0 0 10px"><input class="inp" id="li-name" type="text" maxlength="40" placeholder="Wat heb je nodig?" autocomplete="off" enterkeyhint="done"><button class="btn primary" type="button" data-act="addli">Toevoegen</button></div>';
-  if(quick.length)html+='<div class="chips">'+quick.map(q=>'<button class="chip" type="button" data-act="quickli" data-n="'+esc(q)+'">+ '+esc(q)+'</button>').join('')+'</div>';
+  let html='<div class="hcard"><div class="sum"><div class="ring" style="--p:'+pct+'"><div class="ring-in"><b>'+pct+'%</b></div></div>'
+    +'<div><h3>'+(total?done.length+' van '+total+' in huis':'Nog niets op de lijst')+'</h3><p>'
+    +(total?(open.length?open.length+(open.length===1?' item':' items')+' nog te halen':'Helemaal compleet! 🎉'):'Typ iets in of tik op een suggestie.')+'</p></div></div></div>';
+  html+='<div class="addrow" style="margin:0 0 10px"><input class="inp" id="li-name" type="text" maxlength="40" placeholder="Wat heb je nodig?" autocomplete="off" enterkeyhint="done"><button class="btn primary" type="button" data-act="addli">Toevoegen</button></div>';
+  if(quick.length)html+='<div class="chips">'+quick.map(q=>'<button class="chip" type="button" data-act="quickli" data-n="'+esc(q)+'">'+guessIcon(q)+' '+esc(q)+'</button>').join('')+'</div>';
   if(open.length)html+='<div class="list">'+open.map(liRow).join('')+'</div>';
   if(done.length)html+='<h3 class="tgrp">🧺 In het mandje</h3><div class="list">'+done.map(liRow).join('')+'</div>'
     +'<div style="text-align:center"><button class="linkbtn" type="button" data-act="clearli">Wis afgevinkte</button></div>';
@@ -3011,33 +3038,39 @@ function equipGear(id){
   S.mascotEquip[g.slot]=(S.mascotEquip[g.slot]===id)?null:id;
   save();renderPet3DBody(mascotStage());renderGearRow();checkBadges();
 }
+const HEAD_TOP=[null,-32,-42,-48,-56,-66];
+const GEAR_SCALE=[0,1,1.07,1.14,1.21,1.3];
 function gearParts(stage){
-  const ref=EYE_REF[stage];
-  if(!ref||!S.mascotEquip)return '';
+  const ref=EYE_REF[stage],top=HEAD_TOP[stage];
+  if(!ref||top==null||!S.mascotEquip)return '';
+  const sc=GEAR_SCALE[stage];
   let out='';
   const hd=S.mascotEquip.head,fc=S.mascotEquip.face,nk=S.mascotEquip.neck;
   if(hd==='hat'){
-    out+=part('p3-hatcone',0,ref.y-40,ref.z-2,26,34,null,0)
-      +part('p3-hatball',0,ref.y-58,ref.z-2,10);
+    const cw=25*sc,ch=30*sc;
+    out+=tri('p3-hatcone',0,top-ch/2+5,8,cw,ch,0)
+      +part('p3-hatball',0,top-ch+3,8,8*sc);
   }
   if(hd==='crown'){
-    out+=part('p3-crownband',0,ref.y-34,ref.z-2,ref.g*2+18,10);
-    [-1,0,1].forEach(function(i){out+=tri('p3-crownspike',i*12,ref.y-44,ref.z-2,10,14,0);});
-    out+=part('p3-jewel',0,ref.y-40,ref.z+3,5);
+    const bw=ref.g*2+14,bh=10*sc;
+    out+=part('p3-crownband',0,top+bh/2-1,10,bw,bh);
+    [-1,0,1].forEach(function(i){out+=tri('p3-crownspike',i*bw*0.3,top-5*sc,10,8*sc,12*sc,0);});
+    out+=part('p3-jewel',0,top+bh/2-1,15,4*sc);
   }
   if(fc==='glasses'){
     out+=part('p3-glassring',-ref.g,ref.y+1,ref.z+7,16)
       +part('p3-glassring',ref.g,ref.y+1,ref.z+7,16)
       +part('p3-glassbar',0,ref.y+1,ref.z+7,ref.g*2-8,3);
   }
+  const chinY=ref.y+70*sc,chinZ=Math.max(6,ref.z-38);
   if(nk==='bandana'){
-    out+=part('p3-bandana',0,ref.y+66,ref.z-36,ref.g*2+6,14)
-      +tri('p3-bandaknot',0,ref.y+76,ref.z-30,10,12,0);
+    out+=part('p3-bandana',0,chinY,chinZ,ref.g*2+6,13*sc)
+      +tri('p3-bandaknot',0,chinY+9*sc,chinZ+5,9*sc,11*sc,0);
   }
   if(nk==='bowtie'){
-    out+=tri('p3-bowL',-6,ref.y+66,ref.z-32,14,12,20)
-      +tri('p3-bowR',6,ref.y+66,ref.z-32,14,12,-20)
-      +part('p3-jewel',0,ref.y+66,ref.z-30,5);
+    out+=tri('p3-bowL',-6*sc,chinY,chinZ,13*sc,11*sc,20)
+      +tri('p3-bowR',6*sc,chinY,chinZ,13*sc,11*sc,-20)
+      +part('p3-jewel',0,chinY,chinZ+2,4*sc);
   }
   return out;
 }
