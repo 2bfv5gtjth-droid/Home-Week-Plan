@@ -450,6 +450,26 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .ladder.cur{background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:12px;padding-left:8px;padding-right:8px;margin:0 -8px;border-top-color:transparent}
 .grp h3 .rk{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--c)}
 
+/* klusmaatje */
+.mascot{display:flex;align-items:center;gap:14px}
+.mas-av{flex:none;width:64px;height:64px;border-radius:18px;background:var(--soft-ui,var(--bg));background:color-mix(in srgb,var(--accent) 12%,var(--bg));border:0;font-size:34px;display:grid;place-items:center}
+.mas-av.bounce{animation:masBounce .5s cubic-bezier(.3,1.4,.4,1)}
+@keyframes masBounce{0%{transform:scale(1)}35%{transform:scale(1.25) rotate(-6deg)}65%{transform:scale(.95) rotate(4deg)}100%{transform:scale(1)}}
+.mas-tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.mas-name{align-self:flex-start;background:none;border:0;padding:0;font-size:16.5px;font-weight:800;color:var(--ink)}
+.mas-mood{font-size:13px;color:var(--muted)}
+.mascot .btn{flex:none;padding:10px 16px}
+/* wat is er nieuw */
+#whatsnew{position:fixed;inset:0;z-index:95;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#whatsnew.open{opacity:1;pointer-events:auto}
+#whatsnew .backdrop2{position:absolute;inset:0;background:rgba(10,14,24,.55)}
+.wn-card{position:relative;max-width:420px;max-height:78vh;overflow:auto;margin:12vh auto 0;background:var(--surface);border-radius:22px;padding:26px 22px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.wn-e{font-size:44px;margin-bottom:6px;line-height:1}
+.wn-card h2{margin:0 0 14px;font-size:22px;font-weight:800;line-height:1.2}
+.wn-ul{margin:0 0 6px;padding-left:20px;color:var(--ink)}
+.wn-ul li{margin-bottom:10px;font-size:15px;line-height:1.4}
+.wn-card .btn{margin-top:8px}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -492,6 +512,7 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 <div id="sheet" class="sheet" hidden></div>
 <div id="timer" hidden></div>
 <div id="intro" role="dialog" aria-modal="true" aria-label="Welkom bij Huisweek" hidden></div>
+<div id="whatsnew" role="dialog" aria-modal="true" aria-label="Wat is er nieuw" hidden></div>
 
 <div id="splash" role="presentation">
   <div class="sp-inner">
@@ -612,6 +633,16 @@ const STARTER=[
 ];
 const LEVELS=[[0,'Nieuwkomer','🌱'],[200,'Doorzetter','💪'],[600,'Aanpakker','🔨'],[1400,'Uitblinker','🌟'],[3000,'Kampioen','🏅'],[6000,'Legende','🏆']];
 const INTRO_V=2;
+const MASCOT_STAGES=['🥚','🐣','🐤','🐥','🦜','🐉'];
+const MASCOT_LINES=['Lekker bezig!','Ik ben trots op je huis.','Zullen we straks nog een klusje doen?','Je bent een topper.','Dankjewel voor het schoonhouden van ons huis!','Kom je me morgen weer aaien?','Samen krijgen we dit voor elkaar.','Wat ruikt het hier fris!'];
+const CHANGELOG=[
+  {v:'1.1',items:[
+    'Nieuw: je Klusmaatje op het Thuis-scherm. Het groeit mee met je punten en wil elke dag wel een aaitje.',
+    'Na een update zie je voortaan dit schermpje met wat er veranderd is.'
+  ]}
+];
+const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
+
 const HEAVY={'cleaning-1':1,'cleaning-4':1,'cleaning-9':1,'cleaning-14':1,'dishes-3':1,'laundry-3':1,'laundry-9':1,'kitchen-1':1,'kitchen-4':1,'kitchen-6':1,'kitchen-11':1,'kitchen-12':1,
   'bathroom-0':1,'bathroom-1':1,'bathroom-8':1,'bathroom-9':1,'bedroom-3':1,'bedroom-4':1,'garden-1':1,'garden-2':1,'garden-5':1,'garden-8':1,'garden-9':1,'pets-2':1,'family-2':1,'family-7':1,'admin-2':1,'admin-8':1,'school-1':1,'school-9':1};
 
@@ -669,7 +700,7 @@ const MISSIONS=[
 ];
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:''};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -683,6 +714,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.boostUntil=o.boostUntil||0;S.shields=o.shields||0;S.shielded=o.shielded||{};S.shopHint=!!o.shopHint;
       S.remind=Object.assign({on:false,lead:10},o.remind||{});S.claimed=o.claimed||{};S.dayView=o.dayView==='agenda'?'agenda':'list';
       S.cstat=o.cstat||null;S.rankAt=o.rankAt||{};
+      S.mascotName=o.mascotName||'Klusmaatje';S.petDate=o.petDate||'';S.seenVersion=o.seenVersion||'';
       S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
@@ -700,7 +732,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
@@ -846,6 +878,80 @@ function catAdd(cat,pts,min,sign){
   return -1;
 }
 const dateNice=k=>{const d=fromKey(k);return d.getDate()+' '+MONTHS[d.getMonth()];};
+
+/* ---------- Klusmaatje ---------- */
+function mascotStage(){return Math.min(MASCOT_STAGES.length-1,levelIndex(totalPoints()));}
+function daysSinceActive(){
+  let last=0;
+  Object.keys(S.plan).forEach(k=>(S.plan[k]||[]).forEach(t=>{if(t.doneAt&&t.doneAt>last)last=t.doneAt;}));
+  if(!last)return 99;
+  return Math.floor((Date.now()-last)/86400000);
+}
+function mascotMood(){
+  const da=daysSinceActive(),st=streak();
+  if(da===0&&st>0)return {e:'😄',t:'blij'};
+  if(st>=3)return {e:'🤩',t:'trots'};
+  if(da>=4)return {e:'😴',t:'slaperig'};
+  return {e:'🙂',t:'oké'};
+}
+function petMascot(){
+  const first=S.petDate!==todayKey();
+  S.petDate=todayKey();
+  const line=MASCOT_LINES[Math.floor(Math.random()*MASCOT_LINES.length)];
+  if(first){
+    S.earned+=5;save();renderHome();
+    confetti();haptic([15,25,15]);
+    toast('🥰 '+line+' +⭐ 5');
+  }else{
+    save();
+    toast('🥰 '+line);
+  }
+  const av=$('#mascotAv');
+  if(av){av.classList.remove('bounce');void av.offsetWidth;av.classList.add('bounce');}
+}
+function openMascotName(){
+  openSheetWith(renderMascotName);
+  setTimeout(function(){const i=$('#mn-name');if(i){i.focus();i.select();}},280);
+}
+function renderMascotName(){
+  $('#sheet').innerHTML='<div class="backdrop" data-act="closesheet"></div><div class="panel" role="dialog" aria-modal="true" aria-label="Naam geven"><div class="grab"></div><h2>Geef je Klusmaatje een naam</h2>'
+    +'<label class="fld"><span>Naam</span><input class="inp" id="mn-name" type="text" maxlength="20" value="'+esc(S.mascotName)+'" autocomplete="off"></label>'
+    +'<div class="actions"><button type="button" class="btn ghost" data-act="closesheet">Annuleren</button><button type="button" class="btn primary" data-act="mnsave">Opslaan</button></div></div>';
+}
+function saveMascotName(){
+  const i=$('#mn-name');
+  const v=(i?i.value:'').trim();
+  S.mascotName=v||'Klusmaatje';
+  save();closeSheet();renderHome();
+}
+function mascotCard(){
+  const stage=mascotStage(),mood=mascotMood(),nxt=LEVELS[Math.min(LEVELS.length-1,stage+1)];
+  return '<div class="hcard mascot"><button type="button" class="mas-av" id="mascotAv" data-act="pet" aria-label="Aai '+esc(S.mascotName)+'">'+MASCOT_STAGES[stage]+'</button>'
+    +'<div class="mas-tx"><button type="button" class="mas-name" data-act="renamemascot">'+esc(S.mascotName)+' ✏️</button>'
+    +'<span class="mas-mood">'+mood.e+' voelt zich '+mood.t+(stage<MASCOT_STAGES.length-1?' – groeit nog naar '+nxt[1]:' – volgroeid!')+'</span></div>'
+    +'<button type="button" class="btn" data-act="pet">Aai</button></div>';
+}
+/* ---------- wat is er nieuw ---------- */
+function unseenChangelog(){
+  const i=CHANGELOG.findIndex(c=>c.v===S.seenVersion);
+  return i<0?CHANGELOG.slice(-2):CHANGELOG.slice(i+1);
+}
+function openWhatsNew(){
+  const entries=unseenChangelog();
+  if(!entries.length){S.seenVersion=APP_VERSION;save();return;}
+  const el=$('#whatsnew');
+  el.innerHTML='<div class="backdrop2"></div><div class="wn-card"><div class="wn-e">🎉</div><h2>Wat is er nieuw</h2>'
+    +'<div class="list" style="text-align:left">'+entries.map(c=>'<ul class="wn-ul">'+c.items.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>').join('')+'</div>'
+    +'<button type="button" class="btn primary wide" data-act="wnclose">Leuk!</button></div>';
+  el.hidden=false;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('open');});});
+}
+function closeWhatsNew(){
+  S.seenVersion=APP_VERSION;save();
+  const el=$('#whatsnew');
+  el.classList.remove('open');
+  setTimeout(function(){el.hidden=true;el.innerHTML='';},260);
+}
 function levelIndex(p){let i=0;LEVELS.forEach((l,j)=>{if(p>=l[0])i=j;});return i;}
 
 /* ---------- prestaties ---------- */
@@ -2070,6 +2176,7 @@ function renderHome(){
       return '<div class="prow cat" style="--h:'+c.hue+'"><span class="tile">'+esc(c.emoji)+'</span><div class="pt"><b>'+r.cur[1]+' '+esc(r.cur[0])+'</b><span>'+esc(c.name)+' – rang '+(r.i+1)+' van '+CAT_STEPS.length+'</span></div><span class="pts">⭐ '+r.xp+'</span></div>';
     }).join(''):'<p class="sm">Rond taken af om per categorie een rang op te bouwen, van school tot afwas.</p>')
     +'<button class="btn wide" type="button" data-act="tab" data-tab="ranks" style="margin-top:12px">Alle rangen bekijken</button></div>';
+  html+=mascotCard();
   html+=heatmapCard();
   html+=badgesCard();
 
@@ -2379,7 +2486,7 @@ function openIntro(){
   renderIntro(false);
 }
 function finishIntro(){
-  S.intro=INTRO_V;save();
+  S.intro=INTRO_V;S.seenVersion=APP_VERSION;save();
   const el=$('#intro');
   el.classList.add('out');
   setTimeout(function(){el.hidden=true;el.innerHTML='';},320);
@@ -2392,13 +2499,17 @@ function shopHint(){
 function runSplash(){
   const sp=$('#splash');
   const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(S.intro<INTRO_V)openIntro();
+  const returning=S.intro>=INTRO_V;
+  if(!returning)openIntro();
   let closed=false;
   function close(){
     if(closed)return;closed=true;
     sp.classList.add('out');
     setTimeout(function(){sp.hidden=true;},480);
-    setTimeout(shopHint,1200);
+    setTimeout(function(){
+      if(returning&&S.seenVersion!==APP_VERSION)openWhatsNew();
+      else shopHint();
+    },1200);
   }
   sp.addEventListener('click',close);
   setTimeout(close,reduce?900:2200);
@@ -2492,7 +2603,7 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.mascotName='Klusmaatje';S.petDate='';S.seenVersion=APP_VERSION;S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();applyThemeStyle();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
@@ -2561,6 +2672,10 @@ document.addEventListener('click',function(e){
   else if(a==='rankcat'){S.rankCat=b.dataset.c;S.anim=true;renderRanks();window.scrollTo(0,0);}
   else if(a==='rankback'){S.rankCat=null;renderRanks();window.scrollTo(0,0);}
   else if(a==='rankgo'){S.filter=b.dataset.c;setTab('tasks');}
+  else if(a==='pet')petMascot();
+  else if(a==='renamemascot')openMascotName();
+  else if(a==='mnsave')saveMascotName();
+  else if(a==='wnclose')closeWhatsNew();
   else if(a==='buy')buyItem(b.dataset.k,b.dataset.id);
   else if(a==='equip')equipItem(b.dataset.k,b.dataset.id);
   else if(a==='preview')previewTheme(b.dataset.id);
@@ -2608,6 +2723,7 @@ document.addEventListener('keydown',function(e){
     const id=e.target.id;
     if(FM&&(id==='f-name'||id==='f-bname')){e.preventDefault();saveNewTask();}
     else if(TS&&(id==='t-name'||id==='t-note')){e.preventDefault();saveTaskSheet();}
+    else if(id==='mn-name'){e.preventDefault();saveMascotName();}
     else if(id==='li-name'){e.preventDefault();const i=$('#li-name');if(addLi(i.value)){const n=$('#li-name');if(n)n.focus();}}
     else if(id==='p-name'){e.preventDefault();const i=$('#p-name');if(addPerson(i.value)){const n=$('#p-name');if(n)n.focus();}}
   }
