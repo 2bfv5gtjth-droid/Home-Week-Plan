@@ -54,15 +54,15 @@ button{font-family:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-co
 
 /* header */
 #top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);padding:12px 0 10px}
-.top-row{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-bottom:12px}
+.top-row{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;margin-bottom:12px}
 #top.compact-top .top-row{margin-bottom:0}
 h1{margin:0;font-size:27px;line-height:1.05;font-weight:800;letter-spacing:-.025em;font-variation-settings:"opsz" 72;white-space:nowrap}
 #wk{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
 .wnav{display:flex;gap:6px;flex:none}
 .wnav button{height:36px;min-width:36px;padding:0 10px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:14px;display:grid;place-items:center}
 .wnav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-@media (max-width:390px){h1{font-size:24px}.wnav{gap:5px}.wnav button{height:34px;min-width:34px;padding:0 8px;font-size:13.5px}.top-row{gap:6px}}
-@media (max-width:340px){h1{font-size:21px}.wnav button{min-width:32px;padding:0 6px;font-size:13px}#wk{font-size:12.5px}}
+@media (max-width:390px){h1{font-size:22px}.wnav{gap:4px}.wnav button{height:33px;min-width:33px;padding:0 7px;font-size:13px}.top-row{gap:4px}#topAvatar .avatar{width:33px!important;height:33px!important}}
+@media (max-width:340px){h1{font-size:19px}.wnav button{min-width:30px;padding:0 5px;font-size:12.5px}#wk{font-size:12px}#topAvatar{margin-left:0}}
 
 .strip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .day{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:8px 0 7px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
@@ -572,6 +572,31 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
 .p3-zzz{color:var(--pc-l,var(--accent));font-weight:800;font-size:13px;animation:p3zdrift 2.4s ease-in-out infinite}
 @keyframes p3zdrift{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(-16px)}}
 
+/* profiel & avatar */
+#topAvatar{flex:none;margin-left:2px;display:flex;align-items:center}
+.avatar{position:relative;border-radius:50%;overflow:hidden;background:var(--soft);display:grid;place-items:center;padding:0;border:0;flex:none;box-sizing:border-box}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar .av-ph{font-size:1.4em;color:var(--muted);font-weight:800}
+.frm-none{box-shadow:0 0 0 2px var(--line)}
+.frm-accent{box-shadow:0 0 0 3px var(--accent)}
+.frm-dashed{box-shadow:none;border:3px dashed var(--accent)}
+.frm-rainbow{box-shadow:0 0 0 3px transparent;background:conic-gradient(#FF5252,#FFD24C,#4CD964,#2FA8FF,#B197FC,#FF5252);padding:3px}
+.frm-fire{padding:3px;background:linear-gradient(135deg,#FFD24C,#E8590C,#C0392B)}
+.frm-ice{padding:3px;background:linear-gradient(135deg,#EAF9FF,#5AC8EE,#0A7EA4)}
+.frm-gold{padding:3px;background:linear-gradient(135deg,#FFEBAE,#F2C94C,#A9700F)}
+.frm-legend{padding:3px;background:conic-gradient(from 0deg,#8258FF,#5AC8EE,#F2C94C,#FF5EA8,#8258FF);animation:frmspin 4s linear infinite}
+@keyframes frmspin{to{filter:hue-rotate(360deg)}}
+.frame-prev{width:44px;height:44px;margin-bottom:4px}
+.frame-chip{flex:none;width:84px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface)}
+.frame-chip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.frame-chip.locked{opacity:.55}
+.frame-chip .ge-n{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.frame-chip .ge-s{font-size:10.5px;color:var(--muted);font-weight:700}
+.frame-chip.on .ge-s{color:var(--accent)}
+.frame-row{margin:0 -20px;padding-left:20px;padding-right:20px}
+.prof-top{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.prof-btns{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -592,6 +617,7 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
         <button data-act="today">Vandaag</button>
         <button data-act="next" aria-label="Volgende week"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
       </div>
+      <div id="topAvatar"></div>
     </div>
     <div id="strip" class="strip"></div>
   </div>
@@ -610,6 +636,7 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
   </div>
 </nav>
 
+<input type="file" id="avatarFile" accept="image/*" hidden>
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="sheet" class="sheet" hidden></div>
 <div id="timer" hidden></div>
@@ -767,6 +794,10 @@ const CHANGELOG=[
     'Nieuwe voortgangsbalk: zie precies hoeveel punten je Klusmaatje nog nodig heeft voor de volgende fase.',
     'Kleed je Klusmaatje aan met accessoires: feesthoedje, zonnebril, sjaaltje en meer. Het kroontje verdien je pas op de hoogste fase.',
     'Je Klusmaatje heeft nu een levensverhaal met de datums van elke fase, en reageert soms extra enthousiast met hartjes als je het aait.'
+  ]},
+  {v:'1.5',items:[
+    'Nieuw: je eigen profiel. Voeg een naam en profielfoto toe uit je fotobibliotheek – je ziet jezelf nu rechtsboven in de app.',
+    'Personaliseer je profielfoto met randen uit de winkel, van een simpele kleurrand tot een regenboog- of gouden rand. De mooiste rand verdien je met een prestatie.'
   ]}
 ];
 const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
@@ -867,7 +898,7 @@ const MISSIONS=[
 ];
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:'',mascotSeenStage:0,pet3dRot:{x:-8,y:20},mascotEquip:{head:null,face:null,neck:null},mascotStageAt:{}};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:'',mascotSeenStage:0,pet3dRot:{x:-8,y:20},mascotEquip:{head:null,face:null,neck:null},mascotStageAt:{},profileName:'',profilePhoto:null,profileFrame:'none'};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -884,6 +915,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.mascotName=o.mascotName||'Klusmaatje';S.petDate=o.petDate||'';S.seenVersion=o.seenVersion||'';
       S.mascotSeenStage=typeof o.mascotSeenStage==='number'?o.mascotSeenStage:0;S.pet3dRot=o.pet3dRot||{x:-8,y:20};
       S.mascotEquip=o.mascotEquip||{head:null,face:null,neck:null};S.mascotStageAt=o.mascotStageAt||{};
+      S.profileName=o.profileName||'';S.profilePhoto=o.profilePhoto||null;S.profileFrame=o.profileFrame||'none';
       S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
@@ -901,7 +933,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion,mascotSeenStage:S.mascotSeenStage,pet3dRot:S.pet3dRot,mascotEquip:S.mascotEquip,mascotStageAt:S.mascotStageAt}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion,mascotSeenStage:S.mascotSeenStage,pet3dRot:S.pet3dRot,mascotEquip:S.mascotEquip,mascotStageAt:S.mascotStageAt,profileName:S.profileName,profilePhoto:S.profilePhoto,profileFrame:S.profileFrame}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
@@ -1168,7 +1200,7 @@ function calcStats(){
   let perfect=0;
   Object.keys(weeks).forEach(k=>{if(weeks[k].n>=5&&weeks[k].d===weeks[k].n)perfect++;});
   const team=Object.keys(per).filter(id=>per[id]>=3&&personOf(id)).length;
-  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,gear:(S.mascotEquip?Object.values(S.mascotEquip).filter(Boolean).length:0),early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0,
+  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,gear:(S.mascotEquip?Object.values(S.mascotEquip).filter(Boolean).length:0),hasProfile:(S.profileName&&S.profilePhoto)?1:0,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0,
     onTime:onTime,late:late,weekend:weekend,heavy:heavy,maxDay:maxDay,timed:timed,cats:Object.keys(catSet).length,missions:S.stats.missions||0,maxRanks:rankCount(CAT_STEPS.length-1),rank4:rankCount(3)};
 }
 const BADGES=[
@@ -1194,6 +1226,7 @@ const BADGES=[
   {id:'rainbow',emoji:'🌈',name:'Regenboog',desc:'Rond taken uit 6 categorieën af',goal:6,cur:s=>s.cats},
   {id:'mission',emoji:'🎯',name:'Missiejager',desc:'Voltooi 5 dagmissies',goal:5,cur:s=>s.missions},
   {id:'agenda',emoji:'📅',name:'Agendaheld',desc:'Zet 10 taken op een vaste tijd',goal:10,cur:s=>s.timed},
+  {id:'profile',emoji:'📸',name:'Zelfportret',desc:'Voeg een naam en profielfoto toe',goal:1,cur:s=>s.hasProfile},
   {id:'fashionista',emoji:'👒',name:'Modepop',desc:'Draag 2 accessoires tegelijk',goal:2,cur:s=>s.gear},
   {id:'special',emoji:'🎓',name:'Specialist',desc:'Bereik de hoogste rang in één categorie',goal:1,cur:s=>s.maxRanks},
   {id:'allround',emoji:'🧩',name:'Allrounder',desc:'Bereik rang 4 in drie categorieën',goal:3,cur:s=>s.rank4}
@@ -1990,7 +2023,7 @@ function renderAll(){
   if(S.addWho&&!personOf(S.addWho))S.addWho='';
   ensureWeek();
   $('#main').classList.remove('enter');
-  renderHead();renderStrip();renderNav();
+  renderHead();renderStrip();renderNav();renderHeaderAvatar();
   if(S.tab==='day')renderDay();
   else if(S.tab==='week')renderWeek();
   else if(S.tab==='tasks')renderTasks();
@@ -2384,6 +2417,7 @@ function renderHome(){
       return '<div class="prow cat" style="--h:'+c.hue+'"><span class="tile">'+esc(c.emoji)+'</span><div class="pt"><b>'+r.cur[1]+' '+esc(r.cur[0])+'</b><span>'+esc(c.name)+' – rang '+(r.i+1)+' van '+CAT_STEPS.length+'</span></div><span class="pts">⭐ '+r.xp+'</span></div>';
     }).join(''):'<p class="sm">Rond taken af om per categorie een rang op te bouwen, van school tot afwas.</p>')
     +'<button class="btn wide" type="button" data-act="tab" data-tab="ranks" style="margin-top:12px">Alle rangen bekijken</button></div>';
+  html+='<div class="hcard" id="profileCard"></div>';
   html+=mascotCard();
   html+=heatmapCard();
   html+=badgesCard();
@@ -2468,6 +2502,7 @@ function renderHome(){
   html+='<div class="hcard"><h3>Jouw gegevens</h3><p class="sm">Alles wordt alleen op dit apparaat bewaard.</p>'
     +'<button class="btn danger wide" type="button" data-act="reset">Wis al mijn gegevens</button></div>';
   main.innerHTML=html;
+  renderHeaderAvatar();renderProfileCard();
 }
 
 /* ---------- sheets ---------- */
@@ -3058,6 +3093,125 @@ function heartBurst(){
   }catch(e){}
 }
 
+
+/* ---------- profiel & avatar ---------- */
+const FRAMES=[
+  {id:'none',name:'Geen rand',emoji:'\u26aa',price:0,desc:'Gewoon je foto.'},
+  {id:'accent',name:'Kleurrand',emoji:'\ud83d\udd35',price:80,desc:'Rand in de kleur van je thema.'},
+  {id:'dashed',name:'Stippelrand',emoji:'\u2b55',price:60,desc:'Speels gestippeld.'},
+  {id:'rainbow',name:'Regenboograng',emoji:'\ud83c\udf08',price:220,desc:'Alle kleuren tegelijk.'},
+  {id:'fire',name:'Vlammenrand',emoji:'\ud83d\udd25',price:250,desc:'Warm en fel.'},
+  {id:'ice',name:'IJsrand',emoji:'\u2744\ufe0f',price:250,desc:'Koel en fris.'},
+  {id:'gold',name:'Gouden rand',emoji:'\ud83c\udfc6',price:450,desc:'Voor wie het verdiend heeft.'},
+  {id:'legend',name:'Legendarische rand',emoji:'\u2728',locked:true,unlock:'special',desc:'Voor wie de hoogste rang in een categorie haalt.'}
+];
+function frameOf(id){return FRAMES.find(x=>x.id===id)||FRAMES[0];}
+function avatarHtml(size,openOnTap){
+  const fr=frameOf(S.profileFrame||'none');
+  const inner=S.profilePhoto
+    ?'<img src="'+S.profilePhoto+'" alt="">'
+    :'<span class="av-ph">'+(S.profileName?esc(S.profileName.trim().charAt(0).toUpperCase()):'\ud83d\udc64')+'</span>';
+  const tag=openOnTap?'button':'span';
+  const attrs=openOnTap?' type="button" data-act="profileopen" aria-label="Profiel bewerken"':'';
+  return '<'+tag+' class="avatar frm-'+fr.id+'" style="width:'+size+'px;height:'+size+'px"'+attrs+'>'+inner+'</'+tag+'>';
+}
+function renderHeaderAvatar(){
+  const el=$('#topAvatar');
+  if(el)el.innerHTML=avatarHtml(38,true);
+}
+function compressImage(file,cb){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const img=new Image();
+    img.onload=function(){
+      const size=220;
+      const c=document.createElement('canvas');c.width=size;c.height=size;
+      const ctx=c.getContext('2d');
+      const s=Math.max(size/img.width,size/img.height);
+      const w=img.width*s,h=img.height*s;
+      ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);
+      try{cb(c.toDataURL('image/jpeg',0.85));}catch(err){cb(null);}
+    };
+    img.onerror=function(){cb(null);};
+    img.src=e.target.result;
+  };
+  reader.onerror=function(){cb(null);};
+  reader.readAsDataURL(file);
+}
+function onAvatarFile(input){
+  const file=input.files&&input.files[0];
+  input.value='';
+  if(!file)return;
+  compressImage(file,function(dataUrl){
+    if(!dataUrl){toast('Kon deze foto niet gebruiken.');return;}
+    S.profilePhoto=dataUrl;save();
+    renderHeaderAvatar();renderProfileCard();
+    toast('Profielfoto bijgewerkt');
+    checkBadges();
+  });
+}
+function removeAvatarPhoto(){
+  S.profilePhoto=null;save();
+  renderHeaderAvatar();renderProfileCard();
+}
+function saveProfileName(v){
+  S.profileName=(v||'').slice(0,24);save();
+  renderHeaderAvatar();renderProfileCard();
+}
+function buyFrame(id){
+  const fr=frameOf(id);
+  if(!fr||fr.id==='none')return;
+  const owned=S.owned.indexOf('frame:'+id)>=0;
+  if(owned){equipFrame(id);return;}
+  if(fr.locked){
+    if(!themeUnlocked(fr)){
+      toast('\ud83d\udd12 Haal eerst de bijpassende prestatie.');return;
+    }
+    S.owned.push('frame:'+id);equipFrame(id);return;
+  }
+  if(balance()<fr.price){toast('Nog '+(fr.price-balance())+' punten nodig voor '+fr.name+'.');haptic([30,40]);return;}
+  S.spent+=fr.price;S.owned.push('frame:'+id);S.stats.shopped=(S.stats.shopped||0)+1;
+  save();equipFrame(id);confetti();
+  toast('Gekocht: '+fr.emoji+' '+fr.name);
+  checkBadges();
+}
+function equipFrame(id){
+  if(id!=='none'&&S.owned.indexOf('frame:'+id)<0)return;
+  S.profileFrame=id;save();
+  renderHeaderAvatar();renderProfileCard();
+  const fr=frameOf(id);
+  if(id!=='none')toast(fr.emoji+' '+fr.name+' is nu actief');
+}
+function frameRowHtml(){
+  const bal=balance();
+  return FRAMES.map(function(fr){
+    const owned=fr.id==='none'||S.owned.indexOf('frame:'+fr.id)>=0,active=(S.profileFrame||'none')===fr.id,unlocked=themeUnlocked(fr);
+    const sub=active?'Aan':(owned?'Gebruiken':(fr.locked?(unlocked?'Gratis':'\ud83d\udd12'):'\u2b50 '+fr.price));
+    return '<button type="button" class="frame-chip'+(active?' on':'')+(fr.locked&&!owned&&!unlocked?' locked':'')+'" data-act="frametap" data-id="'+fr.id+'">'
+      +'<span class="frame-prev avatar frm-'+fr.id+'"><span class="av-ph">'+fr.emoji+'</span></span>'
+      +'<span class="ge-n">'+esc(fr.name)+'</span><span class="ge-s">'+sub+'</span></button>';
+  }).join('');
+}
+function tapFrame(id){buyFrame(id);}
+function renderProfileCard(){
+  const el=$('#profileCard');
+  if(!el)return;
+  el.innerHTML='<h3>Jouw profiel</h3>'
+    +'<div class="prof-top">'+avatarHtml(76,false)
+    +'<div class="prof-btns"><button type="button" class="btn" data-act="choosephoto">'+(S.profilePhoto?'Andere foto':'Kies foto')+'</button>'
+    +(S.profilePhoto?'<button type="button" class="linkbtn" data-act="removephoto">Verwijder foto</button>':'')+'</div></div>'
+    +'<label class="fld"><span>Naam</span><input class="inp" id="prof-name" type="text" maxlength="24" placeholder="Jouw naam" autocomplete="off" value="'+esc(S.profileName||'')+'"></label>'
+    +'<p class="hint sm" style="margin:0 0 8px">Randen om je profielfoto</p>'
+    +'<div class="p3-gear frame-row">'+frameRowHtml()+'</div>';
+}
+function openProfile(){
+  setTab('home');
+  setTimeout(function(){
+    const c=$('#profileCard');
+    if(c)c.scrollIntoView({behavior:'smooth',block:'start'});
+  },80);
+}
+
 /* ---------- events ---------- */
 document.addEventListener('click',function(e){
   const b=e.target.closest('[data-act]');
@@ -3126,7 +3280,7 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.mascotName='Klusmaatje';S.petDate='';S.seenVersion=APP_VERSION;S.mascotSeenStage=0;S.mascotEquip={head:null,face:null,neck:null};S.mascotStageAt={};S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.mascotName='Klusmaatje';S.petDate='';S.seenVersion=APP_VERSION;S.mascotSeenStage=0;S.mascotEquip={head:null,face:null,neck:null};S.mascotStageAt={};S.profileName='';S.profilePhoto=null;S.profileFrame='none';S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();applyThemeStyle();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
@@ -3199,6 +3353,10 @@ document.addEventListener('click',function(e){
   else if(a==='pet3dopen')openPet3D();
   else if(a==='pet3dclose')closePet3D();
   else if(a==='geartap')tapGear(b.dataset.id);
+  else if(a==='profileopen')openProfile();
+  else if(a==='choosephoto'){const i=$('#avatarFile');if(i)i.click();}
+  else if(a==='removephoto')removeAvatarPhoto();
+  else if(a==='frametap')tapFrame(b.dataset.id);
   else if(a==='renamemascot')openMascotName();
   else if(a==='mnsave')saveMascotName();
   else if(a==='wnclose')closeWhatsNew();
@@ -3235,6 +3393,8 @@ document.addEventListener('click',function(e){
 document.addEventListener('input',function(e){
   const id=e.target.id;
   if(id==='q'){S.q=e.target.value;renderTaskList();}
+  else if(id==='prof-name'){saveProfileName(e.target.value);}
+  else if(id==='avatarFile'){onAvatarFile(e.target);}
   else if(FM&&id==='f-name'){FM.name=e.target.value;FM.err='';}
   else if(FM&&id==='f-bname'){FM.bname=e.target.value;FM.err='';}
   else if(FM&&id==='f-bemoji'){FM.bemoji=e.target.value;}
@@ -3251,6 +3411,7 @@ document.addEventListener('keydown',function(e){
     if(FM&&(id==='f-name'||id==='f-bname')){e.preventDefault();saveNewTask();}
     else if(TS&&(id==='t-name'||id==='t-note')){e.preventDefault();saveTaskSheet();}
     else if(id==='mn-name'){e.preventDefault();saveMascotName();}
+    else if(id==='prof-name'){e.preventDefault();const i=$('#prof-name');if(i)i.blur();}
     else if(id==='li-name'){e.preventDefault();const i=$('#li-name');if(addLi(i.value)){const n=$('#li-name');if(n)n.focus();}}
     else if(id==='p-name'){e.preventDefault();const i=$('#p-name');if(addPerson(i.value)){const n=$('#p-name');if(n)n.focus();}}
   }
