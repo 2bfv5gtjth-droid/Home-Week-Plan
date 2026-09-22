@@ -478,6 +478,51 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 html.theme-stars body{background-image:radial-gradient(1.5px 1.5px at 20% 15%,rgba(255,255,255,.55) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 70% 8%,rgba(255,255,255,.4) 50%,transparent 52%),radial-gradient(1px 1px at 45% 25%,rgba(255,255,255,.5) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 85% 35%,rgba(255,255,255,.35) 50%,transparent 52%),radial-gradient(1px 1px at 10% 45%,rgba(255,255,255,.4) 50%,transparent 52%),radial-gradient(1.5px 1.5px at 60% 55%,rgba(255,255,255,.3) 50%,transparent 52%);background-repeat:no-repeat;background-attachment:fixed}
 html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#fff 50%,transparent 52%),radial-gradient(2px 2px at 80% 15%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 50% 10%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 30% 60%,#fff 50%,transparent 52%),radial-gradient(2px 2px at 90% 70%,#fff 50%,transparent 52%),radial-gradient(1.5px 1.5px at 65% 45%,#fff 50%,transparent 52%)}
 
+/* klusmaatje in 3D */
+.mas-3dlink{align-self:flex-start;background:none;border:0;padding:2px 0 0;font-size:13px;font-weight:700;color:var(--accent)}
+#pet3d{position:fixed;inset:0;z-index:85;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .28s ease;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 20px calc(env(safe-area-inset-bottom,0px) + 22px)}
+#pet3d.open{opacity:1;pointer-events:auto}
+.p3-wrap{width:100%;max-width:480px;margin:0 auto;flex:1;display:flex;flex-direction:column}
+.p3-top{display:flex;justify-content:flex-end;min-height:40px}
+.p3-head{text-align:center;margin:2px 0 6px}
+.p3-head h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em}
+.p3-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.p3-next{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);padding:3px 10px;border-radius:99px}
+#pet3d{--pc:var(--accent);--pc-l:color-mix(in srgb, var(--accent) 45%, white);--pc-d:color-mix(in srgb, var(--accent) 68%, black)}
+.p3-viewport{flex:1;display:flex;align-items:center;justify-content:center;perspective:900px;touch-action:none;cursor:grab;position:relative}
+.p3-viewport.grab{cursor:grabbing}
+.p3-scene{position:relative;width:2px;height:2px;transform-style:preserve-3d;animation:p3bob 3.2s ease-in-out infinite}
+@keyframes p3bob{0%,100%{margin-top:0}50%{margin-top:-10px}}
+.p3-scene.p3-shake{animation:p3bob 3.2s ease-in-out infinite, p3shake .12s ease-in-out infinite}
+@keyframes p3shake{0%,100%{transform:translateX(0) rotateZ(0)}25%{transform:translateX(-3px) rotateZ(-2deg)}75%{transform:translateX(3px) rotateZ(2deg)}}
+.p3-scene.p3-burst{animation:none;transform:scale(0.01)!important;transition:transform .18s ease-in}
+.p3-scene.p3-pop{animation:p3bob 3.2s ease-in-out infinite, p3pop .55s cubic-bezier(.2,1.4,.35,1) both}
+@keyframes p3pop{0%{transform:scale(.2)}55%{transform:scale(1.16)}80%{transform:scale(.94)}100%{transform:scale(1)}}
+.p3-scene.p3-glowout{filter:brightness(2.6) saturate(0);transition:filter .5s ease}
+.p3-anchor{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
+.p3-part{position:absolute;left:0;top:0;transform-style:flat}
+.p3-ball{border-radius:50%;background:radial-gradient(circle at 32% 26%, var(--pc-l), var(--pc) 55%, var(--pc-d) 100%);box-shadow:inset -8px -10px 16px rgba(0,0,0,.22), inset 4px 6px 10px rgba(255,255,255,.28)}
+.p3-egg{border-radius:50% 50% 50% 50% / 62% 62% 40% 40%;background:radial-gradient(circle at 34% 24%, var(--pc-l), var(--pc) 55%, var(--pc-d) 100%);box-shadow:inset -8px -10px 18px rgba(0,0,0,.22), inset 4px 6px 12px rgba(255,255,255,.3)}
+.p3-eye-w{background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.p3-eye-b{background:#151A27;border-radius:50%}
+.p3-wing{background:linear-gradient(135deg, var(--pc-l), var(--pc-d));clip-path:polygon(0 100%,100% 55%,58% 0,18% 32%);box-shadow:0 3px 8px rgba(0,0,0,.22);opacity:.96}
+.p3-horn{background:linear-gradient(180deg, var(--pc-l), var(--pc-d));clip-path:polygon(50% 0,0 100%,100% 100%)}
+.p3-spot{border-radius:50%;background:var(--pc-d);opacity:.42}
+.p3-glow{border-radius:50%;background:radial-gradient(circle,#fff,transparent 70%);opacity:.9;filter:blur(1px)}
+.p3-aura{position:absolute;left:50%;top:50%;width:220px;height:220px;transform:translate3d(-110px,-110px,-40px);border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 35%,transparent),transparent 70%);animation:p3aura 2.4s ease-in-out infinite}
+@keyframes p3aura{0%,100%{opacity:.5;transform:translate3d(-110px,-110px,-40px) scale(1)}50%{opacity:.85;transform:translate3d(-110px,-110px,-40px) scale(1.12)}}
+.p3-ringdot{border-radius:50%;background:var(--pc-l);box-shadow:0 0 8px var(--pc-l);animation:p3twinkle 1.6s ease-in-out infinite}
+@keyframes p3twinkle{0%,100%{opacity:.4;filter:brightness(1)}50%{opacity:1;filter:brightness(1.6)}}
+.p3-crack{position:absolute;left:50%;top:46%;width:70px;height:70px;transform:translate(-50%,-50%);background:
+  linear-gradient(105deg,transparent 47%,var(--pc-d) 48%,var(--pc-d) 50%,transparent 51%),
+  linear-gradient(15deg,transparent 47%,var(--pc-d) 48%,var(--pc-d) 50%,transparent 51%);
+  opacity:0;animation:p3crackin .18s ease forwards}
+@keyframes p3crackin{to{opacity:.85}}
+.p3-shadow{width:120px;height:22px;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.22),transparent 70%);margin-top:-6px}
+.p3-hint{text-align:center;color:var(--muted);font-size:13px;margin:2px 0 14px}
+.p3-actions{display:flex;gap:10px}
+.p3-actions .btn{flex:1;padding:13px}
+
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
   .sp-check{stroke-dashoffset:0}
@@ -521,6 +566,16 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
 <div id="timer" hidden></div>
 <div id="intro" role="dialog" aria-modal="true" aria-label="Welkom bij Huisweek" hidden></div>
 <div id="whatsnew" role="dialog" aria-modal="true" aria-label="Wat is er nieuw" hidden></div>
+<div id="pet3d" role="dialog" aria-modal="true" aria-label="Klusmaatje in 3D" hidden>
+  <div class="p3-wrap">
+    <div class="p3-top"><button class="linkbtn" type="button" data-act="pet3dclose">Sluiten</button></div>
+    <div class="p3-head"><h2 id="p3-title">Klusmaatje</h2><p id="p3-sub">Nog in het ei</p><span class="p3-next" id="p3-next"></span></div>
+    <div class="p3-viewport" id="p3-viewport"><div class="p3-scene" id="p3-scene"></div></div>
+    <div class="p3-shadow"></div>
+    <p class="p3-hint">Sleep om rond te kijken</p>
+    <div class="p3-actions"><button type="button" class="btn primary" data-act="pet">Aai</button></div>
+  </div>
+</div>
 
 <div id="splash" role="presentation">
   <div class="sp-inner">
@@ -651,6 +706,10 @@ const CHANGELOG=[
   {v:'1.2',items:[
     'Thema’s passen nu echt de hele app aan: kaarten, tekst en randen kleuren mee, niet meer alleen de knoppen.',
     'Drie nieuwe, exclusieve thema’s die je niet kunt kopen maar verdient met een prestatie: 🍫 Chocolade, 🍬 Pepermunt en 🌌 Sterrenhemel.'
+  ]},
+  {v:'1.3',items:[
+    'Je Klusmaatje is nu een echt 3D-huisdiertje. Tik op het ei of beestje op het Thuis-scherm om het van alle kanten te bekijken – sleep om rond te draaien.',
+    'Zie je Klusmaatje uitkomen uit het ei, en zie het daarna in het echt groeien en veranderen bij elke nieuwe fase.'
   ]}
 ];
 const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
@@ -751,7 +810,7 @@ const MISSIONS=[
 ];
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:''};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:'',mascotSeenStage:0,pet3dRot:{x:-8,y:20}};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -766,6 +825,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.remind=Object.assign({on:false,lead:10},o.remind||{});S.claimed=o.claimed||{};S.dayView=o.dayView==='agenda'?'agenda':'list';
       S.cstat=o.cstat||null;S.rankAt=o.rankAt||{};
       S.mascotName=o.mascotName||'Klusmaatje';S.petDate=o.petDate||'';S.seenVersion=o.seenVersion||'';
+      S.mascotSeenStage=typeof o.mascotSeenStage==='number'?o.mascotSeenStage:0;S.pet3dRot=o.pet3dRot||{x:-8,y:20};
       S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
@@ -783,7 +843,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion,mascotSeenStage:S.mascotSeenStage,pet3dRot:S.pet3dRot}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
@@ -965,6 +1025,8 @@ function petMascot(){
   }
   const av=$('#mascotAv');
   if(av){av.classList.remove('bounce');void av.offsetWidth;av.classList.add('bounce');}
+  const sc=$('#p3-scene');
+  if(sc){sc.classList.remove('p3-pop');void sc.offsetWidth;sc.classList.add('p3-pop');setTimeout(function(){sc.classList.remove('p3-pop');},700);}
 }
 function openMascotName(){
   openSheetWith(renderMascotName);
@@ -983,9 +1045,11 @@ function saveMascotName(){
 }
 function mascotCard(){
   const stage=mascotStage(),mood=mascotMood(),nxt=LEVELS[Math.min(LEVELS.length-1,stage+1)];
-  return '<div class="hcard mascot"><button type="button" class="mas-av" id="mascotAv" data-act="pet" aria-label="Aai '+esc(S.mascotName)+'">'+MASCOT_STAGES[stage]+'</button>'
+  const hatched=stage>0;
+  return '<div class="hcard mascot"><button type="button" class="mas-av" id="mascotAv" data-act="pet3dopen" aria-label="Bekijk "'+esc(S.mascotName)+'" in 3D">'+MASCOT_STAGES[stage]+'</button>'
     +'<div class="mas-tx"><button type="button" class="mas-name" data-act="renamemascot">'+esc(S.mascotName)+' ✏️</button>'
-    +'<span class="mas-mood">'+mood.e+' voelt zich '+mood.t+(stage<MASCOT_STAGES.length-1?' – groeit nog naar '+nxt[1]:' – volgroeid!')+'</span></div>'
+    +'<span class="mas-mood">'+mood.e+' voelt zich '+mood.t+(stage<MASCOT_STAGES.length-1?' – groeit nog naar '+nxt[1]:' – volgroeid!')+'</span>'
+    +'<button type="button" class="mas-3dlink" data-act="pet3dopen">'+(hatched?'🐾 Bekijk in 3D':'🥚 Bekijk het ei in 3D')+'</button></div>'
     +'<button type="button" class="btn" data-act="pet">Aai</button></div>';
 }
 /* ---------- wat is er nieuw ---------- */
@@ -2617,6 +2681,182 @@ function runSplash(){
   probe.src=link.href;
 })();
 
+
+/* ---------- Klusmaatje in 3D ---------- */
+function px(n){return Math.round(n*10)/10+'px';}
+function part(cls,x,y,z,w,h,extra,rz){
+  h=(h!=null?h:w);
+  return '<div class="p3-anchor" style="transform:translate3d('+px(x)+','+px(y)+','+px(z)+')">'
+    +'<div class="p3-part '+cls+'" data-rz="'+(rz||0)+'" style="width:'+px(w)+';height:'+px(h)+';margin:'+px(-h/2)+' 0 0 '+px(-w/2)+(extra?';'+extra:'')+'"></div></div>';
+}
+function tri(cls,x,y,z,w,h,rz){
+  return part(cls,x,y,z,w,h,null,rz);
+}
+function eyes(y,z,gap,size){
+  return part('p3-eye-w',-gap,y,z,size)+part('p3-eye-b',-gap+size*0.16,y+size*0.05,z+1,size*0.5)
+    +part('p3-eye-w',gap,y,z,size)+part('p3-eye-b',gap+size*0.16,y+size*0.05,z+1,size*0.5);
+}
+function applyBillboards(){
+  const y=-S.pet3dRot.y,x=-S.pet3dRot.x;
+  const base='rotateY('+y+'deg) rotateX('+x+'deg) rotateZ(';
+  $$('#p3-scene .p3-part').forEach(function(el){el.style.transform=base+(el.dataset.rz||0)+'deg)';});
+}
+const PET_BUILD=[
+  function(){ // 0 ei
+    return part('p3-egg',0,10,0,96,118)
+      +part('p3-spot',-18,-6,49,10)+part('p3-spot',14,20,46,7)+part('p3-spot',-6,42,44,8)
+      +part('p3-spot',20,-24,40,6)+part('p3-spot',-26,26,38,6);
+  },
+  function(){ // 1 doorzetter
+    return part('p3-ball',0,14,0,92)
+      +eyes(-16,44,16,15)
+      +part('p3-ball',-30,52,10,22)+part('p3-ball',30,52,10,22)
+      +part('p3-ball',0,66,-4,34,20);
+  },
+  function(){ // 2 aanpakker
+    return part('p3-ball',0,10,0,104)
+      +eyes(-16,50,18,16)
+      +tri('p3-horn',-24,-34,20,16,20,-18)+tri('p3-horn',24,-34,20,16,20,18)
+      +part('p3-ball',-36,56,12,26)+part('p3-ball',36,56,12,26)
+      +part('p3-ball',0,72,-6,38,22)
+      +part('p3-ball',40,20,-30,22,22)+part('p3-ball',54,10,-46,16,16);
+  },
+  function(){ // 3 uitblinker
+    return part('p3-ball',0,8,0,112)
+      +eyes(-18,54,19,17)
+      +tri('p3-horn',-26,-40,22,18,24,-16)+tri('p3-horn',26,-40,22,18,24,16)
+      +tri('p3-wing',-62,-4,-8,58,64,0)+tri('p3-wing',62,-4,-8,58,64,180)
+      +part('p3-ball',-40,60,14,28)+part('p3-ball',40,60,14,28)
+      +part('p3-ball',0,78,-8,42,24)
+      +part('p3-ball',48,24,-36,24,24)+part('p3-ball',66,12,-56,18,18)+part('p3-ball',78,6,-70,12,12);
+  },
+  function(){ // 4 kampioen
+    return part('p3-ball',0,4,0,120)
+      +eyes(-20,58,20,18)
+      +tri('p3-horn',-30,-48,24,20,30,-14)+tri('p3-horn',30,-48,24,20,30,14)
+      +tri('p3-wing',-74,-10,-10,72,78,-6)+tri('p3-wing',74,-10,-10,72,78,186)
+      +part('p3-ball',-44,66,16,30)+part('p3-ball',44,66,16,30)
+      +part('p3-ball',0,84,-10,46,26)
+      +part('p3-ball',54,26,-42,26,26)+part('p3-ball',76,14,-64,20,20)+part('p3-ball',92,6,-82,14,14)
+      +part('p3-spot',-20,20,58,8)+part('p3-spot',22,32,54,7);
+  },
+  function(){ // 5 legende
+    return '<div class="p3-aura"></div>'
+      +part('p3-ball',0,0,0,132)
+      +eyes(-22,62,22,20)+part('p3-glow',-32,-10,80,20)+part('p3-glow',12,-10,80,20)
+      +tri('p3-horn',-34,-54,26,22,34,-14)+tri('p3-horn',34,-54,26,22,34,14)
+      +tri('p3-wing',-86,-14,-12,86,92,-8)+tri('p3-wing',86,-14,-12,86,92,188)
+      +part('p3-ball',-48,72,18,32)+part('p3-ball',48,72,18,32)
+      +part('p3-ball',0,92,-12,50,28)
+      +part('p3-ball',60,28,-48,28,28)+part('p3-ball',84,16,-72,22,22)+part('p3-ball',102,6,-94,16,16)+tri('p3-horn',114,2,-108,10,16,0,90)
+      +ringParticles();
+  }
+];
+function ringParticles(){
+  let out='';
+  for(let i=0;i<8;i++){
+    const a=i/8*Math.PI*2, r=100, ySpread=(i%2===0?-30:24);
+    out+=part('p3-ringdot',Math.sin(a)*r,ySpread,Math.cos(a)*r,9);
+  }
+  return out;
+}
+function petStageName(i){return LEVELS[Math.min(LEVELS.length-1,i)][1];}
+function renderPet3DBody(stageIdx){
+  const sc=$('#p3-scene');
+  if(sc)sc.innerHTML=PET_BUILD[Math.max(0,Math.min(PET_BUILD.length-1,stageIdx))]();
+  applyBillboards();
+}
+function applyPet3DRot(){
+  const sc=$('#p3-scene');
+  if(sc)sc.style.transform='rotateX('+S.pet3dRot.x+'deg) rotateY('+S.pet3dRot.y+'deg)';
+}
+let P3D=null;
+function bindPet3DDrag(){
+  const vp=$('#p3-viewport');
+  if(!vp||vp._bound)return;
+  vp._bound=true;
+  let dragging=false,sx=0,sy=0,rx=0,ry=0;
+  function start(x,y){dragging=true;sx=x;sy=y;rx=S.pet3dRot.x;ry=S.pet3dRot.y;vp.classList.add('grab');}
+  function move(x,y){
+    if(!dragging)return;
+    S.pet3dRot.y=ry+(x-sx)*0.5;
+    S.pet3dRot.x=Math.max(-35,Math.min(35,rx-(y-sy)*0.4));
+    applyPet3DRot();applyBillboards();
+  }
+  function end(){if(!dragging)return;dragging=false;vp.classList.remove('grab');save();}
+  vp.addEventListener('pointerdown',function(e){start(e.clientX,e.clientY);try{vp.setPointerCapture(e.pointerId);}catch(_){}});
+  vp.addEventListener('pointermove',function(e){move(e.clientX,e.clientY);});
+  vp.addEventListener('pointerup',end);
+  vp.addEventListener('pointercancel',end);
+}
+function petMoodLine(){
+  const mood=mascotMood();
+  return mood.e+' voelt zich '+mood.t;
+}
+function renderPet3DChrome(stageIdx){
+  const hatched=stageIdx>0;
+  $('#p3-title').textContent=S.mascotName;
+  $('#p3-sub').textContent=hatched?(petStageName(stageIdx)+' \u00b7 '+petMoodLine()):'Nog in het ei \u00b7 bijna zover';
+  const nxt=stageIdx<MASCOT_STAGES.length-1;
+  $('#p3-next').textContent=nxt?('Groeit nog naar '+LEVELS[stageIdx+1][1]):'Volgroeid!';
+  $('#p3-next').hidden=!nxt;
+}
+function openPet3D(){
+  const el=$('#pet3d');
+  el.hidden=false;
+  const stage=mascotStage();
+  const willAnimate=S.mascotSeenStage<stage;
+  const startStage=willAnimate?Math.max(0,S.mascotSeenStage):stage;
+  renderPet3DChrome(startStage);
+  renderPet3DBody(startStage);
+  applyPet3DRot();applyBillboards();
+  bindPet3DDrag();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('open');});});
+  if(willAnimate){
+    setTimeout(function(){playPetTransition(S.mascotSeenStage,stage);},650);
+  }
+}
+function closePet3D(){
+  const el=$('#pet3d');
+  el.classList.remove('open');
+  setTimeout(function(){el.hidden=true;},260);
+}
+function playPetTransition(fromStage,toStage){
+  const sc=$('#p3-scene'),wrap=$('#p3-viewport');
+  const isHatch=fromStage<=0&&toStage>=1;
+  if(!sc||!wrap)return;
+  if(isHatch){
+    sc.classList.add('p3-shake');
+    setTimeout(function(){
+      sc.classList.remove('p3-shake');
+      wrap.insertAdjacentHTML('beforeend','<div class="p3-crack" id="p3crack"></div>');
+      setTimeout(function(){
+        sc.classList.add('p3-burst');
+        confetti();haptic([20,40,20]);
+        renderPet3DChrome(toStage);
+        renderPet3DBody(toStage);
+        sc.classList.add('p3-pop');
+        const cr=$('#p3crack');if(cr)cr.remove();
+        toast('\ud83c\udf89 '+S.mascotName+' is uitgekomen!');
+        setTimeout(function(){sc.classList.remove('p3-burst','p3-pop');},700);
+        S.mascotSeenStage=toStage;save();
+      },420);
+    },620);
+  }else{
+    sc.classList.add('p3-glowout');
+    setTimeout(function(){
+      renderPet3DBody(toStage);
+      renderPet3DChrome(toStage);
+      sc.classList.remove('p3-glowout');
+      sc.classList.add('p3-pop');
+      confetti();haptic([20,40,20]);
+      toast('\u2728 '+S.mascotName+' is gegroeid naar '+petStageName(toStage)+'!');
+      setTimeout(function(){sc.classList.remove('p3-pop');},700);
+      S.mascotSeenStage=toStage;save();
+    },520);
+  }
+}
+
 /* ---------- events ---------- */
 document.addEventListener('click',function(e){
   const b=e.target.closest('[data-act]');
@@ -2755,6 +2995,8 @@ document.addEventListener('click',function(e){
   else if(a==='rankback'){S.rankCat=null;renderRanks();window.scrollTo(0,0);}
   else if(a==='rankgo'){S.filter=b.dataset.c;setTab('tasks');}
   else if(a==='pet')petMascot();
+  else if(a==='pet3dopen')openPet3D();
+  else if(a==='pet3dclose')closePet3D();
   else if(a==='renamemascot')openMascotName();
   else if(a==='mnsave')saveMascotName();
   else if(a==='wnclose')closeWhatsNew();
@@ -2801,6 +3043,7 @@ document.addEventListener('input',function(e){
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'&&CUR)closeSheet();
+  if(e.key==='Escape'&&!$('#pet3d').hidden)closePet3D();
   if(e.key==='Enter'){
     const id=e.target.id;
     if(FM&&(id==='f-name'||id==='f-bname')){e.preventDefault();saveNewTask();}
