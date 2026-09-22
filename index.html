@@ -451,7 +451,8 @@ main.wrap{padding-top:6px;padding-bottom:120px;outline:none}
 .grp h3 .rk{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--c)}
 
 /* klusmaatje */
-.mascot{display:flex;align-items:center;gap:14px}
+.mascot{display:flex;flex-direction:column}
+.mas-row{display:flex;align-items:center;gap:14px}
 .mas-av{flex:none;width:64px;height:64px;border-radius:18px;background:var(--soft-ui,var(--bg));background:color-mix(in srgb,var(--accent) 12%,var(--bg));border:0;font-size:34px;display:grid;place-items:center}
 .mas-av.bounce{animation:masBounce .5s cubic-bezier(.3,1.4,.4,1)}
 @keyframes masBounce{0%{transform:scale(1)}35%{transform:scale(1.25) rotate(-6deg)}65%{transform:scale(.95) rotate(4deg)}100%{transform:scale(1)}}
@@ -482,14 +483,14 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
 .mas-3dlink{align-self:flex-start;background:none;border:0;padding:2px 0 0;font-size:13px;font-weight:700;color:var(--accent)}
 #pet3d{position:fixed;inset:0;z-index:85;background:var(--bg);opacity:0;pointer-events:none;transition:opacity .28s ease;display:flex;flex-direction:column;padding:calc(env(safe-area-inset-top,0px) + 10px) 20px calc(env(safe-area-inset-bottom,0px) + 22px)}
 #pet3d.open{opacity:1;pointer-events:auto}
-.p3-wrap{width:100%;max-width:480px;margin:0 auto;flex:1;display:flex;flex-direction:column}
+.p3-wrap{width:100%;max-width:480px;margin:0 auto;flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto}
 .p3-top{display:flex;justify-content:flex-end;min-height:40px}
 .p3-head{text-align:center;margin:2px 0 6px}
 .p3-head h2{margin:0;font-size:22px;font-weight:800;letter-spacing:-.01em}
 .p3-head p{margin:2px 0 0;color:var(--muted);font-size:14px}
 .p3-next{display:inline-block;margin-top:6px;font-size:12.5px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);padding:3px 10px;border-radius:99px}
 #pet3d{--pc:var(--accent);--pc-l:color-mix(in srgb, var(--accent) 45%, white);--pc-d:color-mix(in srgb, var(--accent) 68%, black)}
-.p3-viewport{flex:1;display:flex;align-items:center;justify-content:center;perspective:900px;touch-action:none;cursor:grab;position:relative}
+.p3-viewport{height:260px;flex:none;display:flex;align-items:center;justify-content:center;perspective:900px;touch-action:none;cursor:grab;position:relative}
 .p3-viewport.grab{cursor:grabbing}
 .p3-scene{position:relative;width:2px;height:2px;transform-style:preserve-3d;animation:p3bob 3.2s ease-in-out infinite}
 @keyframes p3bob{0%,100%{margin-top:0}50%{margin-top:-10px}}
@@ -522,6 +523,54 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
 .p3-hint{text-align:center;color:var(--muted);font-size:13px;margin:2px 0 14px}
 .p3-actions{display:flex;gap:10px}
 .p3-actions .btn{flex:1;padding:13px}
+
+/* pet: voortgangsbalk */
+.pet-bar{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.pet-bar.sm{margin-top:4px}
+.pet-bar-track{height:7px;background:var(--line);border-radius:99px;overflow:hidden}
+.pet-bar-track i{display:block;height:100%;background:linear-gradient(90deg,var(--pc-l,var(--accent)),var(--accent));border-radius:99px;transition:width .4s ease}
+.pet-bar-lbl{font-size:12px;color:var(--muted);font-weight:600}
+
+/* pet: accessoires op het figuur (vaste kleuren, niet thema-gebonden) */
+.p3-hatcone{background:linear-gradient(180deg,#FFD24C,#E8590C);clip-path:polygon(50% 0,0 100%,100% 100%)}
+.p3-hatball{border-radius:50%;background:#fff;box-shadow:0 0 4px rgba(0,0,0,.2)}
+.p3-crownband{background:linear-gradient(180deg,#FFE187,#D9A62B);border-radius:5px}
+.p3-crownspike{background:linear-gradient(180deg,#FFE187,#D9A62B);clip-path:polygon(50% 0,10% 100%,90% 100%)}
+.p3-jewel{background:#E5484D;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,.25)}
+.p3-glassring{border-radius:50%;background:#20242c;box-shadow:0 0 0 2px #444 inset}
+.p3-glassbar{background:#20242c}
+.p3-bandana{background:repeating-linear-gradient(45deg,#E5484D,#E5484D 6px,#C22 6px,#C22 12px);border-radius:5px}
+.p3-bandaknot{background:#C22;clip-path:polygon(50% 0,0 100%,100% 100%)}
+.p3-bowL{background:#3B5BDB;clip-path:polygon(100% 0,0 50%,100% 100%)}
+.p3-bowR{background:#3B5BDB;clip-path:polygon(0 0,100% 50%,0 100%)}
+
+/* pet: uitrusting-rij in de 3D viewer */
+.p3-gear{display:flex;gap:8px;overflow-x:auto;margin:0 -20px 10px;padding:2px 20px 4px;scrollbar-width:none}
+.p3-gear::-webkit-scrollbar{display:none}
+.p3-gear-hint{width:100%;text-align:center;color:var(--muted);font-size:13px;margin:0 0 8px}
+.p3-gearchip{flex:none;width:84px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface)}
+.p3-gearchip.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,var(--surface))}
+.p3-gearchip.locked{opacity:.55}
+.p3-gearchip .ge-e{font-size:22px}
+.p3-gearchip .ge-n{font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.p3-gearchip .ge-s{font-size:10.5px;color:var(--muted);font-weight:700}
+.p3-gearchip.on .ge-s{color:var(--accent)}
+
+/* pet: levensverhaal */
+.p3-story{width:100%;margin:6px 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+.p3-story h3{margin:0 0 8px;font-size:15px;font-weight:800}
+.p3-story-row{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
+.p3-story-row:first-of-type{border-top:0;padding-top:0}
+.p3-story-d{color:var(--muted);white-space:nowrap}
+
+/* pet: hartjes-reactie */
+.p3-heart{position:fixed;z-index:96;font-size:20px;pointer-events:none;animation:p3heart 1.1s ease-out forwards}
+@keyframes p3heart{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}15%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-160%) scale(.9)}}
+
+/* mood: slaapoogjes + zzz in 3D */
+.p3-eye-sleepy{background:transparent;border-bottom:3px solid #151A27;border-radius:0 0 50% 50%/0 0 100% 100%;height:6px!important}
+.p3-zzz{color:var(--pc-l,var(--accent));font-weight:800;font-size:13px;animation:p3zdrift 2.4s ease-in-out infinite}
+@keyframes p3zdrift{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(-16px)}}
 
 @media (prefers-reduced-motion: reduce){
   *{transition:none!important;animation:none!important}
@@ -573,7 +622,10 @@ html.theme-stars #splash{background-image:radial-gradient(2px 2px at 15% 20%,#ff
     <div class="p3-viewport" id="p3-viewport"><div class="p3-scene" id="p3-scene"></div></div>
     <div class="p3-shadow"></div>
     <p class="p3-hint">Sleep om rond te kijken</p>
+    <div id="p3-xp"></div>
+    <div class="p3-gear" id="p3-gear"></div>
     <div class="p3-actions"><button type="button" class="btn primary" data-act="pet">Aai</button></div>
+    <div id="p3-story"></div>
   </div>
 </div>
 
@@ -710,6 +762,11 @@ const CHANGELOG=[
   {v:'1.3',items:[
     'Je Klusmaatje is nu een echt 3D-huisdiertje. Tik op het ei of beestje op het Thuis-scherm om het van alle kanten te bekijken – sleep om rond te draaien.',
     'Zie je Klusmaatje uitkomen uit het ei, en zie het daarna in het echt groeien en veranderen bij elke nieuwe fase.'
+  ]},
+  {v:'1.4',items:[
+    'Nieuwe voortgangsbalk: zie precies hoeveel punten je Klusmaatje nog nodig heeft voor de volgende fase.',
+    'Kleed je Klusmaatje aan met accessoires: feesthoedje, zonnebril, sjaaltje en meer. Het kroontje verdien je pas op de hoogste fase.',
+    'Je Klusmaatje heeft nu een levensverhaal met de datums van elke fase, en reageert soms extra enthousiast met hartjes als je het aait.'
   ]}
 ];
 const APP_VERSION=CHANGELOG[CHANGELOG.length-1].v;
@@ -810,7 +867,7 @@ const MISSIONS=[
 ];
 /* ---------- status + opslag ---------- */
 const STORE='homeweek.v1';
-const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:'',mascotSeenStage:0,pet3dRot:{x:-8,y:20}};
+const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:'',plan:{},custom:[],customCats:[],repeats:[],people:[],theme:'auto',tip:false,intro:0,anim:false,pop:null,list:[],badges:null,stats:{timers:0,rolls:0,bought:0},lateHide:'',earned:0,spent:0,owned:['theme:default','conf:classic'],themeId:'default',confettiId:'classic',boostUntil:0,shields:0,shielded:{},preview:null,shopHint:false,remind:{on:false,lead:10},claimed:{},dayView:'list',cstat:null,rankAt:{},rankCat:null,mascotName:'Klusmaatje',petDate:'',seenVersion:'',mascotSeenStage:0,pet3dRot:{x:-8,y:20},mascotEquip:{head:null,face:null,neck:null},mascotStageAt:{}};
 (function load(){
   try{
     const raw=localStorage.getItem(STORE);
@@ -826,6 +883,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
       S.cstat=o.cstat||null;S.rankAt=o.rankAt||{};
       S.mascotName=o.mascotName||'Klusmaatje';S.petDate=o.petDate||'';S.seenVersion=o.seenVersion||'';
       S.mascotSeenStage=typeof o.mascotSeenStage==='number'?o.mascotSeenStage:0;S.pet3dRot=o.pet3dRot||{x:-8,y:20};
+      S.mascotEquip=o.mascotEquip||{head:null,face:null,neck:null};S.mascotStageAt=o.mascotStageAt||{};
       S.earned=typeof o.earned==='number'?o.earned:Object.keys(S.plan).reduce((a,k)=>a+(S.plan[k]||[]).filter(t=>t.done).reduce((b,t)=>b+pointsOf(t),0),0);
     }
   }catch(e){}
@@ -843,7 +901,7 @@ const S={tab:'day',weekStart:null,sel:null,filter:'all',q:'',who:'all',addWho:''
   S.repeats.forEach(r=>{if(byId[r.tid])r.name=byId[r.tid].name;});
 })();
 function save(){
-  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion,mascotSeenStage:S.mascotSeenStage,pet3dRot:S.pet3dRot}));}catch(e){}
+  try{localStorage.setItem(STORE,JSON.stringify({plan:S.plan,custom:S.custom,cats:S.customCats,repeats:S.repeats,people:S.people,theme:S.theme,tip:S.tip,introV:S.intro,list:S.list,badges:S.badges,stats:S.stats,earned:S.earned,spent:S.spent,owned:S.owned,themeId:S.themeId,confettiId:S.confettiId,boostUntil:S.boostUntil,shields:S.shields,shielded:S.shielded,shopHint:S.shopHint,remind:S.remind,claimed:S.claimed,dayView:S.dayView,cstat:S.cstat,rankAt:S.rankAt,mascotName:S.mascotName,petDate:S.petDate,seenVersion:S.seenVersion,mascotSeenStage:S.mascotSeenStage,pet3dRot:S.pet3dRot,mascotEquip:S.mascotEquip,mascotStageAt:S.mascotStageAt}));}catch(e){}
 }
 function snap(){return JSON.stringify({plan:S.plan,repeats:S.repeats,people:S.people,list:S.list});}
 function restore(s){
@@ -1015,6 +1073,8 @@ function petMascot(){
   const first=S.petDate!==todayKey();
   S.petDate=todayKey();
   const line=MASCOT_LINES[Math.floor(Math.random()*MASCOT_LINES.length)];
+  const rare=Math.random()<0.18;
+  if(rare)heartBurst();
   if(first){
     S.earned+=5;save();renderHome();
     confetti();haptic([15,25,15]);
@@ -1044,13 +1104,14 @@ function saveMascotName(){
   save();closeSheet();renderHome();
 }
 function mascotCard(){
-  const stage=mascotStage(),mood=mascotMood(),nxt=LEVELS[Math.min(LEVELS.length-1,stage+1)];
+  const stage=mascotStage(),mood=mascotMood();
   const hatched=stage>0;
-  return '<div class="hcard mascot"><button type="button" class="mas-av" id="mascotAv" data-act="pet3dopen" aria-label="Bekijk "'+esc(S.mascotName)+'" in 3D">'+MASCOT_STAGES[stage]+'</button>'
+  return '<div class="hcard mascot"><div class="mas-row"><button type="button" class="mas-av" id="mascotAv" data-act="pet3dopen" aria-label="Bekijk "'+esc(S.mascotName)+'" in 3D">'+MASCOT_STAGES[stage]+'</button>'
     +'<div class="mas-tx"><button type="button" class="mas-name" data-act="renamemascot">'+esc(S.mascotName)+' ✏️</button>'
-    +'<span class="mas-mood">'+mood.e+' voelt zich '+mood.t+(stage<MASCOT_STAGES.length-1?' – groeit nog naar '+nxt[1]:' – volgroeid!')+'</span>'
+    +'<span class="mas-mood">'+mood.e+' voelt zich '+mood.t+'</span>'
     +'<button type="button" class="mas-3dlink" data-act="pet3dopen">'+(hatched?'🐾 Bekijk in 3D':'🥚 Bekijk het ei in 3D')+'</button></div>'
-    +'<button type="button" class="btn" data-act="pet">Aai</button></div>';
+    +'<button type="button" class="btn" data-act="pet">Aai</button></div>'
+    +petBarHtml(true)+'</div>';
 }
 /* ---------- wat is er nieuw ---------- */
 function unseenChangelog(){
@@ -1107,7 +1168,7 @@ function calcStats(){
   let perfect=0;
   Object.keys(weeks).forEach(k=>{if(weeks[k].n>=5&&weeks[k].d===weeks[k].n)perfect++;});
   const team=Object.keys(per).filter(id=>per[id]>=3&&personOf(id)).length;
-  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0,
+  return {done:done,pts:S.earned,bal:balance(),shopped:S.stats.shopped||0,gear:(S.mascotEquip?Object.values(S.mascotEquip).filter(Boolean).length:0),early:early,perfect:perfect,team:team,streak:streak(),timers:S.stats.timers||0,rolls:S.stats.rolls||0,bought:S.stats.bought||0,
     onTime:onTime,late:late,weekend:weekend,heavy:heavy,maxDay:maxDay,timed:timed,cats:Object.keys(catSet).length,missions:S.stats.missions||0,maxRanks:rankCount(CAT_STEPS.length-1),rank4:rankCount(3)};
 }
 const BADGES=[
@@ -1133,6 +1194,7 @@ const BADGES=[
   {id:'rainbow',emoji:'🌈',name:'Regenboog',desc:'Rond taken uit 6 categorieën af',goal:6,cur:s=>s.cats},
   {id:'mission',emoji:'🎯',name:'Missiejager',desc:'Voltooi 5 dagmissies',goal:5,cur:s=>s.missions},
   {id:'agenda',emoji:'📅',name:'Agendaheld',desc:'Zet 10 taken op een vaste tijd',goal:10,cur:s=>s.timed},
+  {id:'fashionista',emoji:'👒',name:'Modepop',desc:'Draag 2 accessoires tegelijk',goal:2,cur:s=>s.gear},
   {id:'special',emoji:'🎓',name:'Specialist',desc:'Bereik de hoogste rang in één categorie',goal:1,cur:s=>s.maxRanks},
   {id:'allround',emoji:'🧩',name:'Allrounder',desc:'Bereik rang 4 in drie categorieën',goal:3,cur:s=>s.rank4}
 ];
@@ -2693,6 +2755,10 @@ function tri(cls,x,y,z,w,h,rz){
   return part(cls,x,y,z,w,h,null,rz);
 }
 function eyes(y,z,gap,size){
+  if(mascotMood().t==='slaperig'){
+    return part('p3-eye-sleepy',-gap,y,z,size)+part('p3-eye-sleepy',gap,y,z,size)
+      +'<div class="p3-anchor" style="transform:translate3d('+px(gap+size)+','+px(y-size*1.6)+','+px(z-6)+')"><div class="p3-part p3-zzz" style="width:24px;height:16px;margin:-8px 0 0 -12px;text-align:center">zzz</div></div>';
+  }
   return part('p3-eye-w',-gap,y,z,size)+part('p3-eye-b',-gap+size*0.16,y+size*0.05,z+1,size*0.5)
     +part('p3-eye-w',gap,y,z,size)+part('p3-eye-b',gap+size*0.16,y+size*0.05,z+1,size*0.5);
 }
@@ -2763,7 +2829,8 @@ function ringParticles(){
 function petStageName(i){return LEVELS[Math.min(LEVELS.length-1,i)][1];}
 function renderPet3DBody(stageIdx){
   const sc=$('#p3-scene');
-  if(sc)sc.innerHTML=PET_BUILD[Math.max(0,Math.min(PET_BUILD.length-1,stageIdx))]();
+  const st=Math.max(0,Math.min(PET_BUILD.length-1,stageIdx));
+  if(sc)sc.innerHTML=PET_BUILD[st]()+gearParts(st);
   applyBillboards();
 }
 function applyPet3DRot(){
@@ -2800,6 +2867,9 @@ function renderPet3DChrome(stageIdx){
   const nxt=stageIdx<MASCOT_STAGES.length-1;
   $('#p3-next').textContent=nxt?('Groeit nog naar '+LEVELS[stageIdx+1][1]):'Volgroeid!';
   $('#p3-next').hidden=!nxt;
+  $('#p3-xp').innerHTML=petBarHtml(false);
+  $('#p3-story').innerHTML=petStoryHtml();
+  renderGearRow();
 }
 function openPet3D(){
   const el=$('#pet3d');
@@ -2839,7 +2909,7 @@ function playPetTransition(fromStage,toStage){
         const cr=$('#p3crack');if(cr)cr.remove();
         toast('\ud83c\udf89 '+S.mascotName+' is uitgekomen!');
         setTimeout(function(){sc.classList.remove('p3-burst','p3-pop');},700);
-        S.mascotSeenStage=toStage;save();
+        S.mascotSeenStage=toStage;S.mascotStageAt[0]=S.mascotStageAt[0]||todayKey();S.mascotStageAt[toStage]=todayKey();save();
       },420);
     },620);
   }else{
@@ -2852,9 +2922,140 @@ function playPetTransition(fromStage,toStage){
       confetti();haptic([20,40,20]);
       toast('\u2728 '+S.mascotName+' is gegroeid naar '+petStageName(toStage)+'!');
       setTimeout(function(){sc.classList.remove('p3-pop');},700);
-      S.mascotSeenStage=toStage;save();
+      S.mascotSeenStage=toStage;S.mascotStageAt[toStage]=todayKey();save();
     },520);
   }
+}
+
+
+/* ---------- pet: xp balk ---------- */
+function petProgress(){
+  const p=totalPoints(),stage=mascotStage(),lo=LEVELS[stage][0],hi=LEVELS[Math.min(LEVELS.length-1,stage+1)][0];
+  const max=stage>=LEVELS.length-1;
+  return {p:p,pct:max?100:Math.round((p-lo)/(hi-lo)*100),need:max?0:hi-p,max:max};
+}
+function petBarHtml(compact){
+  const pr=petProgress();
+  return '<div class="pet-bar'+(compact?' sm':'')+'"><div class="pet-bar-track"><i style="width:'+pr.pct+'%"></i></div>'
+    +'<span class="pet-bar-lbl">'+(pr.max?'Volgroeid! \u2b50 '+pr.p:'\u2b50 '+pr.p+' \u00b7 nog '+pr.need+' tot volgende fase')+'</span></div>';
+}
+
+/* ---------- pet: accessoires ---------- */
+const GEAR=[
+  {id:'hat',slot:'head',emoji:'🎉',name:'Feesthoedje',price:150,desc:'Voor elke geslaagde klusdag een feestje.'},
+  {id:'crown',slot:'head',emoji:'👑',name:'Kroontje',locked:true,unlock:'legende',desc:'Voor wie de hoogste fase heeft bereikt.'},
+  {id:'glasses',slot:'face',emoji:'🕶️',name:'Zonnebril',price:200,desc:'Stoer aan het klussen.'},
+  {id:'bandana',slot:'neck',emoji:'🧣',name:'Sjaaltje',price:120,desc:'Warm en gezellig.'},
+  {id:'bowtie',slot:'neck',emoji:'🎀',name:'Vlinderstrik',price:110,desc:'Netjes voor de gelegenheid.'}
+];
+const EYE_REF=[null,{y:-16,z:44,g:16},{y:-16,z:50,g:18},{y:-18,z:54,g:19},{y:-20,z:58,g:20},{y:-22,z:62,g:22}];
+function gearUnlocked(g){
+  if(!g.locked)return true;
+  if(g.unlock==='legende')return mascotStage()>=MASCOT_STAGES.length-1;
+  return (S.badges||[]).indexOf(g.unlock)>=0;
+}
+function gearOwned(id){return S.owned.indexOf('gear:'+id)>=0;}
+function gearEquipped(slot){return S.mascotEquip&&S.mascotEquip[slot]||null;}
+function buyGear(id){
+  const g=GEAR.find(x=>x.id===id);
+  if(!g)return;
+  if(gearOwned(id)){equipGear(id);return;}
+  if(g.locked){
+    if(!gearUnlocked(g))return;
+    S.owned.push('gear:'+id);equipGear(id);return;
+  }
+  if(balance()<g.price){toast('Nog '+(g.price-balance())+' punten nodig voor '+g.name+'.');haptic([30,40]);return;}
+  S.spent+=g.price;S.owned.push('gear:'+id);
+  save();equipGear(id);
+  toast('Gekocht: '+g.emoji+' '+g.name);
+}
+function equipGear(id){
+  const g=GEAR.find(x=>x.id===id);
+  if(!g||!gearOwned(id))return;
+  S.mascotEquip=S.mascotEquip||{head:null,face:null,neck:null};
+  S.mascotEquip[g.slot]=(S.mascotEquip[g.slot]===id)?null:id;
+  save();renderPet3DBody(mascotStage());renderGearRow();checkBadges();
+}
+function gearParts(stage){
+  const ref=EYE_REF[stage];
+  if(!ref||!S.mascotEquip)return '';
+  let out='';
+  const hd=S.mascotEquip.head,fc=S.mascotEquip.face,nk=S.mascotEquip.neck;
+  if(hd==='hat'){
+    out+=part('p3-hatcone',0,ref.y-40,ref.z-2,26,34,null,0)
+      +part('p3-hatball',0,ref.y-58,ref.z-2,10);
+  }
+  if(hd==='crown'){
+    out+=part('p3-crownband',0,ref.y-34,ref.z-2,ref.g*2+18,10);
+    [-1,0,1].forEach(function(i){out+=tri('p3-crownspike',i*12,ref.y-44,ref.z-2,10,14,0);});
+    out+=part('p3-jewel',0,ref.y-40,ref.z+3,5);
+  }
+  if(fc==='glasses'){
+    out+=part('p3-glassring',-ref.g,ref.y+1,ref.z+7,16)
+      +part('p3-glassring',ref.g,ref.y+1,ref.z+7,16)
+      +part('p3-glassbar',0,ref.y+1,ref.z+7,ref.g*2-8,3);
+  }
+  if(nk==='bandana'){
+    out+=part('p3-bandana',0,ref.y+66,ref.z-36,ref.g*2+6,14)
+      +tri('p3-bandaknot',0,ref.y+76,ref.z-30,10,12,0);
+  }
+  if(nk==='bowtie'){
+    out+=tri('p3-bowL',-6,ref.y+66,ref.z-32,14,12,20)
+      +tri('p3-bowR',6,ref.y+66,ref.z-32,14,12,-20)
+      +part('p3-jewel',0,ref.y+66,ref.z-30,5);
+  }
+  return out;
+}
+function renderGearRow(){
+  const el=$('#p3-gear');
+  if(!el)return;
+  const stage=mascotStage();
+  if(stage<1){el.innerHTML='<p class="p3-gear-hint">Eerst uitkomen voordat er kleertjes passen 🐣</p>';return;}
+  el.innerHTML=GEAR.map(function(g){
+    const owned=gearOwned(g.id),unlocked=gearUnlocked(g),on=gearEquipped(g.slot)===g.id;
+    const cls='p3-gearchip'+(on?' on':'')+(!owned&&g.locked&&!unlocked?' locked':'');
+    const sub=on?'Aan':(owned?'Uit':(g.locked?(unlocked?'Gratis':'🔒'):'\u2b50 '+g.price));
+    return '<button type="button" class="'+cls+'" data-act="geartap" data-id="'+g.id+'" title="'+esc(g.name)+'"><span class="ge-e">'+g.emoji+'</span><span class="ge-n">'+esc(g.name)+'</span><span class="ge-s">'+sub+'</span></button>';
+  }).join('');
+}
+function tapGear(id){
+  const g=GEAR.find(x=>x.id===id);
+  if(!g)return;
+  if(!gearOwned(id)&&g.locked&&!gearUnlocked(g)){
+    toast('🔒 '+(g.unlock==='legende'?'Bereik de hoogste fase om dit te ontgrendelen.':'Haal eerst de bijpassende prestatie.'));
+    return;
+  }
+  buyGear(id);
+}
+
+/* ---------- pet: levensverhaal ---------- */
+function petStoryHtml(){
+  const at=S.mascotStageAt||{};
+  const keys=Object.keys(at).map(Number).sort((a,b)=>a-b).filter(i=>i<=mascotStage());
+  if(!keys.length)return '';
+  return '<div class="p3-story"><h3>Levensverhaal</h3>'+keys.map(function(i){
+    const label=i===0?'🥚 Kwam uit het ei':'\u2728 Werd '+LEVELS[i][1];
+    return '<div class="p3-story-row"><span>'+label+'</span><span class="p3-story-d">'+dateNice(at[i])+'</span></div>';
+  }).join('')+'</div>';
+}
+
+/* ---------- pet: extra reacties ---------- */
+function heartBurst(){
+  try{
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const host=$('#pet3d').hidden?$('#mascotAv'):$('#p3-viewport');
+    if(!host)return;
+    const r=host.getBoundingClientRect();
+    for(let i=0;i<6;i++){
+      const h=document.createElement('div');
+      h.className='p3-heart';h.textContent='💛';
+      h.style.left=(r.left+r.width/2+(Math.random()-.5)*60)+'px';
+      h.style.top=(r.top+r.height*0.4)+'px';
+      h.style.animationDelay=(i*70)+'ms';
+      document.body.appendChild(h);
+      setTimeout(function(){h.remove();},1300);
+    }
+  }catch(e){}
 }
 
 /* ---------- events ---------- */
@@ -2925,7 +3126,7 @@ document.addEventListener('click',function(e){
   }
   else if(a==='reset2'){
     try{localStorage.removeItem(STORE);}catch(_){}
-    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.mascotName='Klusmaatje';S.petDate='';S.seenVersion=APP_VERSION;S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
+    S.plan={};S.custom=[];S.customCats=[];S.repeats=[];S.people=[];S.theme='auto';S.remind={on:false,lead:10};S.claimed={};S.dayView='list';S.cstat={};S.rankAt={};S.rankCat=null;S.mascotName='Klusmaatje';S.petDate='';S.seenVersion=APP_VERSION;S.mascotSeenStage=0;S.mascotEquip={head:null,face:null,neck:null};S.mascotStageAt={};S.tip=false;S.intro=0;S.earned=0;S.spent=0;S.owned=['theme:default','conf:classic'];S.themeId='default';S.confettiId='classic';S.boostUntil=0;S.shields=0;S.shielded={};S.preview=null;S.shopHint=false;S.list=[];S.badges=[];S.stats={timers:0,rolls:0,bought:0};S.who='all';S.addWho='';S.filter='all';S.q='';
     applyTheme();applyThemeStyle();S.tab='day';renderAll();window.scrollTo(0,0);
     toast('Alle gegevens gewist');
   }
@@ -2997,6 +3198,7 @@ document.addEventListener('click',function(e){
   else if(a==='pet')petMascot();
   else if(a==='pet3dopen')openPet3D();
   else if(a==='pet3dclose')closePet3D();
+  else if(a==='geartap')tapGear(b.dataset.id);
   else if(a==='renamemascot')openMascotName();
   else if(a==='mnsave')saveMascotName();
   else if(a==='wnclose')closeWhatsNew();
